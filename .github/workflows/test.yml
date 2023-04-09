@@ -1,0 +1,19 @@
+name: Norm Checker
+run-name: ${{ github.actor }} is testing Norminette. 🚀
+on: [push]
+jobs:
+  Norminette:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Installing packages."
+      - run: python3 -m pip install --upgrade pip setuptools -v
+      - run: python3 -m pip install norminette
+      - run: echo "Running norminette on ${{ github.ref }} in ${{ github.repository }}."
+      - run: norminette
+      - name: Check out repository code
+        uses: actions/checkout@v3
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - name: List files in the repository
+        run: |
+          ls ${{ github.workspace }}
+      - run: echo "🍏 This job's status is ${{ job.status }}."
