@@ -6,8 +6,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo "Installing packages."
-      - run: python3 -m pip install --upgrade pip setuptools
-      - run: python3 -m pip install norminette
+      - run: pip install --upgrade pip setuptools
+      - run: pip install norminette
       - run: echo "Running norminette on ${{ github.ref }} in ${{ github.repository }}."
       - run: norminette
       - name: Check out repository code
