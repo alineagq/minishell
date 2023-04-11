@@ -11,8 +11,9 @@ jobs:
         with:
           python-version: 3.9
       - name: Installing packages
-        run: pip install --upgrade pip setuptools
-        run: pip install norminette
+        run:
+          pip install --upgrade pip setuptools
+          pip install norminette
       - name: Norminette
         run: norminette
       - run: echo "🍏 This job's status is ${{ job.status }}."
