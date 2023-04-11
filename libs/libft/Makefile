@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: aqueiroz <aqueiroz@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/08 23:48:51 by fsuomins          #+#    #+#              #
-#    Updated: 2023/03/14 17:12:16 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/10 23:08:03 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,8 @@ SRCS =  ft_isalpha.c \
 		ft_itoa.c \
 		ft_printf.c \
 		utils.c \
-		ft_atoi_push.c
+		ft_atoi_push.c \
+		get_next_line.c
 		
 INCLUDEH = .
 OBJS = $(patsubst %.c, %.o, $(SRCS)) #trocando um certo padrão pór outro (.c por .o em todos os arquivos do SRCS)
