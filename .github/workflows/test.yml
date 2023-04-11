@@ -5,15 +5,13 @@ jobs:
   Norminette:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Installing packages."
-      - run: pip install --upgrade pip setuptools
-      - run: pip install norminette
-      - run: echo "Running norminette on ${{ github.ref }} in ${{ github.repository }}."
-      - run: norminette
-      - name: Check out repository code
-        uses: actions/checkout@v3
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - name: Installing packages
+        run: pip install --upgrade pip setuptools
+        run: pip install norminette
+      - name: Norminette
+        run: norminette
       - run: echo "🍏 This job's status is ${{ job.status }}."
