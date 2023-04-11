@@ -16,4 +16,3 @@ jobs:
           pip install norminette
       - name: Norminette
         run: norminette
-      - run: echo "🍏 This job's status is ${{ job.status }}."
