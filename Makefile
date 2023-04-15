@@ -11,7 +11,7 @@ $(NAME) : $(OBJS)
 	@ar rcs $(NAME) $(OBJS) 
 
 $(OBJS) : $(SRCS) libft.h
-	@cc $(CFLAGS) -c $(SRCS) -I $(INCLUDEH) 
+	@cc $(CFLAGS) -c $(SRCS) -I $(INCLUDE) 
 
 clean : 
 	@rm -f $(OBJS)
