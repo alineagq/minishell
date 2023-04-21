@@ -13,6 +13,6 @@ jobs:
       - name: Installing packages
         run:
           pip install --upgrade pip setuptools
-          pip install norminette
+          pip install norminette /src /includes
       - name: Norminette
         run: norminette
