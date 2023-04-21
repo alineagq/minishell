@@ -12,6 +12,7 @@ jobs:
           python-version: '3.10'
       - name: Installing packages
         run:
+          ls
           pip install --upgrade pip setuptools
           pip install norminette /srcs /includes
       - name: Norminette
