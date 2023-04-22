@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/22 01:45:34 by fsuomins         ###   ########.fr        #
+#    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
+#    Updated: 2023/04/22 01:59:47 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,34 +34,16 @@ color-test:
 
 # Variables
 
-NAME	= libft.a
+NAME	= run
 CC		= cc 
 CFLAGS	= -Wextra -Werror -Wall -g3 
-
-# Paths
-
-INCLUDES	= ./includes/libft.h
-PATH_SRC	= ./srcs
-
-# Files
-
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
-OBJS		= $(patsubst %.c, objs/%.o, $(SRCS))
 
 # Rules
 
 all		: $(NAME)
 
-$(NAME)	: $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	
-$(OBJS)	:
-	@mkdir -p objs
-	@cc $(CFLAGS) -c ./srcs/$(FILES) -I $(INCLUDES) -g3 
-
-tests : all
-	@$(MAKE) -C tests --silent
-
+$(NAME)	:
+	@$(CC) $(CFLAGS) t_isalnum.c -L ../libft.a -o ft_isalnum.out
 clean:
 	rm -f $(OBJS)
 
