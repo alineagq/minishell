@@ -1,4 +1,7 @@
 {
     "42header.username": "fsuomins",
-    "42header.email": "fsuomins@student.42sp.org.br "
+    "42header.email": "fsuomins@student.42sp.org.br ",
+    "files.associations": {
+        "libft.h": "c"
+    }
 }
