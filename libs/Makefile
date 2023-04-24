@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 16:07:37 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 20:03:52 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ OBJS		= $(patsubst %.c, objs/%.o, $(PATH_SRCS))
 # The patsubst command is a pattern substitution function in Makefile. 
 # It is used to transform a list of words into another list, replacing
 # specified patterns in each word by the user.
-# WE CAN USE wildcard WITH THIS SIMILAR OBJECTIVE.
+# WE CAN USE wildcard WITH THIS SIMILAR OBJECTIVE, see on Makefile tests.
 
 # Rules
 
