@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 16:03:23 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 18:46:04 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ OBJS_TEST	= $(SRCS_TEST:.c=.o)
 all		: $(NAME) $(TEST)
 
 $(NAME)	: $(OBJS)
-#   @mkdir -p objs
+	@mkdir -p objs
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(TEST)	: $(OBJS_TEST) $(OBJS)
@@ -64,6 +64,7 @@ clean:
 
 fclean: clean
 	rm -f $(NAME) $(TEST)
+	rm -rf objs
 
 re: fclean all
 
