@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 15:47:14 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 16:03:23 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ color-test:
 	$(info $(purple)Message$(reset))
 	$(info $(cyan)Message$(reset))
 	$(info $(white)Message$(reset))
-
+	
 NAME	= run.a
 TEST	= test.a
 CC		= cc 
@@ -50,10 +50,11 @@ OBJS_TEST	= $(SRCS_TEST:.c=.o)
 all		: $(NAME) $(TEST)
 
 $(NAME)	: $(OBJS)
+#   @mkdir -p objs
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	
-$(TEST)	: $(OBJS_TEST)
-	@$(CC) $(CFLAGS) $(OBJS_TEST) -o $(TEST)
+
+$(TEST)	: $(OBJS_TEST) $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS_TEST) $(OBJS) -o $(TEST)
 
 %.o		: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
