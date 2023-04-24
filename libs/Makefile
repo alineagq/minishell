@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/22 01:45:34 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 14:54:39 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,8 @@ PATH_SRC	= ./srcs
 
 # Files
 
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
-OBJS		= $(patsubst %.c, objs/%.o, $(SRCS))
+#FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c // i think we don't need that. 
+OBJS		= $(patsubst %.c, objs/%.o, $(PATH_SRCS))
 
 # Rules
 
