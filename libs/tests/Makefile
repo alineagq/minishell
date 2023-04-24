@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/22 01:59:47 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/22 17:03:54 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ CFLAGS	= -Wextra -Werror -Wall -g3
 all		: $(NAME)
 
 $(NAME)	:
-	@$(CC) $(CFLAGS) t_isalnum.c -L ../libft.a -o ft_isalnum.out
+	@$(CC) $(CFLAGS) t_isalnum.c -o ft_isalnum.out -L../ -lft
+	
 clean:
 	rm -f $(OBJS)
 
