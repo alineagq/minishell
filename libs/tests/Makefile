@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/23 22:12:36 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 15:47:14 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,25 +32,37 @@ color-test:
 	$(info $(cyan)Message$(reset))
 	$(info $(white)Message$(reset))
 
-# Variables
-
-NAME	= run
+NAME	= run.a
+TEST	= test.a
 CC		= cc 
 CFLAGS	= -Wextra -Werror -Wall -g3 
 
+# Files
+SRCS	= $(wildcard *.c)
+# The wildcard function in a Makefile allows you
+# to search for files that match a particular pattern. 
+# It is used to create lists of files that can be used in compilation rules.
+OBJS	= $(SRCS:.c=.o)
+SRCS_TEST	= $(wildcard *_test.c)
+OBJS_TEST	= $(SRCS_TEST:.c=.o)
+
 # Rules
+all		: $(NAME) $(TEST)
 
-all		: $(NAME)
+$(NAME)	: $(OBJS)
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	
+$(TEST)	: $(OBJS_TEST)
+	@$(CC) $(CFLAGS) $(OBJS_TEST) -o $(TEST)
 
-$(NAME)	:
-	@$(CC) $(CFLAGS) t_isalnum.c 
-	
-	
+%.o		: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_TEST)
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(TEST)
 
 re: fclean all
 

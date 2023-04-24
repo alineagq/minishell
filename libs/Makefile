@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 14:54:39 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 15:47:08 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,12 @@ PATH_SRC	= ./srcs
 
 # Files
 
-#FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c // i think we don't need that. 
+# FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c // i think we don't need that. 
 OBJS		= $(patsubst %.c, objs/%.o, $(PATH_SRCS))
+# The patsubst command is a pattern substitution function in Makefile. 
+# It is used to transform a list of words into another list, replacing
+# specified patterns in each word by the user.
+# WE CAN USE wildcard WITH THIS SIMILAR OBJECTIVE.
 
 # Rules
 
