@@ -6,11 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:47:37 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/24 20:37:26 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:35:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /* THIS FUNCTION is ... I 
 

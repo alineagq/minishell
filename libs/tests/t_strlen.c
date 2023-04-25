@@ -6,14 +6,14 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:30:51 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/04/24 21:00:10 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:38:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
 #include "minunit.h"
-#include "../includes/libft.h"
+#include "../libft.h"
 
 MU_TEST(test_ft_strlen)
 {

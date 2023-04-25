@@ -6,11 +6,11 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 20:03:52 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 21:35:26 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.DEFAULT_GOAL := all
+DEFAULT_GOAL: all
 
 ## COLORS DEFINITIONS
 
@@ -34,43 +34,32 @@ color-test:
 
 # Variables
 
-NAME	= libft.a
-CC		= cc 
-CFLAGS	= -Wextra -Werror -Wall -g3 
+NAME = libft.a
 
-# Paths
+PATH_SRC = ./srcs
+PATH_INCLUDE =./
+GCCFLAGS = -Wall -Wextra -Werror
 
-INCLUDES	= ./includes/libft.h
-PATH_SRC	= ./srcs
+FILES = ft_isalnum ft_isalpha ft_isascii ft_isdigit ft_isprint ft_strlen
+SRCS = $(addsuffix .c, $(FILES))
+OBJS = $(addsuffix .o, $(FILES))
 
-# Files
+all: $(NAME)
 
-# FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c // i think we don't need that. 
-OBJS		= $(patsubst %.c, objs/%.o, $(PATH_SRCS))
-# The patsubst command is a pattern substitution function in Makefile. 
-# It is used to transform a list of words into another list, replacing
-# specified patterns in each word by the user.
-# WE CAN USE wildcard WITH THIS SIMILAR OBJECTIVE, see on Makefile tests.
+$(NAME): $(OBJS)
+	@ar rc $(NAME) $(OBJS)
 
-# Rules
-
-all		: $(NAME)
-
-$(NAME)	: $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
-	
-$(OBJS)	:
-	@mkdir -p objs
-	@cc $(CFLAGS) -c ./srcs/$(FILES) -I $(INCLUDES) -g3 
+$(OBJS): $(SRCS)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 tests : all
 	@$(MAKE) -C tests --silent
-
+	
 clean:
-	rm -f $(OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 

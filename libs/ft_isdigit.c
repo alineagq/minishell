@@ -6,11 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:14:05 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/24 20:38:32 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:35:58 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/libft.h"
+#include "libft.h"
 
 /*
 if you want try ascii using decimal: (c_is_a_alpha >= 48  ||  c_is_a_alpha 

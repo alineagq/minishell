@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 18:46:04 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/24 21:38:08 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,27 +37,11 @@ TEST	= test.a
 CC		= cc 
 CFLAGS	= -Wextra -Werror -Wall -g3 
 
-# Files
-SRCS	= $(wildcard *.c)
-# The wildcard function in a Makefile allows you
-# to search for files that match a particular pattern. 
-# It is used to create lists of files that can be used in compilation rules.
-OBJS	= $(SRCS:.c=.o)
-SRCS_TEST	= $(wildcard *_test.c)
-OBJS_TEST	= $(SRCS_TEST:.c=.o)
-
 # Rules
-all		: $(NAME) $(TEST)
+all		: $(NAME)
 
 $(NAME)	: $(OBJS)
-	@mkdir -p objs
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-
-$(TEST)	: $(OBJS_TEST) $(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS_TEST) $(OBJS) -o $(TEST)
-
-%.o		: %.c
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -I../ -L../ -lft t_isalnum.c -o isalnum.test 
 
 clean:
 	rm -f $(OBJS) $(OBJS_TEST)

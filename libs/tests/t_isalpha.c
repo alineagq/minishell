@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   t_isalpha.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aqueiroz <aqueiroz@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/21 16:24:44 by aqueiroz         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:38:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "minunit.h"
 #include <ctype.h>
-#include "../includes/libft.h"
+#include "../libft.h"
 
 int is_symbol(int character) 
 {
