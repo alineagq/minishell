@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/22 01:45:34 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/28 20:48:40 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,14 @@ CFLAGS	= -Wextra -Werror -Wall -g3
 
 # Paths
 
-INCLUDES	= ./includes/libft.h
+INCLUDES	= ./includes/
 PATH_SRC	= ./srcs
 
 # Files
 
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
-OBJS		= $(patsubst %.c, objs/%.o, $(SRCS))
+#FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
+FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c
+OBJS		= $(patsubst %.c, objs/%.o, $(FILES))
 
 # Rules
 
@@ -55,16 +56,16 @@ all		: $(NAME)
 $(NAME)	: $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 	
-$(OBJS)	:
+objs/%.o	: srcs/%.c
 	@mkdir -p objs
-	@cc $(CFLAGS) -c ./srcs/$(FILES) -I $(INCLUDES) -g3 
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 tests : all
 	@$(MAKE) -C tests --silent
 
 clean:
-	rm -f $(OBJS)
-
+	rm -rf objs
+	
 fclean: clean
 	rm -f $(NAME)
 
