@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 21:38:08 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/29 21:43:16 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 red:=$(shell tput setaf 1)
 green:=$(shell tput setaf 2)
 yellow:=$(shell tput setaf 3)
-blue:=$(shell tput setaf 4 setab 3)
+blue:=$(shell tput setaf 4)
 purple:=$(shell tput setaf 5)
 cyan:=$(shell tput setaf 6)
 white:=$(shell tput setaf 7)
@@ -40,9 +40,9 @@ CFLAGS	= -Wextra -Werror -Wall -g3
 # Rules
 all		: $(NAME)
 
-$(NAME)	: $(OBJS)
-	@$(CC) $(CFLAGS) -I../ -L../ -lft t_isalnum.c -o isalnum.test 
-
+$(NAME)	:
+	@$(CC) $(CFLAGS) t_isalnum.c -L ../libft.a
+	
 clean:
 	rm -f $(OBJS) $(OBJS_TEST)
 

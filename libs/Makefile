@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/24 21:35:26 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/04/29 21:42:53 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ DEFAULT_GOAL: all
 red:=$(shell tput setaf 1)
 green:=$(shell tput setaf 2)
 yellow:=$(shell tput setaf 3)
-blue:=$(shell tput setaf 4 setab 3)
+blue:=$(shell tput setaf 4)
 purple:=$(shell tput setaf 5)
 cyan:=$(shell tput setaf 6)
 white:=$(shell tput setaf 7)
@@ -46,20 +46,35 @@ OBJS = $(addsuffix .o, $(FILES))
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	@ar rc $(NAME) $(OBJS)
+FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
+OBJS		= $(patsubst %.c, objs/%.o, $(FILES))
 
-$(OBJS): $(SRCS)
-	$(CC) $(CFLAGS) -c $< -o $@
+# Rules
 
-tests : all
+all			: $(NAME)
+
+$(NAME)		: $(OBJS)
+	$(info $(blue)Compiling libft.a$(reset))
+	@ar rcs $(NAME) $(OBJS)
+	$(info $(green)Done.✔$(reset))
+	
+objs/%.o	: srcs/%.c
+	@mkdir -p objs
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+tests 		: all
 	@$(MAKE) -C tests --silent
 	
 clean:
-	@rm -f $(OBJS)
-
+	$(info $(purple)Removing objects.$(reset))
+	@rm -rf objs
+	$(info $(green)Done.$(reset))
+	
 fclean: clean
+	$(info $(purple)Removing libft.a.$(reset))
 	@rm -f $(NAME)
+	$(info $(green)Done.$(reset))
+
 
 re: fclean all
 
