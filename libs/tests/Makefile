@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/29 21:43:16 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/05/09 20:39:58 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,20 +35,27 @@ color-test:
 NAME	= run.a
 TEST	= test.a
 CC		= cc 
-CFLAGS	= -Wextra -Werror -Wall -g3 
+CFLAGS	= -Wextra -Werror -Wall -I../ -I. -g3
+LIBFTFLAG = ../libft.a
+SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_mamset
 
 # Rules
-all		: $(NAME)
+all: libft $(SRCS_T)
 
-$(NAME)	:
-	@$(CC) $(CFLAGS) t_isalnum.c -L ../libft.a
-	
+libft:
+	@cd ../ && $(MAKE)
+
+$(SRCS_T):
+	@$(CC) $(CFLAGS) $(addsuffix .c, $@) $(LIBFTFLAG) -o ./outs/$@
+
 clean:
 	rm -f $(OBJS) $(OBJS_TEST)
+	@cd ../ && $(MAKE) $@
 
 fclean: clean
 	rm -f $(NAME) $(TEST)
 	rm -rf objs
+	@cd ../ && $(MAKE) $@
 
 re: fclean all
 
