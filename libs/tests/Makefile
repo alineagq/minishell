@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/05/09 20:39:58 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/05/09 20:48:28 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,10 +37,15 @@ TEST	= test.a
 CC		= cc 
 CFLAGS	= -Wextra -Werror -Wall -I../ -I. -g3
 LIBFTFLAG = ../libft.a
-SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_mamset
+SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint 
+#t_memset
+EXEC = $(addprefix ./outs/, $(SRCS_T))
 
 # Rules
-all: libft $(SRCS_T)
+all: libft $(SRCS_T) $(EXEC)
+	
+$(EXEC):
+	$@
 
 libft:
 	@cd ../ && $(MAKE)
@@ -59,4 +64,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(EXEC)
