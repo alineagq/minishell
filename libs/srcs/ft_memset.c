@@ -6,11 +6,23 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:42:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/05/09 20:45:44 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/05/09 23:34:15 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
+
+void *ft_memset(void *ptr, int value, size_t num)
+{
+    unsigned char *p = ptr;
+    unsigned char val = (unsigned char)value;
+
+    while (num-- > 0) {
+        *p++ = val;
+    }
+
+    return ptr;
+}
 
 /*Description
 
@@ -37,15 +49,3 @@ Parameters
 Return Value
 
 This function returns a pointer to the memory area str.*/
-
-void *ft_memset(void *ptr, int value, size_t num)
-{
-    unsigned char *p = ptr;
-    unsigned char val = (unsigned char)value;
-
-    for (size_t i = 0; i < num; i++) {
-        p[i] = val;
-    }
-
-    return ptr;
-}

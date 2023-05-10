@@ -6,18 +6,22 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/24 21:38:52 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:16:57 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "minunit.h"
-#include <ctype.h>
 #include "../libft.h"
+#include <stdio.h>
+#include <ctype.h>
+
+int isascii(int c)
+{
+    return (c >= 0 && c <= 127);
+}
 
 int is_symbol(int character) 
 {
-  //  int character = 65;
     if ((character >= 33 && character <= 47) || (character >= 58 && character <= 64) ||
         (character >= 91 && character <= 96) || (character >= 123 && character <= 126))
 		return (1);
@@ -34,113 +38,99 @@ int iscommands(int c) {
 
 MU_TEST(test_if_commands_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (iscommands(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on commands  values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (iscommands(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on commands ascii values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_number_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (isdigit(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on number values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (isdigit(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on number values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_symbols_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (is_symbol(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on symbols values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (is_symbol(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on symbols values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_not_ascii_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (!isascii(i))
-		{
-			printf("%d", i);
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on not ASCII values");
-		}
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (!isascii(i))
+        {
+            printf("%d", i);
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on not ASCII values");
+        }
+        i++;
+    }
 }
 
 MU_TEST(test_if_lower_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (islower(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on lower values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (islower(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on lower values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_upper_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (isupper(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on upper values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (isupper(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on upper values");
+        i++;
+    }
 }
 
 
 MU_TEST(test_if_spaces_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (isspace(i))
-			mu_assert(ft_isprint(i) == isprint(i), "Fail on spaces values");
-		i++;
-	}
+    int i = 0;
+    while (i < 127)
+    {
+        if (isspace(i))
+            mu_assert(ft_isprint(i) == isprint(i), "Fail on spaces values");
+        i++;
+    }
 }
 
 MU_TEST_SUITE(test_suite)
 {
+    MU_RUN_TEST(test_if_commands_is_alpha);
+    MU_RUN_TEST(test_if_number_is_alpha);
     MU_RUN_TEST(test_if_symbols_is_alpha);
-	MU_RUN_TEST(test_if_spaces_is_alpha);
-	MU_RUN_TEST(test_if_lower_is_alpha);
-	MU_RUN_TEST(test_if_upper_is_alpha);
-	MU_RUN_TEST(test_if_not_ascii_is_alpha);
-	MU_RUN_TEST(test_if_number_is_alpha);
-	MU_RUN_TEST(test_if_commands_is_alpha);	
+    MU_RUN_TEST(test_if_not_ascii_is_alpha);
+    MU_RUN_TEST(test_if_lower_is_alpha);
+    MU_RUN_TEST(test_if_upper_is_alpha);
+    MU_RUN_TEST(test_if_spaces_is_alpha);
 }
 
-int main()
+int main(void)
 {
     MU_RUN_SUITE(test_suite);
-	MU_REPORT();
-    return (0);
+    MU_REPORT();
+    return MU_EXIT_CODE;
 }
