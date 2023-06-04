@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/24 21:38:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:05:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,28 +89,22 @@ MU_TEST(test_if_not_ascii_is_alpha)
 
 MU_TEST(test_if_lower_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (islower(i))
-			mu_assert(ft_isalpha(i) == isalpha(i), "Fail on lower values");
-		i++;
-	}
+    int i = 'a';
+    while (i <= 'z')
+    {
+        mu_assert(ft_isalpha(i) == 1, "Fail on lower values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_upper_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (isupper(i))
-			mu_assert(ft_isalpha(i) == isalpha(i), "Fail on upper values");
-		i++;
-	}
+    int i = 'A';
+    while (i <= 'Z')
+    {
+        mu_assert(ft_isalpha(i) == 1, "Fail on upper values");
+        i++;
+    }
 }
 
 

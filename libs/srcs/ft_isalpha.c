@@ -6,17 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:47:37 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/05/09 20:01:44 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/05/10 00:24:07 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
-
-/* THIS FUNCTION is ... I 
-
-
-if you want try ascii using decimal: (c_is_a_alpha >= 97  ||  c_is_a_alpha 
-<= 122), "is the same thing! ;-) */
 
 int	ft_isalpha(int c_is_a_alpha)
 {
@@ -26,3 +20,9 @@ int	ft_isalpha(int c_is_a_alpha)
 		return (1);
 	return (0);
 }
+
+/* THIS FUNCTION is ... I 
+
+
+if you want try ascii using decimal: (c_is_a_alpha >= 97  ||  c_is_a_alpha 
+<= 122), "is the same thing! ;-) */

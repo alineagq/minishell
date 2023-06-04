@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/24 21:38:31 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/04 18:58:04 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,14 @@ MU_TEST(test_if_commands_is_alpha)
 		i++;
 	}
 }
-
 MU_TEST(test_if_number_is_alpha)
 {
-	int	i;
-
-	i = 0;
-	while (i < 127)
-	{
-		if (isdigit(i))
-			mu_assert(ft_isalnum(i) == isalnum(i), "Fail on number values");
-		i++;
-	}
+    int i = '0';
+    while (i <= '9')
+    {
+        mu_assert(ft_isalnum(i) == 1, "Fail on number values");
+        i++;
+    }
 }
 
 MU_TEST(test_if_symbols_is_alpha)
@@ -89,29 +85,26 @@ MU_TEST(test_if_not_ascii_is_alpha)
 
 MU_TEST(test_if_lower_is_alpha)
 {
-	int	i;
-
-	i = 0;
+	int i = 0;
 	while (i < 127)
 	{
 		if (islower(i))
-			mu_assert(ft_isalnum(i) == isalnum(i), "Fail on lower values");
+			mu_assert(ft_isalnum(i) == (isalpha(i) || isdigit(i)), "Fail on lower values");
 		i++;
 	}
 }
 
 MU_TEST(test_if_upper_is_alpha)
 {
-	int	i;
-
-	i = 0;
+	int i = 0;
 	while (i < 127)
 	{
 		if (isupper(i))
-			mu_assert(ft_isalnum(i) == isalnum(i), "Fail on upper values");
+			mu_assert(ft_isalnum(i) == (isalpha(i) || isdigit(i)), "Fail on upper values");
 		i++;
 	}
 }
+
 
 
 MU_TEST(test_if_spaces_is_alpha)

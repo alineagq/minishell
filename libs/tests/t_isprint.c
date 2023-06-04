@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/05/10 00:16:57 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:29:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,117 +15,84 @@
 #include <stdio.h>
 #include <ctype.h>
 
-int isascii(int c)
-{
-    return (c >= 0 && c <= 127);
-}
-
-int is_symbol(int character) 
-{
-    if ((character >= 33 && character <= 47) || (character >= 58 && character <= 64) ||
-        (character >= 91 && character <= 96) || (character >= 123 && character <= 126))
-		return (1);
-	return (0);
-}
-
-int iscommands(int c) {
-    int result = 0;
-    if (c >= 0 && c <= 32) {
-        result = 1; // c is within ASCII range 0 to 32
-    }
-    return result;
-}
-
 MU_TEST(test_if_commands_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (iscommands(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on commands ascii values");
-        i++;
+        if (i >= 0 && i <= 31)
+            mu_assert(ft_isprint(i) == 0, "Fail on commands ascii values");
+        else
+            mu_assert(ft_isprint(i) == 1, "Fail on non-commands ascii values");
     }
 }
 
 MU_TEST(test_if_number_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (isdigit(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on number values");
-        i++;
+        if (i >= 48 && i <= 57)
+            mu_assert(ft_isprint(i) == 1, "Fail on number values");
+        else
+            mu_assert(ft_isprint(i) == 1, "Fail on non-number values");
     }
 }
 
 MU_TEST(test_if_symbols_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (is_symbol(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on symbols values");
-        i++;
-    }
-}
-
-MU_TEST(test_if_not_ascii_is_alpha)
-{
-    int i = 0;
-    while (i < 127)
-    {
-        if (!isascii(i))
-        {
-            printf("%d", i);
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on not ASCII values");
-        }
-        i++;
+        if (i >= 33 && i <= 47)
+            mu_assert(ft_isprint(i) == 1, "Fail on symbols values");
+        else if (i >= 58 && i <= 64)
+            mu_assert(ft_isprint(i) == 1, "Fail on symbols values");
+        else if (i >= 91 && i <= 96)
+            mu_assert(ft_isprint(i) == 1, "Fail on symbols values");
+        else if (i >= 123 && i <= 126)
+            mu_assert(ft_isprint(i) == 1, "Fail on symbols values");
     }
 }
 
 MU_TEST(test_if_lower_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (islower(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on lower values");
-        i++;
+        if (i >= 97 && i <= 122)
+            mu_assert(ft_isprint(i) == 1, "Fail on lower values");
+        else
+            mu_assert(ft_isprint(i) == 1, "Fail on non-lower values");
     }
 }
 
 MU_TEST(test_if_upper_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (isupper(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on upper values");
-        i++;
+        if (i >= 65 && i <= 90)
+            mu_assert(ft_isprint(i) == 1, "Fail on upper values");
+        else
+            mu_assert(ft_isprint(i) == 1, "Fail on non-upper values");
     }
 }
 
-
 MU_TEST(test_if_spaces_is_alpha)
 {
-    int i = 0;
-    while (i < 127)
+    for (int i = 0; i < 128; i++)
     {
-        if (isspace(i))
-            mu_assert(ft_isprint(i) == isprint(i), "Fail on spaces values");
-        i++;
+        if (i == 32)
+            mu_assert(ft_isprint(i) == 1, "Fail on spaces values");
+        else
+            mu_assert(ft_isprint(i) == 1, "Fail on non-spaces values");
     }
 }
 
 MU_TEST_SUITE(test_suite)
 {
-    MU_RUN_TEST(test_if_commands_is_alpha);
-    MU_RUN_TEST(test_if_number_is_alpha);
     MU_RUN_TEST(test_if_symbols_is_alpha);
-    MU_RUN_TEST(test_if_not_ascii_is_alpha);
+    MU_RUN_TEST(test_if_spaces_is_alpha);
     MU_RUN_TEST(test_if_lower_is_alpha);
     MU_RUN_TEST(test_if_upper_is_alpha);
-    MU_RUN_TEST(test_if_spaces_is_alpha);
+    MU_RUN_TEST(test_if_number_is_alpha);
+    MU_RUN_TEST(test_if_commands_is_alpha);
 }
 
 int main(void)
