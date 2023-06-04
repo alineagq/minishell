@@ -6,19 +6,15 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 11:47:37 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/05/10 00:24:07 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/04 19:02:03 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_isalpha(int c_is_a_alpha)
+int ft_isalpha(int c)
 {
-	if (c_is_a_alpha >= 'a' && c_is_a_alpha <= 'z')
-		return (1);
-	else if (c_is_a_alpha >= 'A' && c_is_a_alpha <= 'Z')
-		return (1);
-	return (0);
+    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
 }
 
 /* THIS FUNCTION is ... I 
