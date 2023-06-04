@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 23:19:53 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/05/10 00:22:11 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:32:49 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,6 @@ int		ft_isdigit(int c_is_a_digit);
 int		ft_isascii(int c_is_a_ascii);
 int     ft_isalnum(int c_is_a_alnum);
 int     ft_isprint(int c_is_printable);
+void    ft_bzero(void *s, size_t n);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/05/09 20:20:08 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/04 20:10:34 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,13 +40,13 @@ PATH_SRC = ./srcs
 PATH_INCLUDE =./
 GCCFLAGS = -Wall -Wextra -Werror
 
-FILES = ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint ft_strlen ft_memset
+FILES = ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint ft_strlen ft_memset ft_bzero
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
 
 all: $(NAME)
 
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_strlen.c ft_memset.c
+FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c
 OBJS		= $(patsubst %.c, objs/%.o, $(FILES))
 
 # Rules
