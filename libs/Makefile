@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/04 20:10:34 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/05 12:01:22 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,7 +56,6 @@ all			: $(NAME)
 $(NAME)		: $(OBJS)
 	$(info $(blue)Compiling libft.a$(reset))
 	@ar rcs $(NAME) $(OBJS)
-	$(info $(green)Done.✔$(reset))
 	
 objs/%.o	: srcs/%.c
 	@mkdir -p objs
@@ -66,15 +65,12 @@ tests 		: all
 	@$(MAKE) -C tests --silent
 	
 clean:
-	$(info $(purple)Removing objects.$(reset))
+	 $(info $(purple)Removing libs objects.$(reset))
 	@rm -rf objs
-	$(info $(green)Done.$(reset))
 	
 fclean: clean
 	$(info $(purple)Removing libft.a.$(reset))
 	@rm -f $(NAME)
-	$(info $(green)Done.$(reset))
-
 
 re: fclean all
 
