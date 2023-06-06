@@ -1,25 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   ft_isprint.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 11:47:37 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/06/04 19:02:03 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/04/24 20:12:41 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/05/09 23:52:01 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int ft_isalpha(int c)
+int    ft_isprint(int c_is_printable)
 {
-    return ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'));
+    if (c_is_printable >= 32 && c_is_printable <= 126)
+        return (1);
+    return (0);
 }
-
-/* THIS FUNCTION is ... I 
-
-
-if you want try ascii using decimal: (c_is_a_alpha >= 97  ||  c_is_a_alpha 
-<= 122), "is the same thing! ;-) */

@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/28 20:51:55 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/04 20:09:20 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@
 red:=$(shell tput setaf 1)
 green:=$(shell tput setaf 2)
 yellow:=$(shell tput setaf 3)
-blue:=$(shell tput setaf 4 setab 3)
+blue:=$(shell tput setaf 4)
 purple:=$(shell tput setaf 5)
 cyan:=$(shell tput setaf 6)
 white:=$(shell tput setaf 7)
@@ -31,27 +31,37 @@ color-test:
 	$(info $(purple)Message$(reset))
 	$(info $(cyan)Message$(reset))
 	$(info $(white)Message$(reset))
-
-# Variables
-
-NAME	= run
+	
+NAME	= run.a
+TEST	= test.a
 CC		= cc 
-CFLAGS	= -Wextra -Werror -Wall -g3 
+CFLAGS	= -Wextra -Werror -Wall -I../ -I. -g3
+LIBFTFLAG = ../libft.a
+SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_bzero
+#t_memset
+EXEC = $(addprefix ./outs/, $(SRCS_T))
 
 # Rules
-
-all		: $(NAME)
-
-$(NAME)	:
-	@mkdir -p objs
-	@$(CC) $(CFLAGS) t_isalnum.c -L ../libft.a
+all: libft $(SRCS_T) $(EXEC)
 	
+$(EXEC):
+	$@
+
+libft:
+	@cd ../ && $(MAKE)
+
+$(SRCS_T):
+	@$(CC) $(CFLAGS) $(addsuffix .c, $@) $(LIBFTFLAG) -o ./outs/$@
+
 clean:
-	rm -f $(OBJS)
+	rm -f $(OBJS) $(OBJS_TEST)
+	@cd ../ && $(MAKE) $@
 
 fclean: clean
-	rm -f $(NAME)
+	rm -f $(NAME) $(TEST)
+	rm -rf objs
+	@cd ../ && $(MAKE) $@
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re $(EXEC)

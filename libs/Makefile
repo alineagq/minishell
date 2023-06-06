@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/04/28 20:48:40 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/05 12:01:22 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-.DEFAULT_GOAL := all
+DEFAULT_GOAL: all
 
 ## COLORS DEFINITIONS
 
 red:=$(shell tput setaf 1)
 green:=$(shell tput setaf 2)
 yellow:=$(shell tput setaf 3)
-blue:=$(shell tput setaf 4 setab 3)
+blue:=$(shell tput setaf 4)
 purple:=$(shell tput setaf 5)
 cyan:=$(shell tput setaf 6)
 white:=$(shell tput setaf 7)
@@ -34,40 +34,44 @@ color-test:
 
 # Variables
 
-NAME	= libft.a
-CC		= cc 
-CFLAGS	= -Wextra -Werror -Wall -g3 
+NAME = libft.a
 
-# Paths
+PATH_SRC = ./srcs
+PATH_INCLUDE =./
+GCCFLAGS = -Wall -Wextra -Werror
 
-INCLUDES	= ./includes/
-PATH_SRC	= ./srcs
+FILES = ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint ft_strlen ft_memset ft_bzero
+SRCS = $(addsuffix .c, $(FILES))
+OBJS = $(addsuffix .o, $(FILES))
 
-# Files
+all: $(NAME)
 
-#FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c
+FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c
 OBJS		= $(patsubst %.c, objs/%.o, $(FILES))
 
 # Rules
 
-all		: $(NAME)
+all			: $(NAME)
 
-$(NAME)	: $(OBJS)
+$(NAME)		: $(OBJS)
+	$(info $(blue)Compiling libft.a$(reset))
 	@ar rcs $(NAME) $(OBJS)
 	
 objs/%.o	: srcs/%.c
 	@mkdir -p objs
 	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
-tests : all
+tests 		: all
 	@$(MAKE) -C tests --silent
-
+	
 clean:
-	rm -rf objs
+	 $(info $(purple)Removing libs objects.$(reset))
+	@rm -rf objs
 	
 fclean: clean
-	rm -f $(NAME)
+	$(info $(purple)Removing libft.a.$(reset))
+	@rm -f $(NAME)
 
 re: fclean all
 

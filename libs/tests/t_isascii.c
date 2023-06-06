@@ -4,16 +4,17 @@
 /*   t_isascii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/04/28 19:18:43 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/04/24 21:38:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "minunit.h"
 #include <ctype.h>
-#include "../includes/libft.h"
+#include "../libft.h"
 
 int is_symbol(int character) 
 {

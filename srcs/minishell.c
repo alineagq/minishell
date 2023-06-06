@@ -1,21 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libft.h                                            :+:      :+:    :+:   */
+/*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/10 23:19:53 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/04/28 19:22:16 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
+/*   Updated: 2023/06/05 11:20:00 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFT_H
-# define LIBFT_H 
+#include "../includes/minishell.h"
 
-int         ft_isalpha(int is_a_alpha);
-int         ft_isdigit(int is_a_digit);
-int			ft_isascii(int is_a_ascii);
-int         ft_isalnum(int is_a_alnum);
-
-#endif
+int	main(void)
+{
+	return (1);
+}
