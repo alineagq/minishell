@@ -60,6 +60,7 @@ $(NAME)		: $(OBJS)
 objs/%.o	: srcs/%.c
 	@mkdir -p objs
 	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 tests 		: all
 	@$(MAKE) -C tests --silent

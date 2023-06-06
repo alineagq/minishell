@@ -4,6 +4,7 @@
 /*   t_isascii.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
 /*   Updated: 2023/04/24 21:38:45 by fsuomins         ###   ########.fr       */
@@ -37,7 +38,7 @@ MU_TEST(test_if_commands_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 255)
 	{
 		if (iscommands(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on commands ascii values");
@@ -50,7 +51,7 @@ MU_TEST(test_if_number_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 255)
 	{
 		if (isdigit(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on number values");
@@ -63,7 +64,7 @@ MU_TEST(test_if_symbols_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 255)
 	{
 		if (is_symbol(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on symbols values");
@@ -76,7 +77,7 @@ MU_TEST(test_if_not_ascii_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 2)
 	{
 		if (!isascii(i))
 		{
@@ -92,7 +93,7 @@ MU_TEST(test_if_lower_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 1050)
 	{
 		if (islower(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on lower values");
@@ -105,7 +106,7 @@ MU_TEST(test_if_upper_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 255)
 	{
 		if (isupper(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on upper values");
@@ -119,7 +120,7 @@ MU_TEST(test_if_spaces_is_alpha)
 	int	i;
 
 	i = 0;
-	while (i < 127)
+	while (i < 255)
 	{
 		if (isspace(i))
 			mu_assert(ft_isascii(i) == isascii(i), "Fail on spaces values");
