@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/10 20:45:24 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/11 10:13:15 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ OBJS = $(addsuffix .o, $(FILES))
 all: $(NAME)
 
 FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c
+				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_strlcpy.c 
 
 OBJS		=	$(patsubst %.c, objs/%.o, $(FILES))
 

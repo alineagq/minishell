@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:41:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/10 19:31:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/11 10:16:40 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ MU_TEST(test_memset_does_nothing_with_size_0)
 
 MU_TEST_SUITE(test_memset_suite)
 {
-    MU_RUN_TEST(test_memset_sets_all_bytes);
-    MU_RUN_TEST(test_memset_sets_subset_of_bytes);
-    MU_RUN_TEST(test_memset_does_nothing_with_size_0);
+	MU_RUN_TEST(test_memset_sets_all_bytes);
+	MU_RUN_TEST(test_memset_sets_subset_of_bytes);
+	MU_RUN_TEST(test_memset_does_nothing_with_size_0);
 }
 
-int main(int argc, char *argv[])
+int main(void)
 {
     MU_RUN_SUITE(test_memset_suite);
     MU_REPORT();
@@ -87,4 +87,3 @@ int main()
     return 0;
 }
 */
-
