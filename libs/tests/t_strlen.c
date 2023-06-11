@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   t_strlen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:30:51 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/05/09 20:10:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:36:54 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
-#include "minunit.h"
+#include "../minunit.h"
 #include "../libft.h"
+#include <ctype.h>
 
 MU_TEST(test_ft_strlen)
 {

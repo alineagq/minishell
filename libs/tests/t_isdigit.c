@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   t_isdigit.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 09:36:19 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/06/04 19:12:11 by fsuomins         ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2023/06/10 15:36:44 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include "minunit.h"
-#include "../libft.h"
-#include <stdio.h>
-#include <ctype.h>
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../minunit.h"
+#include "../libft.h"
+#include <ctype.h>
 
 int is_symbol(int character)
 {

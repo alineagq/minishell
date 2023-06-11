@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/04 20:09:20 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/10 15:32:30 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,7 +37,7 @@ TEST	= test.a
 CC		= cc 
 CFLAGS	= -Wextra -Werror -Wall -I../ -I. -g3
 LIBFTFLAG = ../libft.a
-SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_bzero
+SRCS_T	= t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_bzero t_get_next_line
 #t_memset
 EXEC = $(addprefix ./outs/, $(SRCS_T))
 

@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   t_memset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 17:41:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/05/09 23:35:05 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:36:49 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include "minunit.h"
-#include <ctype.h>
+#include <stdlib.h>
+#include <string.h>
+#include "../minunit.h"
 #include "../libft.h"
+#include <ctype.h>
 
 // Test if ft_memset sets all bytes to the given value
 MU_TEST(test_memset_sets_all_bytes)

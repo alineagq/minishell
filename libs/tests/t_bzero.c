@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   t_bzero.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:11:13 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/04 20:30:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:37:11 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minunit.h"
-#include "../libft.h"
+#include <stdlib.h>
 #include <string.h>
+#include "../minunit.h"
+#include "../libft.h"
+#include <ctype.h>
 
 
 int is_symbol(int character) 
