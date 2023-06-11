@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
+#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/05 12:01:22 by aqueiroz         ###   ########.fr        #
+#    Updated: 2023/06/10 20:45:24 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,20 +34,22 @@ color-test:
 
 # Variables
 
-NAME = libft.a
-
-PATH_SRC = ./srcs
-PATH_INCLUDE =./
-GCCFLAGS = -Wall -Wextra -Werror
-
-FILES = ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint ft_strlen ft_memset ft_bzero
+NAME			=	libft.a
+PATH_INCLUDE	=	./
+PATH_SRC		=	./srcs
+GCCFLAGS		=	-Wall -Wextra -Werror
+FILES			=	ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint \
+					ft_strlen ft_memset ft_bzero ft_memcpy
+					
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
 
 all: $(NAME)
 
-FILES		= ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c ft_strlen.c ft_memset.c ft_bzero.c
-OBJS		= $(patsubst %.c, objs/%.o, $(FILES))
+FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
+				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c
+
+OBJS		=	$(patsubst %.c, objs/%.o, $(FILES))
 
 # Rules
 

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:49:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/10 19:49:16 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/10 15:26:00 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/06/10 19:35:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_isalnum(int is_a_alnum)
+int	ft_isdigit(int c_is_a_digit)
 {
-	if (ft_isalpha(is_a_alnum) || ft_isdigit(is_a_alnum))
+	if (c_is_a_digit >= 48 && c_is_a_digit <= 57)
 		return (1);
 	return (0);
 }

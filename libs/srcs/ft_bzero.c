@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:11:40 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/04 20:26:04 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/10 19:45:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../libft.h"
 
-void ft_bzero(void *s, size_t n)
+void	ft_bzero(void *s, size_t n)
 {
-    char *ptr = (char *)s;  // Cast the void pointer to a char pointer
-    char *end = ptr + n;    // Calculate the end pointer of the memory region
+	char	*ptr;
+	char	*end;
 
-    while (ptr < end)
-    {
-        *ptr++ = 0;  // Set the value at the current pointer location to zero
-    }
+	ptr = (char *)s;
+	end = ptr + n;
+	while (ptr < end)
+		*ptr++ = 0;
 }
-
 
 /*
 The bzero() function erases the data in the n bytes of the memory starting at the
