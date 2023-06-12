@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/11 10:13:15 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/12 15:32:00 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,16 +38,14 @@ NAME			=	libft.a
 PATH_INCLUDE	=	./
 PATH_SRC		=	./srcs
 GCCFLAGS		=	-Wall -Wextra -Werror
-FILES			=	ft_isalpha ft_isalnum ft_isascii ft_isdigit ft_isprint \
-					ft_strlen ft_memset ft_bzero ft_memcpy
+FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
+				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_strlcpy.c \
+				ft_strchr.c ft_calloc.c
 					
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))
 
 all: $(NAME)
-
-FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_strlcpy.c 
 
 OBJS		=	$(patsubst %.c, objs/%.o, $(FILES))
 

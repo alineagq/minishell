@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_strchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 10:05:29 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 15:22:41 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/12 15:08:46 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/06/12 15:16:38 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t maxlen)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	src_size;
+	size_t	i;
 
-	src_size = ft_strlen(src);
-	if (src_size < maxlen)
-		ft_memcpy(dst, src, src_size + 1);
-	else if (maxlen)
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i])
 	{
-		ft_memcpy(dst, src, maxlen);
-		dst[maxlen - 1] = '\0';
+		if (s[i] == (char) c)
+			return (&((char *)s)[i]);
+		i++;
 	}
-	dst[maxlen] = '\0';
-	return (src_size);
+	return (NULL);
 }

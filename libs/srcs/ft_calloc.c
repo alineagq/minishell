@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/11 10:05:29 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 15:22:41 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/12 15:30:43 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/06/12 15:32:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-size_t	ft_strlcpy(char *dst, const char *src, size_t maxlen)
+void	*ft_calloc(size_t count, size_t size)
 {
-	size_t	src_size;
+	void	*ptr;
 
-	src_size = ft_strlen(src);
-	if (src_size < maxlen)
-		ft_memcpy(dst, src, src_size + 1);
-	else if (maxlen)
-	{
-		ft_memcpy(dst, src, maxlen);
-		dst[maxlen - 1] = '\0';
-	}
-	dst[maxlen] = '\0';
-	return (src_size);
+	if (!count || !size || size > SIZE_MAX / count)
+		return (NULL);
+	ptr = (void *)malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, (size * count));
+	return (ptr);
 }

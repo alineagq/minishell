@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 10:06:26 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/11 11:19:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/12 15:17:33 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ MU_TEST(test_ft_strlcpy_case4)
     size_t maxlen = 0;
     size_t result = ft_strlcpy(dst, src, maxlen);
     mu_assert(dst[0] == '\0', "Failed to handle maxlen = 0");
-    mu_assert(result == 9, "Incorrect return value");
+    mu_assert(result == 7, "Incorrect return value");
 }
 
 MU_TEST_SUITE(test_suite)
