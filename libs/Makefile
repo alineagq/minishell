@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/12 15:32:00 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/12 16:06:22 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,8 @@ PATH_SRC		=	./srcs
 GCCFLAGS		=	-Wall -Wextra -Werror
 FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
 				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_strlcpy.c \
-				ft_strchr.c ft_calloc.c
+				ft_strchr.c ft_calloc.c ft_tolower.c ft_toupper.c ft_memmove.c \
+				ft_strlcat.c
 					
 SRCS = $(addsuffix .c, $(FILES))
 OBJS = $(addsuffix .o, $(FILES))

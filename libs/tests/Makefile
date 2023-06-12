@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 01:37:43 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/12 15:32:18 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/12 16:06:19 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ CC			= 	cc
 CFLAGS		= 	-Wextra -Werror -Wall -I../ -I. -g3
 LIBFTFLAG 	= 	../libft.a
 SRCS_T		= 	t_isalnum t_isalpha t_isascii t_isdigit t_isprint t_bzero t_memcpy \
-				t_strlcpy t_strchr t_calloc
+				t_strlcpy t_strchr t_calloc t_tolower t_toupper t_memmove t_strlcat
 #t_memset
 EXEC = $(addprefix ./outs/, $(SRCS_T))
 
