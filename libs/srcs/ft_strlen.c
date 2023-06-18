@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:55:35 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/10 19:59:15 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:06:07 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ size_t	ft_strlen(const char *str)
 	size_t	len;
 
 	len = 0;
-	while (*str++ != '\0')
-		len++;
-	return (len);
+	while (str[len++]){}
+		
+	return (len - 1);
 }

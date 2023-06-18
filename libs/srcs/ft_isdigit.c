@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 15:26:00 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/10 19:35:20 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:59:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 
 int	ft_isdigit(int c_is_a_digit)
 {
-	if (c_is_a_digit >= 48 && c_is_a_digit <= 57)
-		return (1);
-	return (0);
+	return (c_is_a_digit >= 48 && c_is_a_digit <= 57);
 }
