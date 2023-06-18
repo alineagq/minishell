@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 16:03:43 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 16:17:45 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/18 13:30:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,14 @@ MU_TEST(test_ft_strlcat_case2)
 
 MU_TEST(test_ft_strlcat_case3)
 {
-    char dst[8] = "123";
-    const char *src = "456";
-    size_t dstsize = sizeof(dst);
-    size_t result = ft_strlcat(dst, src, dstsize);
-    mu_assert(result < dstsize, "Destination buffer should not be truncated");
-    mu_assert(strcmp(dst, "123") == 0, "Destination buffer should not be modified");
-    mu_assert(result == 6, "Incorrect return value");
+char dst[8] = "123";
+const char *src = "456";
+size_t dstsize = sizeof(dst);
+size_t original_dst_len = strlen(dst);
+size_t result = ft_strlcat(dst, src, dstsize);
+mu_assert(result == 6, "Incorrect return value");
+mu_assert(result < dstsize, "Destination buffer should not be truncated");
+mu_assert(memcmp(dst, "123", original_dst_len) == 0, "Destination buffer should not be modified");
 }
 
 MU_TEST_SUITE(test_suite)
