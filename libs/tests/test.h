@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:26:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/28 16:43:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 17:08:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,6 @@ void t_isascii(void);
 void t_isprint(void);
 void t_strlen(void);
 void t_memset(void);
+void	t_bzero(void);
 
 #endif
