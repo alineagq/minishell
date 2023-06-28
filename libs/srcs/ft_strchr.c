@@ -1,18 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isprint.c                                       :+:      :+:    :+:   */
+/*   ft_strchar.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/10 19:52:35 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/18 13:00:30 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/12 15:08:46 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/06/12 15:16:38 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft.h"
 
-int	ft_isprint(int c_is_printable)
+char	*ft_strchr(const char *s, int c)
 {
-	return (c_is_printable >= 32 && c_is_printable < 127);
+	size_t	i;
+
+	i = 0;
+	if (!s)
+		return (NULL);
+	while (s[i])
+	{
+		if (s[i] == (char) c)
+			return (&((char *)s)[i]);
+		i++;
+	}
+	return (NULL);
 }

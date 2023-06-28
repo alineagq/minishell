@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   t_bzero.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:11:13 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/04 20:30:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/10 15:36:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minunit.h"
+#include "../includes/minunit.h"
 #include "../libft.h"
 #include <string.h>
 

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   t_strlen.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:30:51 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/05/09 20:10:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/18 15:40:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include <string.h>
-#include "minunit.h"
+#include "../includes/minunit.h"
 #include "../libft.h"
 
 MU_TEST(test_ft_strlen)

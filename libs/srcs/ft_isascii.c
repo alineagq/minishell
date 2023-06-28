@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isascii.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/21 16:31:14 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/05/09 20:00:19 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/18 12:59:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,5 @@
 
 int	ft_isascii(int c_is_a_ascii)
 {
-	if (c_is_a_ascii >= 0 && c_is_a_ascii <= 127)
-		return (1);
-	return (0);
+	 return(c_is_a_ascii >= 0 && c_is_a_ascii <= 127);
 }

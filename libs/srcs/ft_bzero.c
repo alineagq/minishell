@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:11:40 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/07 18:09:18 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:21:34 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../libft.h"
 
@@ -20,7 +19,6 @@ void	ft_bzero(void *s, size_t n)
 
 	ptr = (char *)s;
 	end = ptr + n;
-
 	while (ptr < end)
 		*ptr++ = 0;
 }
