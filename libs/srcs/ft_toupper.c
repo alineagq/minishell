@@ -6,11 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:55:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 15:56:37 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:36:52 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../libft.h"
+#include "../libft.h"
 
 int	ft_toupper(int c)
 {

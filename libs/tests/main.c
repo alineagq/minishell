@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isascii.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/21 16:31:14 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/06/28 16:33:56 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/28 16:44:05 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/06/28 16:44:34 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../libft.h"
+#include "test.h"
 
-int	ft_isascii(int c_is_a_ascii)
+int	main(void)
 {
-	return (c_is_a_ascii >= 0 && c_is_a_ascii <= 127);
+	t_isalpha();
+	t_isdigit();
+	t_isalnum();
+	t_isascii();
+	t_isprint();
+	t_strlen();
+	t_memset();
+	return (0);
 }

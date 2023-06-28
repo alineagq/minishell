@@ -6,37 +6,50 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 20:30:51 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/18 15:40:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:41:31 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
-#include <string.h>
-#include "../includes/minunit.h"
-#include "../libft.h"
+#include "test.h"
 
-MU_TEST(test_ft_strlen)
+void t_strlen(void)
 {
-    const char *str1 = "hello world";
-    mu_assert_int_eq(strlen(str1), ft_strlen(str1));
-    
-    const char *str2 = "This is a longer string";
-    mu_assert_int_eq(strlen(str2), ft_strlen(str2));
-    
-    const char *str3 = "12345";
-    mu_assert_int_eq(strlen(str3), ft_strlen(str3));
-}
+	char** stringArray = NULL;
+    int arraySize = 0;
+    int counter = 1;
+	
+    printf("> Testing: %s\n", __FILE__);
 
-MU_TEST_SUITE(test_suite)
-{
-    MU_RUN_TEST(test_ft_strlen);
-}
+    // Test cases
+    assert(ft_strlen("") == 0);
+    assert(ft_strlen("Hello, world!") == 13);
+    assert(ft_strlen("Lorem ipsum dolor sit amet") == 26);
+    assert(ft_strlen("1234567890") == 10);
+    assert(ft_strlen("This is a test") == 14);
 
-int main(int argc, char *argv[])
-{
-    MU_RUN_SUITE(test_suite);
-    MU_REPORT();
-    return MU_EXIT_CODE;
-}
+    // Additional test cases
+    assert(ft_strlen("123") == 3);
+    assert(ft_strlen("abcdefghijklmnopqrstuvwxyz") == 26);
+    assert(ft_strlen("0123456789") == 10);
+    assert(ft_strlen("Hello\tWorld\n") == 12);
+    assert(ft_strlen(NULL) == 0);
 
-//this test was created using help chatgpt;
+    // Compare with strlen function from string.h
+    assert(ft_strlen("Hello") == strlen("Hello"));
+    assert(ft_strlen("Hello, world!") == strlen("Hello, world!"));
+    assert(ft_strlen("Lorem ipsum dolor sit amet") == strlen("Lorem ipsum dolor sit amet"));
+
+    if (arraySize != 0)
+        printf("\n%d", arraySize);
+    for (int i = 0; i < arraySize; i++) {
+        printf("\033[0mError %d: %s\n", i + 1, stringArray[i]);
+    }
+
+    // Free the memory allocated for the strings
+    for (int i = 0; i < arraySize; i++) {
+        free(stringArray[i]);
+    }
+    // Free the memory allocated for the array
+    free(stringArray);
+    printf("\n");
+}

@@ -6,11 +6,11 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/18 16:54:07 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/28 16:45:15 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEFAULT_GOAL: all
+.DEFAULT_GOAL := all
 
 ## COLORS DEFINITIONS
 
@@ -23,7 +23,10 @@ cyan:=$(shell tput setaf 6)
 white:=$(shell tput setaf 7)
 reset:=$(shell tput sgr0)
 
-color-test:
+color:
+	@make -s _color-test
+
+_color-test:
 	$(info $(red)Message$(reset))
 	$(info $(green)Message$(reset))
 	$(info $(yellow)Message$(reset))
@@ -32,48 +35,45 @@ color-test:
 	$(info $(cyan)Message$(reset))
 	$(info $(white)Message$(reset))
 
-# Variables
+# PATHS
 
-NAME			=	libft.a
-PATH_INCLUDE	=	./
-PATH_SRC		=	./srcs
-GCCFLAGS		=	-Wall -Wextra -Werror
-FILES		=	ft_isalpha.c ft_isalnum.c ft_isascii.c ft_isdigit.c ft_isprint.c \
-				ft_strlen.c ft_memset.c ft_bzero.c ft_memcpy.c ft_strlcpy.c \
-				ft_strchr.c ft_calloc.c ft_tolower.c ft_toupper.c ft_memmove.c \
-				ft_strlcat.c ft_strrchr.c ft_strncmp.c ft_memchr.c
-					
-SRCS = $(addsuffix .c, $(FILES))
-OBJS = $(addsuffix .o, $(FILES))
+SRC_PATH = srcs
+TEST_PATH = tests
+PATH_INC = ./
+
+# FILES
+
+NAME = libft.a
+FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
+		ft_strlen ft_memset ft_tolower ft_toupper
+SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
+OBJS := ${SRCS:.c=.o}
+
+# FLAGS
+
+CC = cc
+CFLAGS = -Wall -Wextra -Werror
+
+# TARGETS
 
 all: $(NAME)
 
-OBJS		=	$(patsubst %.c, objs/%.o, $(FILES))
-
-# Rules
-
-all			: $(NAME)
-
-$(NAME)		: $(OBJS)
-	$(info $(blue)Compiling libft.a$(reset))
+$(NAME): $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
-	
-objs/%.o	: srcs/%.c
-	@mkdir -p objs
-	@$(CC) $(CFLAGS) -c $< -o $@
+
+%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-tests 		: all
-	@$(MAKE) -C tests --silent
-	
+test: $(NAME)
+	@$(CC) $(CFLAGS) -I tests tests/*.c -L ./ -lft -o test
+	@./test
+
 clean:
-	 $(info $(purple)Removing libs objects.$(reset))
-	@rm -rf objs
-	
+	@rm -f $(OBJS)
+
 fclean: clean
-	$(info $(purple)Removing libft.a.$(reset))
-	@rm -f $(NAME)
+	@rm -f $(NAME) test
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re test

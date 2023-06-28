@@ -6,11 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 16:04:57 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/18 13:25:26 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:36:35 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../libft.h"
+#include "../libft.h"
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dst_size)
 {

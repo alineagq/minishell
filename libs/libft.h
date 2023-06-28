@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 23:19:53 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/18 16:53:26 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/28 16:32:06 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strchr(const char *s, int c);
-int     ft_strncmp(const char *s1, const char *s2, size_t n);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_isprint(int c_is_printable);
 int		ft_isalpha(int c_is_a_alpha);
 int		ft_isdigit(int c_is_a_digit);
