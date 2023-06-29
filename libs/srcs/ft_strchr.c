@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchar.c                                       :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:08:46 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 15:16:38 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:28:07 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,13 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (NULL);
-	while (s[i])
+	while (*s != '\0')
 	{
-		if (s[i] == (char) c)
-			return (&((char *)s)[i]);
-		i++;
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
 	}
+	if ((char)c == '\0')
+		return ((char *)s);
 	return (NULL);
 }
