@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/18 16:48:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/28 17:35:13 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:42:21 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void t_memchr(void)
     int counter = 1;
 	
     printf("> Testing: %s\n", __FILE__);
+
     // Test case 1: Searching for a character in a non-empty string
     char str1[] = "Hello, World!";
     int searchChar1 = 'o';
@@ -39,10 +40,10 @@ void t_memchr(void)
     assert(result3 == NULL);
 
     // Test case 4: Searching for a null character in a string
-    char str4[] = "Hello, World!\0";
+    char str4[] = "Hello, World!";
     int searchChar4 = '\0';
-    void* result4 = ft_memchr(str4, searchChar4, strlen(str4));
-    assert(result4 == (void *)0);
+    void* result4 = ft_memchr(str4, searchChar4, strlen(str4) + 1);
+    assert(result4 != NULL);
     assert(*(char*)result4 == searchChar4);
 
     // Test case 5: Searching for a character in a portion of the string
@@ -65,6 +66,8 @@ void t_memchr(void)
     void* result7 = ft_memchr(str7, searchChar7, strlen(str7));
     assert(result7 != NULL);
     assert(*(char*)result7 == searchChar7);
+
+
 	if (arraySize != 0)
         printf("\n");
     for (int i = 0; i < arraySize; i++) {
