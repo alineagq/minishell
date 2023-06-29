@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/06/29 18:18:21 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/06/29 19:25:34 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ NAME = libft.a
 FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 		ft_strlen ft_memset ft_tolower ft_toupper ft_bzero \
 		ft_calloc ft_memchr ft_memcpy ft_memmove ft_strlcpy \
-		ft_tolower ft_toupper
+		ft_tolower ft_toupper ft_strlcat
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS := ${SRCS:.c=.o}
 
