@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:26:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 16:03:34 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:12:52 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,7 @@ void t_bzero(void);
 void t_calloc(void);
 void t_memchr(void);
 void t_memcpy(void);
+void t_memmove(void);
 void t_strlcpy(void);
+
 #endif
