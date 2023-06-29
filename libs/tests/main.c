@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:44:05 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 18:18:07 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 19:32:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(void)
 	t_memcpy();
 	t_memmove();
 	t_strlcpy();
+	t_tolower();
+	t_toupper();
 	t_strchr();
 	
 	return (0);
