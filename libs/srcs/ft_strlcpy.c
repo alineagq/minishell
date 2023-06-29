@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/11 10:05:29 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/12 15:22:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:05:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,18 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t maxlen)
 	size_t	src_size;
 
 	src_size = ft_strlen(src);
-	if (src_size < maxlen)
-		ft_memcpy(dst, src, src_size + 1);
-	else if (maxlen)
+	if (maxlen > 0)
 	{
-		ft_memcpy(dst, src, maxlen);
-		dst[maxlen - 1] = '\0';
+		if (src_size >= maxlen)
+		{
+			ft_memcpy(dst, src, maxlen);
+			dst[maxlen - 1] = '\0';
+		}
+		else
+		{
+			ft_memcpy(dst, src, src_size);
+			dst[src_size] = '\0';
+		}
 	}
-	dst[maxlen] = '\0';
 	return (src_size);
 }

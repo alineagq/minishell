@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:44:05 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 15:20:43 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:03:19 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ int	main(void)
 	t_calloc();
 	t_memchr();
 	t_memcpy();
-	
+	t_strlcpy();
 	return (0);
 }

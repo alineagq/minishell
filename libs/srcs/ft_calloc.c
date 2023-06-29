@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:30:43 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/28 17:23:33 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:05:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_calloc(size_t count, size_t size)
 {
 	void	*ptr;
 
-	if (!count || !size || size > SIZE_MAX / count || size == SIZE_MAX )
+	if (!count || !size || size > SIZE_MAX / count || size == SIZE_MAX)
 		return (NULL);
 	ptr = (void *)malloc(count * size);
 	if (!ptr)
