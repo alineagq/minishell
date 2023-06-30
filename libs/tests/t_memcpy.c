@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:14:43 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 19:18:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:21:49 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,26 +47,17 @@ void t_memcpy(void)
     assert(strcmp(dest4, "Hello, Hello, ") == 0);
 
 
-    // Additional test cases...
-
-    // Print error messages if any
     if (arraySize != 0)
-    {
         printf("\n");
-        for (int i = 0; i < arraySize; i++)
-        {
-            printf("\033[0mError %d: %s\n", i + 1, stringArray[i]);
-        }
+    for (int i = 0; i < arraySize; i++) {
+        printf("\033[0mError %d: %s\n", i + 1, stringArray[i]);
     }
 
     // Free the memory allocated for the strings
-    for (int i = 0; i < arraySize; i++)
-    {
+    for (int i = 0; i < arraySize; i++) {
         free(stringArray[i]);
     }
-
     // Free the memory allocated for the array
     free(stringArray);
-
     printf("\n");
 }
