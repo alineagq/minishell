@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 23:19:53 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 15:20:37 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/30 01:41:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@
 # include <stddef.h>
 # include <stdio.h>
 # include <stdlib.h>
-# define SIZE_MAX 2147483647
+# ifndef SIZE_MAX
+#  define SIZE_MAX 2147483647
+# endif
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
