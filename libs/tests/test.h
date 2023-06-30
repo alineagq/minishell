@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:26:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/29 20:07:22 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:15:28 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ extern int result;
 	} while (0)
 # endif
 
-void	push_str(char ***array, int *size, const char *string);
+void push_str(char ***array, int *size, const char *string);
 void t_isalpha(void);
 void t_isdigit(void);
 void t_isalnum(void);
@@ -63,5 +63,6 @@ void t_toupper(void);
 void t_strlcat(void);
 void t_strchr(void);
 void t_strncmp(void);
+void t_strrchr(void);
 
 #endif
