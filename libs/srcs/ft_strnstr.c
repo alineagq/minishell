@@ -1,39 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 16:44:05 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/30 02:33:53 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/06/30 02:32:24 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/07/01 12:22:25 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
+#include "../libft.h"
 
-int	main(void)
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	t_isalpha();
-	t_isdigit();
-	t_isalnum();
-	t_isascii();
-	t_isprint();
-	t_strlen();
-	t_memset();
-	t_bzero();
-	t_calloc();
-	t_memchr();
-	t_memcpy();
-	t_memmove();
-	t_strlcpy();
-	t_tolower();
-	t_toupper();
-	t_strchr();
-	t_strlcat();
-	t_strncmp();
-	t_strrchr();
-	t_memcmp();
-	t_strnstr();
-	return (0);
+	const char	*h;
+	const char	*n;
+
+	while (*haystack && len--)
+	{
+
+		h = haystack;
+		n = needle;
+
+		while (*h && *n && *h == *n && len--)
+		{
+			h++;
+			n++;
+		}
+
+		if (*n == '\0')
+			return ((char *)haystack);
+
+		haystack++;
+		len++;
+	}
+
+	return (NULL);
 }

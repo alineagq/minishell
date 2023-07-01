@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:26:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/30 02:23:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/06/30 02:33:35 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,6 @@ void t_strchr(void);
 void t_strncmp(void);
 void t_strrchr(void);
 void t_memcmp(void);
+void t_strnstr(void);
 
 #endif
