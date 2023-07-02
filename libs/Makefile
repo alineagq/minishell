@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/07/01 22:05:01 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/07/02 11:57:16 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,9 @@ $(NAME): $(OBJS)
 test: $(NAME)
 	@$(CC) $(CFLAGS) -I tests tests/*.c -L ./ -lft -o test
 	@./test
+
+valgrind:
+	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all --quiet ./test
 
 clean:
 	@rm -f $(OBJS)
