@@ -1,40 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/28 16:44:05 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/01 12:46:15 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/07/01 12:38:18 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/07/01 12:41:09 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "test.h"
-
-int	main(void)
+int	ft_atoi(const char *str)
 {
-	t_isalpha();
-	t_isdigit();
-	t_isalnum();
-	t_isascii();
-	t_isprint();
-	t_strlen();
-	t_memset();
-	t_bzero();
-	t_calloc();
-	t_memchr();
-	t_memcpy();
-	t_memmove();
-	t_strlcpy();
-	t_tolower();
-	t_toupper();
-	t_strchr();
-	t_strlcat();
-	t_strncmp();
-	t_strrchr();
-	t_memcmp();
-	t_strnstr();
-	t_atoi();
-	return (0);
+	int	result;
+	int	signal;
+
+	result = 0;
+	signal = 1;
+	while (*str >= 9 && *str <= 32)
+		str++;
+	if (*str == '-')
+		signal = -1;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (*str >= '0' && *str <= '9')
+	{
+		result = result * 10 + *str - '0';
+		str++;
+	}
+	return ((signal * result));
 }
