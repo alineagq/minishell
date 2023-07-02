@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 20:11:13 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/28 17:09:37 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/02 10:58:13 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ void	t_bzero(void)
     memset(buffer, 'D', 10);
     ft_bzero(buffer, 15);
     for (int i = 0; i < 10; i++)
+    {
         assert(buffer[i] == 0);
+    }
+
 	if (arraySize != 0)
         printf("\n");
     for (int i = 0; i < arraySize; i++) {
