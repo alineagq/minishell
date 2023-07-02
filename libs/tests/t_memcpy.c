@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/10 19:14:43 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/30 02:21:49 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/02 11:40:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,16 @@ void t_memcpy(void)
   
 	char src4[] = "Hello, World!";
     char dest4[20];
-    ft_memcpy(dest4, src4, strlen(src4) + 1);
-    ft_memcpy(dest4 + 7, dest4, strlen(dest4) - 6);
-    assert(strcmp(dest4, "Hello, Hello, ") == 0);
+    ft_memcpy(dest4, src4, strlen("Hello, World!") + 1);
 
+    int bytes = strlen(dest4) - 6;
+    ft_memcpy(dest4 + 7, dest4, bytes);
+
+    char *expected = "Hello, Hello, ";
+    for (int i = 0; i < bytes - 1; i++)
+    {
+        assert(dest4[i] == expected[i]);
+    }
 
     if (arraySize != 0)
         printf("\n");
