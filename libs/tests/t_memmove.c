@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/12 15:59:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/06/30 02:22:06 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/02 11:41:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,22 @@ void t_memmove(void)
     ft_memmove(dest3, src3 + 7, strlen(src3) - 6);
     assert(strcmp(dest3, "World!") == 0);
 
-    // Test case 4: Moving to overlapping memory regions
-    char src4[] = "Hello, World!";
+
+    // Test case 4: Copying to overlapping memory regions
+  
+	char src4[] = "Hello, World!";
     char dest4[20];
-    ft_memmove(dest4, src4, strlen(src4) + 1);
-    ft_memmove(dest4 + 7, dest4, strlen(dest4) - 6);
-    assert(strcmp(dest4, "Hello, Hello, ") == 0);
+    ft_memmove(dest4, src4, strlen("Hello, World!") + 1);
+
+    int bytes = strlen(dest4) - 6;
+    ft_memmove(dest4 + 7, dest4, bytes);
+
+    char *expected = "Hello, Hello, ";
+    for (int i = 0; i < bytes - 1; i++)
+    {
+        assert(dest4[i] == expected[i]);
+    }
+
 
     if (arraySize != 0)
         printf("\n");
