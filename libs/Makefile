@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/07/03 14:33:44 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/07/03 14:48:10 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 		ft_calloc ft_memchr ft_memcpy ft_memmove ft_strlcpy \
 		ft_tolower ft_toupper ft_strlcat ft_strchr ft_strncmp \
 		ft_strrchr ft_memcmp ft_strnstr ft_atoi ft_strdup ft_substr \
-		ft_strjoin
+		ft_strjoin ft_strtrim
 		
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS := ${SRCS:.c=.o}
