@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/28 16:26:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/03 10:17:44 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/03 14:39:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,6 @@ void t_strnstr(void);
 void t_atoi(void);
 void t_strdup(void);
 void t_substr(void);
+void t_strjoin(void);
+
 #endif
