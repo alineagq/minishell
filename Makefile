@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
+#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/06/05 12:10:16 by aqueiroz         ###   ########.fr        #
+#    Updated: 2023/07/08 13:24:42 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,8 +52,8 @@ OBJS = $(SRCS:.c=.o)
 # FLAGS
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -L./$(LIB_PATH) -lft
+#CFLAGS = -Wall -Wextra -Werror
+LIBFLAGS = -L./$(LIB_PATH) -lft -lreadline
 
 all: $(NAME)
 
