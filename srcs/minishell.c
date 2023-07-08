@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/07/08 14:33:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:09:02 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <fcntl.h>
+
 #define TOKEN_DELIMITERS " \t\r\n\a"
 #define BUFFER_SIZE 1024
 
@@ -152,6 +153,7 @@ void execute_unset(char* args[]) {
         fprintf(stderr, "unset: %s: %s\n", name, strerror(errno));
     }
 }
+
 void execute_env() {
     extern char** environ;
     for (char** env = environ; *env != NULL; env++) {
@@ -274,13 +276,14 @@ void handle_sigint(int signum) {
     }
 }
 
+// Signal handler for Ctrl-D (EOF)
 void handle_eof(int signum) {
     if (interactive_mode) {
         write(STDOUT_FILENO, "\n", 1);
-        cleanup(); // Liberar memória e encerrar processos pendentes
+        cleanup(); // Free memory and terminate pending processes
         exit(EXIT_SUCCESS);
     } else {
-        cleanup(); // Liberar memória e encerrar processos pendentes
+        cleanup(); // Free memory and terminate pending processes
         exit(EXIT_SUCCESS);
     }
 }
@@ -299,58 +302,59 @@ int main() {
     // Set signal handlers
     signal(SIGINT, handle_sigint);
     signal(SIGQUIT, handle_sigquit);
-    signal(SIGTSTP, cleanup); // Lidar com o sinal SIGTSTP (Ctrl-Z)
-    signal(SIGCONT, cleanup); // Lidar com o sinal SIGCONT (continuar após Ctrl-Z)
-    signal(SIGTERM, cleanup); // Lidar com o sinal SIGTERM (terminação)
-    signal(SIGTTOU, cleanup); // Lidar com o sinal SIGTTOU (processo em segundo plano)
-    signal(SIGTTIN, cleanup); // Lidar com o sinal SIGTTIN (processo em segundo plano)
-    signal(SIGPIPE, cleanup); // Lidar com o sinal SIGPIPE (quebra de pipe)
-    signal(SIGCHLD, cleanup); // Lidar com o sinal SIGCHLD (processo filho encerrado)
-
+    signal(SIGTSTP, cleanup); // Handle SIGTSTP signal (Ctrl-Z)
+    signal(SIGCONT, cleanup); // Handle SIGCONT signal (continue after Ctrl-Z)
+    signal(SIGTERM, cleanup); // Handle SIGTERM signal (termination)
+    signal(SIGTTOU, cleanup); // Handle SIGTTOU signal (background process)
+    signal(SIGTTIN, cleanup); // Handle SIGTTIN signal (background process)
+    signal(SIGPIPE, cleanup); // Handle SIGPIPE signal (broken pipe)
+    signal(SIGCHLD, cleanup); // Handle SIGCHLD signal (child process terminated)
+    signal(SIGQUIT, handle_eof); // Handle EOF (Ctrl-D)
 
     // Check if running in interactive mode
     if (!isatty(STDIN_FILENO)) {
         interactive_mode = 0;
-    	signal(SIGQUIT, handle_eof); // Lidar com o caractere EOF (Ctrl-D)
     }
 
     while (1) {
         line = read_line();
-		if (line != NULL && strspn(line, " \t\r\n\a") != strlen(line)) {
-			commands = tokenize_line(line);
+        if (line != NULL && strspn(line, " \t\r\n\a") != strlen(line)) {
+            commands = tokenize_line(line);
 
-			num_commands = 0;
-			for (i = 0; commands[i] != NULL; i++) {
-				if (strcmp(commands[i], "|") == 0) {
-					num_commands++;
-					commands[i] = NULL;
-				}
-			}
-			num_commands++;
+            num_commands = 0;
+            for (i = 0; commands[i] != NULL; i++) {
+                if (strcmp(commands[i], "|") == 0) {
+                    num_commands++;
+                    commands[i] = NULL;
+                }
+            }
+            num_commands++;
 
-			char* pipeline[num_commands][BUFFER_SIZE];
-			int command_index = 0;
-			int arg_index = 0;
+            char* pipeline[num_commands][BUFFER_SIZE];
+            int command_index = 0;
+            int arg_index = 0;
 
-			for (i = 0; commands[i] != NULL; i++) {
-				if (strcmp(commands[i], "|") == 0) {
-					pipeline[command_index][arg_index] = NULL;
-					command_index++;
-					arg_index = 0;
-				} else {
-					pipeline[command_index][arg_index] = commands[i];
-					arg_index++;
-				}
-			}
-			pipeline[command_index][arg_index] = NULL;
+            for (i = 0; commands[i] != NULL; i++) {
+                if (strcmp(commands[i], "|") == 0) {
+                    pipeline[command_index][arg_index] = NULL;
+                    command_index++;
+                    arg_index = 0;
+                } else {
+                    pipeline[command_index][arg_index] = commands[i];
+                    arg_index++;
+                }
+            }
+            pipeline[command_index][arg_index] = NULL;
 
-			execute_pipeline(pipeline, num_commands);
+            execute_pipeline(pipeline, num_commands);
 
-			free(line);
-			free(commands);
-		}
-		else
-        	free(line);
+            free(line);
+            free(commands);
+        } else {
+            if (line != NULL) {
+                free(line);
+            }
+        }
     }
 
     return 0;
