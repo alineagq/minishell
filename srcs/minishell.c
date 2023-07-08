@@ -34,12 +34,6 @@ void cleanup() {
     do {
         result = waitpid(-1, NULL, WNOHANG);
     } while (result > 0 || (result == -1 && errno == EINTR));
-
-    extern char** environ;
-    for (char** env = environ; *env != NULL; env++) {
-        free(*env);
-    }
-    free(environ);
 }
 
 char* read_line() {
@@ -276,10 +270,10 @@ void handle_sigint(int signum) {
     }
 }
 
-// Signal handler for Ctrl-D (EOF)
 void handle_eof(int signum) {
-    if (interactive_mode) {
-        write(STDOUT_FILENO, "\n", 1);
+    if (!interactive_mode) {
+        write(STDOUT_FILENO, "exit\n", 5);  // Print "exit" command
+        fflush(stdout);
         cleanup(); // Free memory and terminate pending processes
         exit(EXIT_SUCCESS);
     } else {
@@ -288,28 +282,14 @@ void handle_eof(int signum) {
     }
 }
 
-// Signal handler for Ctrl-\ (SIGQUIT)
-void handle_sigquit(int signum) {
-    // Do nothing
-}
-
 int main() {
     char* line;
     char** commands;
     int num_commands;
     int i;
 
-    // Set signal handlers
     signal(SIGINT, handle_sigint);
-    signal(SIGQUIT, handle_sigquit);
-    signal(SIGTSTP, cleanup); // Handle SIGTSTP signal (Ctrl-Z)
-    signal(SIGCONT, cleanup); // Handle SIGCONT signal (continue after Ctrl-Z)
-    signal(SIGTERM, cleanup); // Handle SIGTERM signal (termination)
-    signal(SIGTTOU, cleanup); // Handle SIGTTOU signal (background process)
-    signal(SIGTTIN, cleanup); // Handle SIGTTIN signal (background process)
-    signal(SIGPIPE, cleanup); // Handle SIGPIPE signal (broken pipe)
-    signal(SIGCHLD, cleanup); // Handle SIGCHLD signal (child process terminated)
-    signal(SIGQUIT, handle_eof); // Handle EOF (Ctrl-D)
+    signal(SIGQUIT, SIG_IGN);  // Ignore SIGQUIT (Ctrl-\)
 
     // Check if running in interactive mode
     if (!isatty(STDIN_FILENO)) {
@@ -318,7 +298,15 @@ int main() {
 
     while (1) {
         line = read_line();
-        if (line != NULL && strspn(line, " \t\r\n\a") != strlen(line)) {
+        if (line == NULL) {
+            // Ctrl+D was pressed
+            printf("exit\n");  // Print "exit" command
+            fflush(stdout);
+            cleanup();  // Free memory and terminate pending processes
+            exit(EXIT_SUCCESS);
+        }
+
+        if (strspn(line, " \t\r\n\a") != strlen(line)) {
             commands = tokenize_line(line);
 
             num_commands = 0;
@@ -351,9 +339,7 @@ int main() {
             free(line);
             free(commands);
         } else {
-            if (line != NULL) {
-                free(line);
-            }
+            free(line);
         }
     }
 
