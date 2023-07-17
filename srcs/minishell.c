@@ -101,15 +101,53 @@ void execute_echo(char* args[]) {
         i = 2;
     }
 
-    for (; args[i] != NULL; i++) {
-        printf("%s", args[i]);
-        if (args[i + 1] != NULL)
-            printf(" ");
+    int total_length = 0;
+    for (int j = i; args[j] != NULL; j++) {
+        total_length += strlen(args[j]) + 1;
     }
+
+    char* result = (char*)malloc(total_length * sizeof(char));
+    if (result == NULL) {
+        printf("Memory allocation error.\n");
+        return;
+    }
+
+    int pos = 0;
+    for (int j = i; args[j] != NULL; j++) {
+        int len = strlen(args[j]);
+        char temp[len + 1];
+        int temp_pos = 0;
+
+        int in_single_quotes = 0;
+        int in_double_quotes = 0;
+
+        for (int k = 0; k < len; k++) {
+            if (args[j][k] == '\'') {
+                in_single_quotes = !in_single_quotes;
+            } else if (args[j][k] == '\"') {
+                in_double_quotes = !in_double_quotes;
+            } else {
+                temp[temp_pos++] = args[j][k];
+            }
+        }
+
+        temp[temp_pos] = '\0';
+
+        if (pos > 0) {
+            result[pos++] = ' ';
+        }
+
+        strcpy(&result[pos], temp);
+        pos += strlen(temp);
+    }
+
+    printf("%s", result);
+    free(result);
 
     if (!no_newline)
         printf("\n");
 }
+
 
 void execute_cd(char* args[]) {
     char* path = args[1];
