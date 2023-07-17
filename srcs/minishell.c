@@ -29,6 +29,8 @@
 int interactive_mode = 1;
 extern char** environ;
 
+int last_pipeline_status = 0; // Variável global para armazenar o status do pipeline mais recente
+
 void cleanup() {
     pid_t result;
     do {
@@ -42,6 +44,15 @@ char* read_line() {
         add_history(line);
     }
     return line;
+}
+
+char* expand_variable(char* command) {
+    if (strcmp(command, "$?") == 0) {
+        char* expanded = malloc(sizeof(char) * BUFFER_SIZE);
+        snprintf(expanded, BUFFER_SIZE, "%d", last_pipeline_status);
+        return expanded;
+    }
+    return command;
 }
 
 char** tokenize_line(char* line) {
@@ -72,6 +83,12 @@ char** tokenize_line(char* line) {
         token = strtok(NULL, TOKEN_DELIMITERS);
     }
     tokens[position] = NULL;
+
+    // Expandir variáveis nos tokens
+    for (int i = 0; tokens[i] != NULL; i++) {
+        tokens[i] = expand_variable(tokens[i]);
+    }
+
     return tokens;
 }
 
@@ -179,14 +196,11 @@ void execute_ls() {
     free(entries);
 }
 
-// Function to execute the built-in exit command
 void execute_exit() {
     exit(0);
 }
 
-// Function to execute a command
 void execute_command(char* command[], int input_fd, int output_fd) {
-    // Check if the command is a built-in command
     if (strcmp(command[0], "echo") == 0) {
         execute_echo(command);
         return;
@@ -226,7 +240,6 @@ void execute_command(char* command[], int input_fd, int output_fd) {
             close(output_fd);
         }
 
-        // Use execve instead of execvp
         execve(command[0], command, environ);
         perror(command[0]);
         exit(EXIT_FAILURE);
@@ -235,11 +248,10 @@ void execute_command(char* command[], int input_fd, int output_fd) {
         perror("Fork error");
     } else {
         // Parent process
-        waitpid(pid, NULL, 0);
+        waitpid(pid, &last_pipeline_status, 0); // Armazena o status de saída do pipeline filho
     }
 }
 
-// Function to execute a pipeline of commands
 void execute_pipeline(char* commands[][BUFFER_SIZE], int num_commands) {
     int input_fd = STDIN_FILENO;
     int fd[2];
@@ -260,7 +272,6 @@ void execute_pipeline(char* commands[][BUFFER_SIZE], int num_commands) {
     execute_command(commands[i], input_fd, STDOUT_FILENO);
 }
 
-// Signal handler for Ctrl-C (SIGINT)
 void handle_sigint(int signum) {
     if (interactive_mode) {
         write(STDOUT_FILENO, "\nminishell$ ", 12);
@@ -291,7 +302,6 @@ int main() {
     signal(SIGINT, handle_sigint);
     signal(SIGQUIT, SIG_IGN);  // Ignore SIGQUIT (Ctrl-\)
 
-    // Check if running in interactive mode
     if (!isatty(STDIN_FILENO)) {
         interactive_mode = 0;
     }
@@ -299,7 +309,6 @@ int main() {
     while (1) {
         line = read_line();
         if (line == NULL) {
-            // Ctrl+D was pressed
             printf("exit\n");  // Print "exit" command
             fflush(stdout);
             cleanup();  // Free memory and terminate pending processes
