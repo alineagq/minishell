@@ -2,5 +2,8 @@
     "42header.username": "fsuomins",
     "42header.email": "fsuomins@student.42sp.org.br",
     "terminal.integrated.shell.linux": "/usr/bin/zsh",
-    "editor.insertSpaces": false
+    "editor.insertSpaces": false,
+    "files.associations": {
+        "stdlib.h": "c"
+    }
 }
