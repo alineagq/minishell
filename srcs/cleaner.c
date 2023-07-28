@@ -1,32 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/28 10:29:21 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/07/28 10:25:28 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/07/28 10:27:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "../includes/minishell.h"
 
-# include "../libs/libft.h"
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <stdio.h>
-# include <signal.h>
-# include <unistd.h>
-# include <sys/wait.h>
-# include <errno.h>
-# include <fcntl.h>
+void	clean_up(void)
+{
+	pid_t	result;
 
-void	init_shell(int argc, char **argv);
-void	handler_int(int sig);
-void	set_signal(void);
-char	*read_line(void);
-void	clean_up(void);
-
-#endif
+	result = 0;
+	while ((result > 0 || result == -1) && errno == EINTR)
+	{
+		result = waitpid(-1, NULL, WNOHANG);
+	}
+}

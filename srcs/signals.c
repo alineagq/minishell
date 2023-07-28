@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 09:36:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/25 09:52:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/28 10:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handler_int(int sig)
 {
-	if	(sig == SIGINT)
+	if (sig == SIGINT)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
