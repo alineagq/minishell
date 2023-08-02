@@ -6,26 +6,29 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/07/28 12:03:24 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/02 16:46:10 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
 
-int launch_executable(char *command, char **environ) {
-    // Check if the command contains an absolutrelative path
-    if (strchr(command, '/')) {
-        // Execute using the provided path
-        return execve(command, (char *const[]){command, (char *)NULL}, environ);
-    }
+int	launch_executable(char *command, char **environ)
+{
+// Check if the command contains an absolutrelative path
+	if (strchr(command, '/'))
+// Execute using the provided path
+		return execve(command, (char *const[]){command, (char *)NULL}, environ);
 
-    // If not an absolute or relative path, search for the executable in PATH directories
-    char *path_env = getenv("PATH");
-    if (path_env == NULL) {
-        printf("Error: PATH environment variable is not set.\n");
-        return -1;
-    }
+// If not an absolute or relative path, search for the executable in PATH directories
+	char	*path_env;
+
+	path_env = getenv("PATH");
+	if (path_env == NULL)
+	{
+		printf("Error: PATH environment variable is not set.\n");
+		return (-1);
+	}
 
     char *path = strtok(path_env, ":");
     while (path != NULL) {
@@ -69,20 +72,20 @@ void handle_command(char *line, char **environ) {
     }
 }
 
-int main(int argc, char **argv, char **environ) {
-    char *line;
+int	main(int argc, char **argv, char **environ)
+{
+	char	*line;
 
-    init_shell(argc, argv);
-    set_signal();
+	init_shell(argc, argv);
+	set_signal();
 
-    while (1) {
-        line = read_line();
-        if (line == NULL) {
-            continue;
-        }
-        // Handle the command
-        handle_command(line, environ);
-        free(line);
-    }
-    return 0;
+	while (1)
+	{
+		line = read_line();
+		if (line == NULL)
+			continue ;
+		handle_command(line, environ);
+		free(line);
+	}
+	return (0);
 }
