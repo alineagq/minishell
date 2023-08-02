@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/02 19:37:48 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/02 20:32:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	g_interactive_mode = 1;
 
 
-int	launch_executable(char *command, char **environ)
+/*int	launch_executable(cha r *command, char **environ)
 {
 // Check if the command contains an absolutrelative path
 	if (strchr(command, '/'))
@@ -72,13 +72,14 @@ void handle_command(char *line, char **environ) {
     if (status == -1) {
         // Handle errors or unsupported commands
     }
-}
+} */
 
-int	main(int argc, char **argv, char **environ)
+int	main(void)
 {
-	char	*line;
+	extern char	**environ;
+	char		*line;
 
-	init_shell(argc, argv);
+	init_shell(environ);
 	if (!isatty(STDIN_FILENO))
 		g_interactive_mode = 0;
 	while (1)
@@ -86,7 +87,7 @@ int	main(int argc, char **argv, char **environ)
 		line = read_line();
 		if (line == NULL)
 			continue ;
-		handle_command(line, environ);
+		// handle_command(line, environ);
 		free(line);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/02 19:36:48 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/02 20:18:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@
 
 extern	int	g_interactive_mode;
 
+void	init_shell(char **envs);
 void	handle_eof(int signum);
 void	handler_int(int sig);
 void	set_signal(void);
 //char	**tokenize(char *input);
 void	clean_up(void);
+char	*read_line(void);
 
 #endif
