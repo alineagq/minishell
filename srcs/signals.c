@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 09:36:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/25 09:52:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/02 19:14:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	handler_int(int sig)
 {
-	if	(sig == SIGINT)
+	if (g_interactive_mode)
 	{
 		printf("\n");
 		rl_replace_line("", 0);
@@ -23,6 +23,22 @@ void	handler_int(int sig)
 	}
 	else
 		printf("\n");
+}
+
+void	handle_eof(int signum)
+{
+	if (g_interactive_mode)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		fflush(stdout);
+		clean_up();
+		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		clean_up();
+		exit(EXIT_SUCCESS);
+	}
 }
 
 void	set_signal(void)

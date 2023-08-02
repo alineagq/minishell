@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/07/25 10:57:53 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/07/25 22:36:08 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES = minishell signals
+FILES = minishell signals #tokenizers
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)

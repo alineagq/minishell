@@ -6,11 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/07/25 12:41:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/07/25 23:08:22 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	g_interactive_mode = 1;
 
 void	clean_up(void)
 {
@@ -53,6 +55,8 @@ int	main(int argc, char **argv, char **environ)
 	char	*line;
 
 	init_shell(argc, argv);
+	if (!isatty(STDIN_FILENO))
+		g_interactive_mode = 0;
 	while (1)
 	{
 		line = read_line();
