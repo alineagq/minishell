@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
+#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/06/05 12:10:16 by aqueiroz         ###   ########.fr        #
+#    Updated: 2023/08/02 20:38:05 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,7 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES = minishell
+FILES = minishell signals cleaner prompt config #tokenizers
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
@@ -52,8 +52,8 @@ OBJS = $(SRCS:.c=.o)
 # FLAGS
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
-LIBFLAGS = -L./$(LIB_PATH) -lft
+#CFLAGS = -Wall -Wextra -Werror
+LIBFLAGS = -L./$(LIB_PATH) -lft -lreadline 
 
 all: $(NAME)
 
@@ -65,8 +65,9 @@ $(NAME): LIBFT $(OBJS)
 	$(info $(purple)Project compiled. Run './$(NAME)' to start.$(reset))
 
 valgrind:
-	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all --quiet ./$(NAME)
-
+	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
+	--suppressions=readline.supp --leak-check=full \
+	--show-leak-kinds=all --quiet ./minishell
 clean:
 	@rm -f $(OBJS)
 	@$(MAKE) -C $(LIB_PATH) --silent clean

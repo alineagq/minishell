@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/07/21 21:15:43 by aqueiroz         ###   ########.fr        #
+#    Created: 2023/07/20 22:30:34 by aqueiroz          #+#    #+#              #
+#    Updated: 2023/07/21 23:00:29 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,22 +37,11 @@ _color-test:
 
 # PATHS
 
-SRC_PATH = .
-TEST_PATH = tests
-PATH_INC = ./
-
 # FILES
 
-NAME = libft.a
-FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
-		ft_strlen ft_memset ft_tolower ft_toupper ft_bzero \
-		ft_calloc ft_memchr ft_memcpy ft_memmove ft_strlcpy \
-		ft_tolower ft_toupper ft_strlcat ft_strchr ft_strncmp \
-		ft_strrchr ft_memcmp ft_strnstr ft_atoi ft_strdup ft_substr \
-		ft_strjoin ft_strtrim ft_split ft_itoa ft_strmapi ft_striteri \
-		ft_putchar_fd ft_islower ft_isupper
+NAME = test
 		
-SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
+SRCS = $(wildcard */*.c)
 OBJS := ${SRCS:.c=.o}
 
 # FLAGS
@@ -65,24 +54,20 @@ CFLAGS = -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+	@$(CC) $(CFLAGS) -I files $(OBJS) -L ../ -lft -o $@
+	@./test
 
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-test: $(NAME)
-	@$(MAKE) -s -k -C test
-
-valgrind:
-	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all --quiet ./test
+valgrind: re
+	@valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all --quiet ./$(NAME)
 
 clean:
 	@rm -f $(OBJS)
-	@$(MAKE) -s -k -C test clean
 
 fclean: clean
 	@rm -f $(NAME)
-	@$(MAKE) -s -k -C test fclean
 
 re: fclean all
 
