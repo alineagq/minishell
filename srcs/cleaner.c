@@ -1,48 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   cleaner.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/25 09:36:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/02 19:35:01 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/07/28 10:25:28 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/07/28 10:27:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	handler_int(int sig)
+void	clean_up(void)
 {
-	if (g_interactive_mode)
-	{
-		printf("\n");
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else
-		printf("\n");
-}
+	pid_t	result;
 
-void	handle_eof(int signum)
-{
-	if (g_interactive_mode)
+	result = 0;
+	while ((result > 0 || result == -1) && errno == EINTR)
 	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		fflush(stdout);
-		clean_up();
-		exit(EXIT_SUCCESS);
+		result = waitpid(-1, NULL, WNOHANG);
 	}
-	else
-	{
-		clean_up();
-		exit(EXIT_SUCCESS);
-	}
-}
-
-void	set_signal(void)
-{
-	signal(SIGINT, &handler_int);
-	signal(SIGQUIT, SIG_IGN);
 }
