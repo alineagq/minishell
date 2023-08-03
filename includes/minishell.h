@@ -6,10 +6,9 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/02 20:18:26 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/03 10:15:02 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -24,7 +23,11 @@
 # include <errno.h>
 # include <fcntl.h>
 
-extern	int	g_interactive_mode;
+typedef struct s_config
+{
+	char	**env;
+	int		interactive_mode;
+}t_config;
 
 void	init_shell(char **envs);
 void	handle_eof(int signum);
