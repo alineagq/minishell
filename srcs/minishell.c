@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/03 10:13:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:18:13 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	main(void)
 	t_config	*config;
 
 	config = get_data();
-
 	config->env = environ;
 	config->interactive_mode = 1;
 

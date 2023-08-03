@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/25 09:36:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/03 10:16:43 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:12:16 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	handler_int(int sig)
 {
 	t_config	*config;
 
+	config = get_data();
 	if (config->interactive_mode)
 	{
 		write(STDOUT_FILENO, "\n", 1);
@@ -30,6 +31,8 @@ void	handler_int(int sig)
 void	handle_eof(int signum)
 {
 	t_config	*config;
+
+	config = get_data();
 
 	if (config->interactive_mode)
 	{

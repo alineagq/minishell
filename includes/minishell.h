@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/03 10:15:02 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/03 11:21:12 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,13 @@ typedef struct s_config
 	int		interactive_mode;
 }t_config;
 
-void	init_shell(char **envs);
-void	handle_eof(int signum);
-void	handler_int(int sig);
-void	set_signal(void);
+void		init_shell(char **envs);
+void		handle_eof(int signum);
+void		handler_int(int sig);
+void		set_signal(void);
 //char	**tokenize(char *input);
-void	clean_up(void);
-char	*read_line(void);
+void		clean_up(void);
+char		*read_line(void);
+t_config	*get_data(void);
 
 #endif
