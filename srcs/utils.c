@@ -1,26 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.c                                           :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 10:28:57 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/04 10:24:24 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/03 20:03:05 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/03 20:10:06 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	init_shell(void)
+size_t	ft_strspn(const char *s, const char *accept)
 {
-	extern char	**environ;
-	t_config	*config;
+	const char	*a;
+	size_t		count;
 
-	config = get_data();
-	config->env = environ;
-	config->interactive_mode = 1;
-	if (!isatty(STDIN_FILENO))
-		config->interactive_mode = 0;
-	set_signal();
+	count = 0;
+	while (*s)
+	{
+		a = accept;
+		while (*a)
+		{
+			if (*s == *a)
+			{
+				count++;
+				break ;
+			}
+			a++;
+		}
+		if (!*a)
+			break ;
+		s++;
+	}
+	return (count);
 }

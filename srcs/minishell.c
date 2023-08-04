@@ -6,11 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/03 11:18:13 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/04 10:04:02 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
 /*int	launch_executable(cha r *command, char **environ)
 {
 // Check if the command contains an absolutrelative path
@@ -79,17 +80,11 @@ t_config	*get_data(void)
 
 int	main(void)
 {
-	extern char	**environ;
 	char		*line;
 	t_config	*config;
 
 	config = get_data();
-	config->env = environ;
-	config->interactive_mode = 1;
-
-	init_shell(environ);
-	if (!isatty(STDIN_FILENO))
-		config->interactive_mode = 0;
+	init_shell();
 	while (1)
 	{
 		line = read_line();
