@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   config.c                                           :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 10:28:57 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/02 20:17:48 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/06 10:53:24 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	init_shell(char **envs)
+void	init(void)
 {
-	int	i;
+	t_config	*data;
 
-	i = 0;
-	while (envs[i])
-		printf("%s\n", envs[i++]);
+	data = get_data();
 	set_signal();
+	data->interactive_mode = 1;
+	if (data->state == INIT)
+		data->state = PROMPT;
+}
+
+t_config	*get_data(void)
+{
+	static t_config	data;
+
+	return (&data);
 }
