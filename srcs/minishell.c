@@ -6,90 +6,69 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/04 10:04:02 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/04 20:24:29 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-/*int	launch_executable(cha r *command, char **environ)
-{
-// Check if the command contains an absolutrelative path
-	if (strchr(command, '/'))
-// Execute using the provided path
-		return execve(command, (char *const[]){command, (char *)NULL}, environ);
+#define BUFFER_SIZE 64
+#define TOKEN_DELIMITERS " \t\r\n\a"
+#define CMD_LIST "env exit echo ls pwd export cd unset |"
 
-// If not an absolute or relative path, search for the executable in PATH directories
-	char	*path_env;
+char** tokenize_line(char* line) {
+    int buffer_size = BUFFER_SIZE;
+    int position = 0;
+    char** tokens = malloc(buffer_size * sizeof(char*));
+    char* token;
 
-	path_env = getenv("PATH");
-	if (path_env == NULL)
-	{
-		printf("Error: PATH environment variable is not set.\n");
-		return (-1);
-	}
-
-    char *path = strtok(path_env, ":");
-    while (path != NULL) {
-        char *executable = (char *)malloc(strlen(path) + strlen(command) + 2); // +2 for '/' and '\0'
-        if (executable == NULL) {
-            printf("Error: Memory allocation failed.\n");
-            return -1;
-        }
-        sprintf(executable, "%s/%s", path, command);
-        execve(executable, (char *const[]){executable, (char *)NULL}, environ);
-        free(executable);
-        path = strtok(NULL, ":");
+    if (!tokens) {
+        fprintf(stderr, "Allocation error\n");
+        exit(EXIT_FAILURE);
     }
 
-    // If the command is not found in any of the PATH directories, print an error
-    printf("Command not found: %s\n", command);
-    return -1;
+    token = strtok(line, TOKEN_DELIMITERS);
+    while (token != NULL) {
+        tokens[position] = token;
+        position++;
+
+        if (position >= buffer_size) {
+            buffer_size += BUFFER_SIZE;
+            tokens = realloc(tokens, buffer_size * sizeof(char*));
+            if (!tokens) {
+                fprintf(stderr, "Allocation error\n");
+                exit(EXIT_FAILURE);
+            }
+        }
+
+        token = strtok(NULL, TOKEN_DELIMITERS);
+    }
+    tokens[position] = NULL;
+
+    return tokens;
 }
 
-void handle_command(char *line, char **environ) {
-    // Tokenize the line to get the command and arguments
-    char *token = strtok(line, " \t\n");
-    if (token == NULL) {
-        // Empty line or only spaces
-        return;
+void print_tokens(char** tokens) {
+    for (int i = 0; tokens[i] != NULL; i++) {
+        printf("%s\n", tokens[i]);
     }
-
-    // Check if it's a built-in command
-    if (strcmp(token, "exit") == 0) {
-        // Handle "exit" command
-        write(1, "exit\n", 5);
-        clean_up();
-        exit(EXIT_SUCCESS);
-    }
-    // Add other built-in commands here
-
-    // Launch the executable based on the user input
-    int status = launch_executable(token, environ);
-    if (status == -1) {
-        // Handle errors or unsupported commands
-    }
-} */
-
-t_config	*get_data(void)
-{
-	static t_config	data;
-
-	return (&data);
 }
 
 int	main(void)
 {
 	char		*line;
 	t_config	*config;
+	char		**tokens;
 
-	config = get_data();
 	init_shell();
+	config = get_data();
 	while (1)
 	{
 		line = read_line();
 		if (line == NULL)
 			continue ;
+		tokens = tokenize_line(line);
+		print_tokens(tokens);
 		free(line);
 	}
 	return (0);
