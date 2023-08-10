@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/08 20:28:40 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/09 23:59:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_config
 	char	*parse;
 	int		interactive_mode;
 	int		state;
+	char 	**raw_tokens;
 }	t_config;
 
 // UTILS
@@ -54,6 +55,10 @@ void		prompt(void);
 char		*add_spaces(char *input);
 int			is_delimiter(char c);
 void		parse(void);
+int			is_quote(char c);
+char		**split_string_by_space(char *str);
 
-
+//
+void print_char_array(char **arr);
+void free_char_array(char **arr);
 #endif

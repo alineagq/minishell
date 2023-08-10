@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/06 14:58:47 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/09 23:49:13 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,8 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES = minishell init/signals init/init prompt/prompt parse/parse parse/spaces
+FILES = minishell init/signals init/init prompt/prompt parse/parse parse/spaces \
+		parse/split_string
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
