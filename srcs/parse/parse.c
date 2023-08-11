@@ -6,17 +6,20 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/11 11:12:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:27:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void cleanup() {
+void cleanup()
+{
     pid_t result;
-    do {
+    do
+	{
         result = waitpid(-1, NULL, WNOHANG);
-    } while (result > 0 || (result == -1 && errno == EINTR));
+    }
+	while (result > 0 || (result == -1 && errno == EINTR));
 }
 /**
  * Checks if there are open quotes in the program data string.
@@ -110,9 +113,9 @@ void	parse(void)
 			data->parse = add_spaces(data->str);
 			data->raw_tokens = split_string_by_space(data->parse);
 			data->tokens = create_tokens_list(data->raw_tokens);
-			list->argv;
-			list->cmd;
-			list->next;
+			list->cmd = data->raw_tokens[0];
+			list->argv = data->parse;
+			list->next = NULL;
 			print_char_array(data->raw_tokens);
 			cleanup();
 			// printf("%s\n", data->parse);
