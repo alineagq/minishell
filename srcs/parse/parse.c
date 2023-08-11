@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/11 11:27:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:31:53 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,14 @@
 
 void cleanup()
 {
-    pid_t result;
-    do
-	{
+    pid_t result = 0;
+    
+    while (result > 0 || (result == -1 && errno == EINTR))
+    {
         result = waitpid(-1, NULL, WNOHANG);
     }
-	while (result > 0 || (result == -1 && errno == EINTR));
 }
+
 /**
  * Checks if there are open quotes in the program data string.
  * 
