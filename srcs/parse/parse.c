@@ -6,11 +6,18 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/10 00:01:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:12:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void cleanup() {
+    pid_t result;
+    do {
+        result = waitpid(-1, NULL, WNOHANG);
+    } while (result > 0 || (result == -1 && errno == EINTR));
+}
 /**
  * Checks if there are open quotes in the program data string.
  * 
@@ -91,6 +98,7 @@ static int	is_only_space(char *str)
 void	parse(void)
 {
 	t_config	*data;
+	t_list		*list;
 
 	data = get_data();
 	if (data->str)
@@ -101,11 +109,14 @@ void	parse(void)
 		{
 			data->parse = add_spaces(data->str);
 			data->raw_tokens = split_string_by_space(data->parse);
-			// data-> t_list **tokens = create_tokens_list(char **raw_tokens)
-			// typedef struct t_list *next, char *cmd, char **args;
+			data->tokens = create_tokens_list(data->raw_tokens);
+			list->argv;
+			list->cmd;
+			list->next;
 			print_char_array(data->raw_tokens);
-			free_char_array(data->raw_tokens);
+			cleanup();
 			// printf("%s\n", data->parse);
+			free_char_array(data->raw_tokens);
 			free(data->parse);
 			free(data->str);
 		}

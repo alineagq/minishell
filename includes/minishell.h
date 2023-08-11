@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/09 23:59:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 10:52:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,19 @@ typedef struct s_config
 	char	**env;
 	char	*str;
 	char	*parse;
+	char 	**raw_tokens;
 	int		interactive_mode;
 	int		state;
-	char 	**raw_tokens;
+	t_list	*tokens;
+
 }	t_config;
+
+typedef struct s_list 
+{
+    char	*cmd;
+	char	**argv;
+    t_list	*next;
+}t_list;
 
 // UTILS
 t_config	*get_data(void);
