@@ -6,11 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/09 17:39:50 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/12 19:29:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 /**
  * Sets the program into interactive mode and reads a line from the user.
  * 
@@ -25,8 +26,7 @@ void	prompt(void)
 	t_config	*data;
 
 	data = get_data();
-	data->interactive_mode = 1;
-	data->str = read_line();
+	data->prompt = read_line();
 	data->state = PARSE;
 }
 

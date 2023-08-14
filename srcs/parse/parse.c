@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/11 11:31:53 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/13 22:44:55 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,23 @@ void cleanup()
  * 
  * @return 1 if there are open quotes in the string, 0 otherwise.
  */
-static int	check_for_open_quotes(void)
+static int	check_for_open_quotes(t_config *data)
 {
-	t_config	*data;
 	int			i;
 	int			quote_state;
 
-	data = get_data();
 	i = 0;
 	quote_state = 0;
-	while (i < strlen(data->str) - 1)
+	while (i < strlen(data->prompt) - 1)
 	{
-		if (data->str[i] == '\'' && quote_state != 2)
+		if (data->prompt[i] == '\'' && quote_state != 2)
 		{
 			if (quote_state == 1)
 				quote_state = 0;
 			else
 				quote_state = 1;
 		}
-		else if (data->str[i] == '\"' && quote_state != 1)
+		else if (data->prompt[i] == '\"' && quote_state != 1)
 		{
 			if (quote_state == 2)
 				quote_state = 0;
@@ -102,28 +100,27 @@ static int	is_only_space(char *str)
 void	parse(void)
 {
 	t_config	*data;
-	t_list		*list;
 
 	data = get_data();
-	if (data->str)
+	if (data->prompt)
 	{
-		if (check_for_open_quotes())
-			printf("Check for open quotes.");
-		if (!is_only_space(data->str))
+		if (check_for_open_quotes(data))
+			printf("Check for open quotes.\n");
+		else if (!is_only_space(data->prompt))
 		{
-			data->parse = add_spaces(data->str);
+			data->parse = add_spaces(data->prompt);
 			data->raw_tokens = split_string_by_space(data->parse);
-			data->tokens = create_tokens_list(data->raw_tokens);
-			list->cmd = data->raw_tokens[0];
-			list->argv = data->parse;
-			list->next = NULL;
-			print_char_array(data->raw_tokens);
-			cleanup();
-			// printf("%s\n", data->parse);
+			data->tokens = create_tokens_cmd(data->raw_tokens);
+			// print_t_cmd(data->tokens);
 			free_char_array(data->raw_tokens);
 			free(data->parse);
-			free(data->str);
 		}
+		// Freed just before the end of the function instead.
+		free(data->prompt); 
+		data->prompt = NULL; // This line might not be needed depending on context.
 	}
-	data->state = PROMPT;
+	if (data->state == PARSE)
+		data->state = EXECUTE;
+	// printf("%d\n", data->state);
 }
+
