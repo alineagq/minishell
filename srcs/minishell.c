@@ -6,12 +6,19 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/13 21:17:15 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 23:25:25 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+/**
+ * Checks the validity of command line arguments.
+ * Exits with status 1 if the argument count is not 1.
+ * 
+ * @param argc The argument count.
+ * @param argv The array of command line arguments.
+ */
 static	void	is_valid(int argc, char **argv)
 {
 	(void)argv;
@@ -20,23 +27,12 @@ static	void	is_valid(int argc, char **argv)
 }
 
 /**
- * Main function of the program.
+ * Entry point of the program.
+ * Manages the execution flow based on the state of the data.
  * 
- * This function initializes the program state and then enters into an infinite
- * loop. Within the loop, it checks the current state of the program and calls
- * the appropriate function based on that state.
- * 
- * The states and their associated functions are as follows:
- * - INIT: Calls the init function.
- * - PROMPT: Calls the prompt function.
- * - PARSE: Calls the parse function.
- * 
- * The state is initially set to INIT and is expected to be updated within the
- * called functions.
- * 
- * @return 0 under normal operation. The infinite loop is expected to be broken
- * by external means such as a signal. If the loop is broken, the function 
- * returns 0.
+ * @param argc The argument count.
+ * @param argv The array of command line arguments.
+ * @return Returns 0 to indicate successful program execution.
  */
 int	main(int argc, char **argv)
 {
@@ -48,18 +44,15 @@ int	main(int argc, char **argv)
 	while (1)
 	{
 		if (data->state == INIT)
-			init(); 
+			init();
 		if (data->state == PROMPT)
 			prompt();
 		if (data->state == PARSE)
 			parse();
-		if (data->state == EXECUTE)
-			execute();
+		// if (data->state == EXECUTE)
+		// 	execute();
 		if (data->state == EXIT)
-		{
-			free(data->env);
-			exit(data->exit_code);
-		}
+			exit_program();
 	}
 	return (0);
 }

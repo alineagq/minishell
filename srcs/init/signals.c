@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/12 19:13:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:13:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	handle_eof(int signum)
 	t_config	*config;
 
 	config = get_data();
-
 	if (config->state == PROMPT)
 		write(STDOUT_FILENO, "exit\n", 5);
 	config->state = EXIT;

@@ -6,21 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/13 22:44:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 21:38:37 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-void cleanup()
-{
-    pid_t result = 0;
-    
-    while (result > 0 || (result == -1 && errno == EINTR))
-    {
-        result = waitpid(-1, NULL, WNOHANG);
-    }
-}
 
 /**
  * Checks if there are open quotes in the program data string.
@@ -111,16 +101,10 @@ void	parse(void)
 			data->parse = add_spaces(data->prompt);
 			data->raw_tokens = split_string_by_space(data->parse);
 			data->tokens = create_tokens_cmd(data->raw_tokens);
-			// print_t_cmd(data->tokens);
-			free_char_array(data->raw_tokens);
-			free(data->parse);
 		}
-		// Freed just before the end of the function instead.
-		free(data->prompt); 
-		data->prompt = NULL; // This line might not be needed depending on context.
 	}
 	if (data->state == PARSE)
-		data->state = EXECUTE;
-	// printf("%d\n", data->state);
+		data->state = PROMPT;
+	clear_data(data);
 }
 

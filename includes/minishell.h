@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/13 22:40:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 23:56:46 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define EXIT 		5
 # define FREE	 	6
 
-typedef struct s_cmd 
+typedef struct s_cmd
 {
 	char			*cmd;
 	char			*argv;
@@ -47,19 +47,47 @@ typedef struct s_config
 	int		exit_code;
 	int		state;
 	t_cmd	*tokens;
-}t_config;
+}	t_config;
 
 // UTILS
+/**
+ * Retrieves a pointer to the static configuration data structure.
+ * This function returns a pointer to a statically allocated `t_config`
+ * structure,
+ * which is used to store program configuration and state information.
+ * 
+ * @return A pointer to the `t_config` data structure.
+ */
 t_config	*get_data(void);
+/**
+ * Free a dynamically allocated array of strings, including the strings
+ * themselves.
+ *
+ * This function releases the memory used by an array of strings, where
+ * each string is individually allocated, and then frees the memory of
+ * the array itself.
+ *
+ * @param arr A pointer to an array of strings to be freed. The array
+ * is terminated by a NULL pointer.
+ */
+void		free_char_array(char **arr);
+void		free_cmd_list(t_cmd *head);
+void		clear_data(t_config	*data);
 
 // INIT
+
+/**
+ * Initialize configuration data and environment variables.
+ * This function sets up signal handling, creates a copy of the
+ * environment variables, and updates the configuration
+ * state to PROMPT.
+ */
 void		init(void);
 void		set_signal(void);
 void		handler_int(int sig);
 void		handle_eof(int signum);
 
 // PROMPT
-char		*read_line(void);
 void		prompt(void);
 
 
@@ -71,15 +99,17 @@ int			is_quote(char c);
 char		**split_string_by_space(char *str);
 
 // TOKENS
-void		print_t_cmd(t_cmd *list);
-void		free_t_cmd(t_cmd *list);
 t_cmd		*create_tokens_cmd(char **raw_tokens);
 int			str_is_command(char *str);
+void		free_t_cmd(t_cmd *list);
 
 // EXECUTE
-void		execute(void);
+// void		execute(void);
 
-//
-void	print_char_array(char **arr);
-void	free_char_array(char **arr);
+// EXIT
+void		exit_program(void);
+
+// PRINTS
+void		print_char_array(char **arr);
+
 #endif

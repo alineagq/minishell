@@ -6,11 +6,50 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/12 19:29:51 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 17:39:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/**
+ * Read a line of input from the user, process it, and update the shell's
+ * state.
+ *
+ * This function reads a line of input from the user, displays a prompt,
+ * and stores the entered line in a dynamically allocated string. If the
+ * input is empty (just Enter), the allocated memory is freed. If the input
+ * is the "exit" command, the function sets the shell's exit code and state
+ * accordingly. The entered line can also be added tothe shell's history.
+ *
+ * @param data A pointer to the shell's configuration data.
+ * @return A dynamically allocated string containing the user's input, or
+ * NULL if input is empty.
+ *         The caller is responsible for freeing the returned string.
+ */
+static char	*read_line(t_config *data)
+{
+	char	*str;
+
+	str = readline("minishell$ ");
+	if (str == NULL)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		data->exit_code = 0;
+		data->state = EXIT;
+	}
+	else
+	{
+		if (*str != '\0')
+		{
+			add_history(str);
+			return (str);
+		}
+		else
+			free(str);
+	}
+	return (NULL);
+}
 
 /**
  * Sets the program into interactive mode and reads a line from the user.
@@ -26,39 +65,7 @@ void	prompt(void)
 	t_config	*data;
 
 	data = get_data();
-	data->prompt = read_line();
-	data->state = PARSE;
+	data->prompt = read_line(data);
+	if (data->state == PROMPT)
+		data->state = PARSE;
 }
-
-/**
- * Reads a line from the user with the prompt "minishell$ ".
- * 
- * This function uses the readline function to read a line from the user with the prompt "minishell$ ".
- * If the line read is null, it writes "exit\n" and exits the program. If the line read is not empty,
- * it adds the line to the readline history. If the line read is empty, it frees the memory allocated
- * for the line and sets the line to null.
- * 
- * This function does not take any arguments.
- * 
- * @return The line read from the user, or null if the line was empty.
- */
-char	*read_line(void)
-{
-	char	*str;
-
-	str = readline("minishell$ ");
-	if (str == NULL)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(EXIT_SUCCESS);
-	}
-	if (*str)
-		add_history(str);
-	else
-	{
-		free(str);
-		str = NULL;
-	}
-	return (str);
-}
-

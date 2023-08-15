@@ -6,108 +6,102 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:15:27 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/12 18:33:45 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/14 23:56:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_t_cmd(t_cmd *list)
+static t_cmd	*create_cmd(const char *cmd_str)
 {
+	t_cmd	*cmd;
+
+	cmd = (t_cmd *)malloc(sizeof(t_cmd));
+	if (!cmd)
+		perror("malloc");
+	else
+	{
+		cmd->cmd = ft_strdup(cmd_str);
+		cmd->argv = NULL;
+		cmd->next = NULL;
+	}
+	return (cmd);
+}
+
+static char	*cmd_argv_join(const char *arg1, const char *arg2)
+{
+	char	*joined;
+	char	*new_arg;
+
+	if (!arg1)
+		return (ft_strdup(arg2));
+	joined = ft_strjoin(arg1, " ");
+	if (!joined)
+		return (NULL);
+	new_arg = ft_strjoin(joined, arg2);
+	free(joined);
+	return (new_arg);
+}
+
+static int	process_args(t_cmd *cmd, char **raw_tokens, int *index)
+{
+	char	*new_temp_arg;
+	char	*new_arg;
+	int		i;
+
+	new_arg = NULL;
+	i = *index + 1;
+	while (raw_tokens[i] && !str_is_command(raw_tokens[i]))
+	{
+		new_arg = cmd_argv_join(cmd->argv, raw_tokens[i]);
+		if (!new_arg)
+			return (0);
+		free(cmd->argv);
+		cmd->argv = new_arg;
+		new_temp_arg = cmd_argv_join(cmd->argv, raw_tokens[i]);
+		if (!new_temp_arg)
+			return (0);
+		free(cmd->argv);
+		cmd->argv = new_temp_arg;
+		i++;
+	}
+	*index = i;
+	return (1);
+}
+
+static t_cmd	*link_cmds(t_cmd *self, t_cmd *previous, t_cmd *temp)
+{
+	if (!self)
+		self = temp;
+	else
+		previous->next = temp;
+	return (self);
+}
+
+
+t_cmd	*create_tokens_cmd(char **raw_tokens)
+{
+	t_cmd	*self;
+	t_cmd	*previous;
 	t_cmd	*temp;
+	int		i;
 
-	while (list)
+	if (!raw_tokens || !raw_tokens[0])
+		return (NULL);
+	self = NULL;
+	previous = NULL;
+	i = 0;
+	while (raw_tokens[i])
 	{
-		temp = list;
-		list = list->next;
-		free(temp->cmd);
-		free(temp->argv);
-		free(temp);
+		temp = create_cmd(raw_tokens[i]);
+		if (!temp || (raw_tokens[i + 1] && !process_args(temp, raw_tokens, &i)))
+		{
+			free_t_cmd(self);
+			return (NULL);
+		}
+		self = link_cmds(self, previous, temp);
+		previous = temp;
+		i++;
 	}
+	return (self);
 }
-
-void	print_t_cmd(t_cmd *list)
-{
-	while (list)
-	{
-		printf("Command:%s\n", list->cmd);
-		printf("Arguments:%s\n", list->argv);
-		list = list->next;
-	}
-}
-
-int str_is_command(char *str)
-{
-  return (strcmp(str, "|") == 0 || strcmp(str, ";") == 0 || strcmp(str, "<") == 0
-          || strcmp(str, ">") == 0 || strcmp(str, "<<") == 0 || strcmp(str, ">>") == 0);
-}
-
-
-t_cmd *create_tokens_cmd(char **raw_tokens)
-{
-    int i = 0;
-    t_cmd *self = NULL;
-    t_cmd *temp = NULL;
-    t_cmd *previous = NULL;
-	char *new_arg = NULL;
-
-    if (!raw_tokens || !raw_tokens[0])
-        return NULL;
-
-    while (raw_tokens[i])
-    {
-        temp = (t_cmd *)malloc(sizeof(t_cmd));
-        if (!temp)
-        {
-            perror("malloc");
-            free_t_cmd(self); // Free any previously allocated memory
-            return NULL;
-        }
-        temp->cmd = ft_strdup(raw_tokens[i]);
-        temp->argv = NULL;
-
-        if (raw_tokens[i + 1] && !str_is_command(raw_tokens[i + 1]))
-        {
-            i++;
-            while (raw_tokens[i] && !str_is_command(raw_tokens[i]))
-            {
-				if (temp->argv == NULL)
-					new_arg = ft_strjoin(temp->argv, "");
-				else
-					new_arg = ft_strjoin(temp->argv, " ");
-                if (!new_arg)
-                {
-                    perror("malloc");
-                    free_t_cmd(self); // Free any previously allocated memory
-                    return NULL;
-                }
-                free(temp->argv);
-                temp->argv = new_arg;
-
-                char *new_temp_arg = ft_strjoin(temp->argv, raw_tokens[i]);
-                if (!new_temp_arg)
-                {
-                    perror("malloc");
-                    free_t_cmd(self); // Free any previously allocated memory
-                    return NULL;
-                }
-                free(temp->argv);
-                temp->argv = new_temp_arg;
-
-                i++;
-            }
-        }
-
-        temp->next = NULL;
-        if (self == NULL)
-            self = temp;
-        else
-            previous->next = temp;
-
-        previous = temp;
-        i++;
-    }
-
-    return self;
-}
-
