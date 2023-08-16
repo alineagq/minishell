@@ -1,24 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleaner.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 10:25:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/07/28 10:27:26 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/14 23:24:22 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/14 23:56:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void	clean_up(void)
+int	str_is_command(char *str)
 {
-	pid_t	result;
+	return (strcmp(str, "|") == 0 || strcmp(str, ";") == 0 || \
+		strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || \
+		strcmp(str, "<<") == 0 || strcmp(str, ">>") == 0);
+}
 
-	result = 0;
-	while ((result > 0 || result == -1) && errno == EINTR)
+void	free_t_cmd(t_cmd *list)
+{
+	t_cmd	*temp;
+
+	while (list)
 	{
-		result = waitpid(-1, NULL, WNOHANG);
+		temp = list;
+		list = list->next;
+		free(temp->cmd);
+		free(temp->argv);
+		free(temp);
 	}
 }

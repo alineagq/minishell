@@ -5,90 +5,54 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/05 09:32:18 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/02 20:32:00 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/14 23:25:25 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	g_interactive_mode = 1;
-
-
-/*int	launch_executable(cha r *command, char **environ)
+/**
+ * Checks the validity of command line arguments.
+ * Exits with status 1 if the argument count is not 1.
+ * 
+ * @param argc The argument count.
+ * @param argv The array of command line arguments.
+ */
+static	void	is_valid(int argc, char **argv)
 {
-// Check if the command contains an absolutrelative path
-	if (strchr(command, '/'))
-// Execute using the provided path
-		return execve(command, (char *const[]){command, (char *)NULL}, environ);
-
-// If not an absolute or relative path, search for the executable in PATH directories
-	char	*path_env;
-
-	path_env = getenv("PATH");
-	if (path_env == NULL)
-	{
-		printf("Error: PATH environment variable is not set.\n");
-		return (-1);
-	}
-
-    char *path = strtok(path_env, ":");
-    while (path != NULL) {
-        char *executable = (char *)malloc(strlen(path) + strlen(command) + 2); // +2 for '/' and '\0'
-        if (executable == NULL) {
-            printf("Error: Memory allocation failed.\n");
-            return -1;
-        }
-        sprintf(executable, "%s/%s", path, command);
-        execve(executable, (char *const[]){executable, (char *)NULL}, environ);
-        free(executable);
-        path = strtok(NULL, ":");
-    }
-
-    // If the command is not found in any of the PATH directories, print an error
-    printf("Command not found: %s\n", command);
-    return -1;
+	(void)argv;
+	if (argc != 1)
+		return (exit(1));
 }
 
-void handle_command(char *line, char **environ) {
-    // Tokenize the line to get the command and arguments
-    char *token = strtok(line, " \t\n");
-    if (token == NULL) {
-        // Empty line or only spaces
-        return;
-    }
-
-    // Check if it's a built-in command
-    if (strcmp(token, "exit") == 0) {
-        // Handle "exit" command
-        write(1, "exit\n", 5);
-        clean_up();
-        exit(EXIT_SUCCESS);
-    }
-    // Add other built-in commands here
-
-    // Launch the executable based on the user input
-    int status = launch_executable(token, environ);
-    if (status == -1) {
-        // Handle errors or unsupported commands
-    }
-} */
-
-int	main(void)
+/**
+ * Entry point of the program.
+ * Manages the execution flow based on the state of the data.
+ * 
+ * @param argc The argument count.
+ * @param argv The array of command line arguments.
+ * @return Returns 0 to indicate successful program execution.
+ */
+int	main(int argc, char **argv)
 {
-	extern char	**environ;
-	char		*line;
+	t_config	*data;	
 
-	init_shell(environ);
-	if (!isatty(STDIN_FILENO))
-		g_interactive_mode = 0;
+	is_valid(argc, argv);
+	data = get_data();
+	data->state = INIT;
 	while (1)
 	{
-		line = read_line();
-		if (line == NULL)
-			continue ;
-		// handle_command(line, environ);
-		free(line);
+		if (data->state == INIT)
+			init();
+		if (data->state == PROMPT)
+			prompt();
+		if (data->state == PARSE)
+			parse();
+		// if (data->state == EXECUTE)
+		// 	execute();
+		if (data->state == EXIT)
+			exit_program();
 	}
 	return (0);
 }

@@ -33,6 +33,15 @@
    ...
 }
 {
+   <Readline>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   fun:xmalloc
+   fun:readline_internal_teardown
+   ...
+}
+{
    <AddHistory>
    Memcheck:Leak
    match-leak-kinds: reachable

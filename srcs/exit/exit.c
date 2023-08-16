@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prompt.c                                           :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/28 10:27:06 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/02 20:45:09 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/16 16:28:48 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-char	*read_line(void)
+void cleanup()
 {
-	char	*str;
+    pid_t result = 0;
+    
+    while (result > 0 || (result == -1 && errno == EINTR))
+    {
+        result = waitpid(-1, NULL, WNOHANG);
+    }
+}
 
-	str = readline("minishell$ ");
-	if (str == NULL)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		clean_up();
-		exit(EXIT_SUCCESS);
-	}
-	if (*str)
-		add_history(str);
-	else
-	{
-		free(str);
-		str = NULL;
-	}
-	return (str);
+void	exit_program(void)
+{
+	t_config	*data;
+
+	data = get_data();
+	clear_data(data);
+	exit(data->exit_code);
 }
