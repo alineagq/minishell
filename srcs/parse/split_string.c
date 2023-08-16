@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:44:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 23:25:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/16 16:32:22 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ char	**split_string_by_space(char *str)
 	size_t	token_count;
 
 	token_count = count_tokens(str);
-	result = ft_calloc(token_count + 1, sizeof(char *));
+	result = ft_calloc(token_count + 2, sizeof(char *));
 	if (result == NULL)
 	{
 		perror("ft_calloc");
