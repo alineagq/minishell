@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 21:38:37 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/16 23:32:04 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,19 +92,22 @@ void	parse(void)
 	t_config	*data;
 
 	data = get_data();
-	if (data->prompt)
+	if (check_for_open_quotes(data))
+		printf("Check for open quotes.\n");
+	else if (!is_only_space(data->prompt))
 	{
-		if (check_for_open_quotes(data))
-			printf("Check for open quotes.\n");
-		else if (!is_only_space(data->prompt))
-		{
-			data->parse = add_spaces(data->prompt);
-			data->raw_tokens = split_string_by_space(data->parse);
-			data->tokens = create_tokens_cmd(data->raw_tokens);
-		}
+		data->parse = add_spaces(data->prompt);
+		// printf("Prompt:%s\n", data->prompt);
+		// printf("Parsed:%s\n", data->parse);
+		data->raw_tokens = split_string_by_space(data->parse);
+		// printf("Raw[%d]:%s\n", 0, data->raw_tokens[0]);
+		// printf("Raw[%d]:%s\n", 1, data->raw_tokens[1]);
+		data->tokens = create_tokens_cmd(data->raw_tokens);
+		// printf("Comand:%s\n", data->tokens->cmd);
+		// printf("Args:%s\n", data->tokens->argv);
 	}
 	if (data->state == PARSE)
-		data->state = PROMPT;
+		data->state = EXECUTE;
 	clear_data(data);
 }
 

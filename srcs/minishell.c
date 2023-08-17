@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 23:25:25 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:27:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	main(int argc, char **argv)
 			prompt();
 		if (data->state == PARSE)
 			parse();
-		// if (data->state == EXECUTE)
-		// 	execute();
+		if (data->state == EXECUTE)
+			execute();
 		if (data->state == EXIT)
 			exit_program();
 	}

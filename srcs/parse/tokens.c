@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 15:15:27 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 23:56:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/16 23:24:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,37 +58,32 @@ static int	process_args(t_cmd *cmd, char **raw_tokens, int *index)
 			return (0);
 		free(cmd->argv);
 		cmd->argv = new_arg;
-		new_temp_arg = cmd_argv_join(cmd->argv, raw_tokens[i]);
-		if (!new_temp_arg)
-			return (0);
-		free(cmd->argv);
-		cmd->argv = new_temp_arg;
 		i++;
 	}
 	*index = i;
 	return (1);
 }
 
-static t_cmd	*link_cmds(t_cmd *self, t_cmd *previous, t_cmd *temp)
+static t_cmd	*link_cmds(t_cmd *head, t_cmd *previous, t_cmd *temp)
 {
-	if (!self)
-		self = temp;
+	if (!head)
+		head = temp;
 	else
 		previous->next = temp;
-	return (self);
+	return (head);
 }
 
 
 t_cmd	*create_tokens_cmd(char **raw_tokens)
 {
-	t_cmd	*self;
+	t_cmd	*head;
 	t_cmd	*previous;
 	t_cmd	*temp;
 	int		i;
 
 	if (!raw_tokens || !raw_tokens[0])
 		return (NULL);
-	self = NULL;
+	head = NULL;
 	previous = NULL;
 	i = 0;
 	while (raw_tokens[i])
@@ -96,12 +91,12 @@ t_cmd	*create_tokens_cmd(char **raw_tokens)
 		temp = create_cmd(raw_tokens[i]);
 		if (!temp || (raw_tokens[i + 1] && !process_args(temp, raw_tokens, &i)))
 		{
-			free_t_cmd(self);
+			free_t_cmd(head);
 			return (NULL);
 		}
-		self = link_cmds(self, previous, temp);
+		head = link_cmds(head, previous, temp);
 		previous = temp;
 		i++;
 	}
-	return (self);
+	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 23:56:46 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 00:37:54 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,9 @@ typedef struct s_config
 	int		exit_code;
 	int		state;
 	t_cmd	*tokens;
+	pid_t	*child_pids;
+	int		pipe[2];
+	int		num_child_pids;
 }	t_config;
 
 // UTILS
@@ -104,7 +107,7 @@ int			str_is_command(char *str);
 void		free_t_cmd(t_cmd *list);
 
 // EXECUTE
-// void		execute(void);
+void		execute(void);
 
 // EXIT
 void		exit_program(void);

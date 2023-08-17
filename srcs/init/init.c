@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 21:12:29 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/16 17:43:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static char	**copy_env(char **env)
 		}
 		i++;
 	}
-	env_copy[n_envs] = NULL;
+	env_copy[i] = NULL;
 	return (env_copy);
 }
 
