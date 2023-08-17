@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/14 23:25:03 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/17 15:47:35 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ FILES += parse/parse parse/spaces parse/split_string parse/tokens \
 		 parse/utils
 FILES += execute/execute
 FILES += exit/exit
-FILES += utils/utils
+FILES += utils/utils utils/envs utils/exit utils/prints
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)

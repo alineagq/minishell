@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 01:36:57 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 14:21:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,6 @@ void	parse(void)
 	}
 	clear_data(data);
 	if (data->state == PARSE)
-		data->state = EXECUTE;
+		data->state = PROMPT;
 }
 

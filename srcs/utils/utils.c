@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 01:44:31 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:08:16 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ void	free_char_array(char **arr)
 		return ;
 	i = 0;
 	while (arr[i])
-		free(arr[i++]);
+	{
+		free(arr[i]);
+		i++;
+	}
 	free(arr);
 }
 
@@ -65,17 +68,16 @@ void free_raw_tokens(t_config *config)
     }
 }
 
-void	free_env(t_config *data)
+void free_env(t_env_list *head)
 {
-	int	i;
-
-	i = 0;
-	if (data->env != NULL)
-	{
-		while (data->env[i] != NULL)
-			free(data->env[i++]);
-		free(data->env);
-	}
+    t_env_list *current = head;
+    while (current != NULL) {
+        t_env_list *temp = current;
+        current = current->next;
+        free(temp->key);
+        free(temp->value);
+        free(temp);
+    }
 }
 
 void free_parse(t_config *config)
@@ -115,6 +117,8 @@ void	clear_tokens(t_config *data)
 
 void	clear_data(t_config	*data)
 {
+	int preserve_fds[] = {STDIN_FILENO, STDOUT_FILENO, STDERR_FILENO, -1};
+
 	if (data->state == PARSE || data->state == EXIT)
 		free_prompt(data);
 		free_parse(data);
@@ -124,5 +128,6 @@ void	clear_data(t_config	*data)
 		clear_tokens(data);
 	}
 	if (data->state == EXIT)
-		free_env(data);
+		free_env(data->env);
+	close_inherited_fds(preserve_fds);
 }

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 03:17:45 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:24:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,45 +38,42 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
+typedef struct env_list
+{
+	char			*key;
+	char			*value;
+	struct env_list	*next;
+}	t_env_list;
+
 typedef struct s_config
 {
-	char	**env;
-	char	*prompt;
-	char	*parse;
-	char	**raw_tokens;
-	int		exit_code;
-	int		state;
-	t_cmd	*tokens;
-	pid_t	*child_pids;
-	int		pipe[2];
-	int		fd[2];
-	int		num_child_pids;
+	t_env_list	*env;
+	char		*prompt;
+	char		*parse;
+	char		**raw_tokens;
+	int			exit_code;
+	int			state;
+	t_cmd		*tokens;
+	pid_t		*child_pids;
+	int			pipe[2];
+	int			fd[2];
+	int			num_child_pids;
 }	t_config;
 
 // UTILS
-/**
- * Retrieves a pointer to the static configuration data structure.
- * This function returns a pointer to a statically allocated `t_config`
- * structure,
- * which is used to store program configuration and state information.
- * 
- * @return A pointer to the `t_config` data structure.
- */
 t_config	*get_data(void);
-/**
- * Free a dynamically allocated array of strings, including the strings
- * themselves.
- *
- * This function releases the memory used by an array of strings, where
- * each string is individually allocated, and then frees the memory of
- * the array itself.
- *
- * @param arr A pointer to an array of strings to be freed. The array
- * is terminated by a NULL pointer.
- */
 void		free_char_array(char **arr);
 void		free_cmd_list(t_cmd *head);
 void		clear_data(t_config	*data);
+char		*get_env_value(char *env, char **envp);
+void		set_env(t_config *data, char *env, char *value);
+int			count_env(char **env);
+t_env_list	*create_env_list(char **env);
+void		add_env(char *var, char *value, t_config *data);
+t_env_list	*create_env_list(char **env);
+void		print_env_list(t_env_list *head);
+char		*get_value_env(t_env_list *head, const char *key);
+void update_or_insert_value(t_env_list **head, const char *key, const char *new_value);
 
 // INIT
 
@@ -117,5 +114,6 @@ void		exit_program(void);
 // PRINTS
 void		print_char_array(char **arr);
 void print_structs(t_config *config);
+void close_inherited_fds(int preserve_fds[]);
 
 #endif
