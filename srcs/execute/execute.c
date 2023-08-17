@@ -6,105 +6,89 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 00:50:00 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 03:24:44 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 #define MAX_CHILD_PIDS 100
-void execute_cmd_list(t_config *data)
+
+static void	execute_pipeline(t_config *config)
 {
-    pid_t pid;
-    char **args;
-    int status;
-    t_cmd *current_token = data->tokens;
-    char *path;
-    char *path_env;
-    char *token;
-    char *full_path;
+	t_cmd	*cmd;
+	int		i;
+	int		fd[2];
+	char	**args;
+	char	*path_env;
+	char	*token;
+	char	*full_path;
 
-    while (current_token != NULL)
-    {
-		pid_t pid = fork();
-		if (pid < 0)
-        {
-            perror("fork");
-            exit(EXIT_FAILURE);
-        }
-		else if (pid == 0) {
-			// if (input_fd != STDIN_FILENO) {
-			// 	dup2(input_fd, STDIN_FILENO);
-			// 	close(input_fd);
-			// }
-
-			// if (output_fd != STDOUT_FILENO) {
-			// 	dup2(output_fd, STDOUT_FILENO);
-			// 	close(output_fd);
-			// }
+	cmd = config->tokens;
+	while (cmd != NULL)
+	{
+		pipe(fd);
+		config->child_pids[config->num_child_pids] = fork();
+		if (config->child_pids[config->num_child_pids] == 0)
+		{
+			if (cmd == config->tokens)
+				dup2(fd[1], STDOUT_FILENO);
+			else
+			{
+				dup2(config->fd[0], STDIN_FILENO);
+				dup2(fd[1], STDOUT_FILENO);
+			}
+			close(fd[0]);
+			close(fd[1]);
 			path_env = getenv("PATH");
-            token = strtok(path_env, ":");
-            while (token != NULL)
-            {
-                full_path = ft_strjoin(token, "/");
-                full_path = ft_strjoin(full_path, current_token->cmd);
-                if (access(full_path, X_OK) == 0)
-                {
-                    args = malloc(sizeof(char *) * 3);
-                    args[0] = current_token->cmd;
-                    args[1] = current_token->argv;
-                    args[2] = NULL;
-                    execve(full_path, args, data->env);
-                    break;
-                }
-                token = strtok(NULL, ":");
-            }
-            if (token == NULL)
-            {
-                printf("command not found\n");
-                exit(EXIT_FAILURE);
-            }
-			perror(current_token->cmd);
-			exit(EXIT_FAILURE);
-		} else {
-			waitpid(pid, &data->exit_code, 0);
+			token = strtok(path_env, ":");
+			while (token != NULL)
+			{
+				full_path = ft_strjoin(token, "/");
+				full_path = ft_strjoin(full_path, cmd->cmd);
+				if (access(full_path, X_OK) == 0)
+				{
+					args = malloc(sizeof(char *) * 3);
+					args[0] = cmd->cmd;
+					args[1] = cmd->argv;
+					args[2] = NULL;
+					execve(cmd->cmd, args, config->env);
+					exit(127);
+				}
+				free(full_path);
+				token = strtok(NULL, ":");
+			}
+			if (token == NULL)
+			{
+				write(STDERR_FILENO, cmd->cmd, strlen(cmd->cmd));
+				write(STDERR_FILENO, ": command not found\n", 21);
+				exit(127);
+			}
 		}
-        current_token = current_token->next;
-    }
+		else if (config->child_pids[config->num_child_pids] < 0)
+			perror("Fork error");
+		else
+		{
+			close(fd[1]);
+			if (cmd != config->tokens)
+				close(config->fd[0]);
+			config->fd[0] = fd[0];
+			config->num_child_pids++;
+		}
+		cmd = cmd->next;
+	}
+	cleanup();
 }
 
-void close_fds(pid_t *child_pids, int num_pids)
+void	execute(void)
 {
-    for (int i = 0; i < num_pids; i++)
-    {
-        close(child_pids[i]);
-    }
-}
+	t_config	*data;
 
-void kill_child_pids(pid_t *child_pids, int num_pids)
-{
-    for (int i = 0; i < num_pids; i++)
-    {
-        kill(child_pids[i], SIGKILL);
-    }
-}
-
-void execute(void)
-{
-    t_config *data;
-
-    data = get_data();
-    data->child_pids = malloc(sizeof(pid_t) * MAX_CHILD_PIDS);
-    data->num_child_pids = 0;
-    execute_cmd_list(data);
-    if (data->state == EXECUTE)
-        data->state = PROMPT;
-
-    // Close open file descriptors
-    close_fds(data->child_pids, data->num_child_pids);
-
-    // Kill child processes
-    kill_child_pids(data->child_pids, data->num_child_pids);
-
-    clear_data(data);
+	data = get_data();
+	data->child_pids = malloc(sizeof(pid_t) * MAX_CHILD_PIDS);
+	data->num_child_pids = 0;
+	execute_pipeline(data);
+	clear_data(data);
+	if (data->state == EXECUTE)
+		data->state = PROMPT;
 }

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/15 00:04:48 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 01:44:31 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,21 @@ void	free_char_array(char **arr)
 	while (arr[i])
 		free(arr[i++]);
 	free(arr);
+}
+
+void free_raw_tokens(t_config *config)
+{
+    int i;
+
+    if (config->raw_tokens != NULL)
+    {
+        for (i = 0; config->raw_tokens[i] != NULL; i++)
+        {
+            free(config->raw_tokens[i]);
+        }
+        free(config->raw_tokens);
+        config->raw_tokens = NULL;
+    }
 }
 
 void	free_env(t_config *data)
@@ -100,16 +115,13 @@ void	clear_tokens(t_config *data)
 
 void	clear_data(t_config	*data)
 {
-	if (data->state == PROMPT || data->state == EXIT)
-	{
-		if (data->tokens != NULL)
-			clear_tokens(data);
-	}
 	if (data->state == PARSE || data->state == EXIT)
-	{
 		free_prompt(data);
 		free_parse(data);
-		free_char_array(data->raw_tokens);
+		free_raw_tokens(data);
+	if (data->state == EXECUTE || data->state == EXIT)
+	{
+		clear_tokens(data);
 	}
 	if (data->state == EXIT)
 		free_env(data);

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/16 23:32:04 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 01:36:57 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ void	parse(void)
 		// printf("Comand:%s\n", data->tokens->cmd);
 		// printf("Args:%s\n", data->tokens->argv);
 	}
+	clear_data(data);
 	if (data->state == PARSE)
 		data->state = EXECUTE;
-	clear_data(data);
 }
 

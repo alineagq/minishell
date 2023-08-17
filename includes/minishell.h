@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 00:37:54 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 03:17:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_config
 	t_cmd	*tokens;
 	pid_t	*child_pids;
 	int		pipe[2];
+	int		fd[2];
 	int		num_child_pids;
 }	t_config;
 
@@ -89,6 +90,7 @@ void		init(void);
 void		set_signal(void);
 void		handler_int(int sig);
 void		handle_eof(int signum);
+void cleanup();
 
 // PROMPT
 void		prompt(void);
@@ -114,5 +116,6 @@ void		exit_program(void);
 
 // PRINTS
 void		print_char_array(char **arr);
+void print_structs(t_config *config);
 
 #endif
