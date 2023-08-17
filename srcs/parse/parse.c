@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/11 11:31:53 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:35:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void cleanup()
+void	cleanup()
 {
     pid_t result = 0;
     
@@ -87,7 +87,6 @@ static int	is_only_space(char *str)
 	return (1);
 }
 
-
 /**
  * Parses the program data string.
  * 
@@ -119,7 +118,7 @@ void	parse(void)
 			list->next = NULL;
 			print_char_array(data->raw_tokens);
 			cleanup();
-			// printf("%s\n", data->parse);
+// printf("%s\n", data->parse);
 			free_char_array(data->raw_tokens);
 			free(data->parse);
 			free(data->str);

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/11 10:52:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/11 11:35:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ typedef struct s_config
 	char	**env;
 	char	*str;
 	char	*parse;
-	char 	**raw_tokens;
+	char	**raw_tokens;
 	int		interactive_mode;
 	int		state;
 	t_list	*tokens;
 
 }	t_config;
 
-typedef struct s_list 
+typedef struct s_list
 {
-    char	*cmd;
+	char	*cmd;
 	char	**argv;
-    t_list	*next;
+	t_list	*next;
 }t_list;
 
 // UTILS
@@ -68,6 +68,6 @@ int			is_quote(char c);
 char		**split_string_by_space(char *str);
 
 //
-void print_char_array(char **arr);
-void free_char_array(char **arr);
+void		print_char_array(char **arr);
+void		free_char_array(char **arr);
 #endif
