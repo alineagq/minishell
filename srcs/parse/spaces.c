@@ -6,101 +6,148 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:45:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/14 21:58:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:14:36 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/**
- * Checks if a character is a delimiter.
- * 
- * This function takes a character as input and checks if it is a delimiter.
- * Delimiters include '|', '>', and '<'.
- * 
- * @param c The character to check.
- * 
- * @return 1 if the character is a delimiter, 0 otherwise.
- */
-int	is_delimiter(char c)
+int			is_delimiter(char c)
 {
-	return (c == '|' || c == '>' || c == '<');
+	return (c == '>' || c == '<' || c == '|');
 }
 
-/**
- * Checks if a character is a whitespace character.
- *
- * @param c The character to be checked.
- * @return 1 if the character is a whitespace character (space, tab,
- * newline, carriage return, form feed, vertical tab), 0 otherwise.
- */
-int	is_whitespace(char c)
+static int	need_space_before(char *buffer, int op_index, char operator)
 {
-	return (c == ' ' || c == '\t' || c == '\n' || c == '\r' \
-	|| c == '\f' || c == '\v');
-}
+	int	flag;
 
-/**
- * Checks if a space needs to be added before a character at a given
- * index in the input string.
- *
- * @param i     The index of the character being checked.
- * @param input The input string to analyze.
- * @return 1 if a space is needed before the character, 0 otherwise.
- */
-static int	check_if_need_space(size_t i, char *input)
-{
-	return (i != 0 && is_delimiter(input[i]) && (input[i] != input[i - 1]) \
-	&& !is_whitespace(input[i - 1]));
-}
-
-/**
- * Checks if a space needs to be added between two adjacent characters
- * at a given index and the next index in the input string.
- *
- * @param i     The index of the first character being checked.
- * @param len   The length of the input string.
- * @param input The input string to analyze.
- * @return 1 if a space is needed between the characters, 0 otherwise.
- */
-static int	check_spaces_double_token(size_t i, size_t len, char *input)
-{
-	return (i != len - 1 && is_delimiter(input[i]) && input[i] != input[i + 1]);
-}
-
-/**
- * Adds spaces to the input string based on specified conditions.
- *
- * @param input The input string to which spaces will be added.
- * @return A new dynamically allocated string with added spaces, or NULL
- * if memory allocation fails. The caller is responsible for freeing the
- * memory allocated for the returned string.
- */
-char	*add_spaces(char *input)
-{
-	size_t	len;
-	size_t	size;
-	char	*result;
-	size_t	i;
-
-	len = strlen(input);
-	size = 0;
-	i = 0;
-	result = (char *)malloc(sizeof(char) * (len * 2 + 1));
-	if (!result)
+	flag = 0;
+	if (op_index == 0)
+		return (0);
+	op_index--;
+	while (op_index)
 	{
-		perror("Memory allocation failed");
-		return (NULL);
+		if (buffer[op_index] == operator)
+		{
+			if (flag)
+				return (1);
+			flag++;
+		}
+		if (flag && buffer[op_index - 1] != operator)
+			return (0);
+		else if (buffer[op_index] != ' ')
+			return (1);
+		else if (buffer[op_index] == ' ')
+			return (0);
+		op_index--;
 	}
-	while (i < len)
+	return (0);
+}
+
+static int	need_space_after(char *buffer, int op_index, char operator)
+{
+	int	flag;
+
+	flag = 0;
+	op_index++;
+	while (op_index)
 	{
-		if (check_if_need_space(i, input))
-			result[size++] = ' ';
-		result[size++] = input[i];
-		if (check_spaces_double_token(i, len, input))
-			result[size++] = ' ';
+		if (buffer[op_index] == operator)
+		{
+			if (flag == 2)
+				return (1);
+			flag++;
+		}
+		if (flag && buffer[op_index + 1] != operator)
+			return (0);
+		else if (buffer[op_index] != ' ' && buffer[op_index] != 0)
+			return (1);
+		else if (buffer[op_index] == ' ' || buffer[op_index] == 0)
+			return (0);
+		op_index++;
+	}
+	return (0);
+}
+
+/*
+** Creates a new string, adding [space] after given index;
+*/
+static char	*add_space_before_index(char *buffer, int index)
+{
+	char	*ret;
+	int		i;
+	int		j;
+
+	i = 0;
+	j = 0;
+	ret = malloc (sizeof (char) * (ft_strlen(buffer) + 2));
+	while (buffer[i])
+	{
+		if (i == index)
+		{
+			ret[j] = ' ';
+			j++;
+		}
+		ret[j] = buffer[i];
+		i++;
+		j++;
+	}
+	ret[j] = 0;
+	return (ret);
+}
+
+static char	*recursively_does_black_magic(char *buffer, int i, t_config *ms)
+{
+	char	*temp;
+
+	if (need_space_before(buffer, i, buffer[i]))
+	{
+		temp = add_space_before_index(buffer, i);
+		buffer = safe_free(buffer);
+		buffer = temp;
+		temp = NULL;
+		ms->set_buffer_to_null = 1;
+		return (add_spaces(buffer, ms));
+	}
+	if (need_space_after(buffer, i, buffer[i]))
+	{
+		temp = add_space_before_index(buffer, i + 1);
+		buffer = safe_free(buffer);
+		buffer = temp;
+		temp = NULL;
+		ms->set_buffer_to_null = 1;
+		return (add_spaces(buffer, ms));
+	}
+	return (buffer);
+}
+
+/*
+** Creates an allocated string, inserting spaces if before or after '<', '>',
+** '<<', '>>' ou '|', there are no spaces; Does not deals with ||. It spaces it;
+*/
+char	*add_spaces(char *buffer, t_config *ms)
+{
+	int		i;
+	int		sin_quote;
+	int		dou_quote;
+
+	i = 0;
+	sin_quote = 0;
+	dou_quote = 0;
+	while (buffer[i])
+	{
+		if (buffer[i] == '\'' && (dou_quote % 2 == 0))
+			sin_quote++;
+		if (buffer[i] == '\"' && (sin_quote % 2 == 0))
+			dou_quote++;
+		if ((dou_quote % 2) || (sin_quote % 2))
+		{
+			i++;
+			continue ;
+		}
+		if (is_delimiter(buffer[i]))
+			buffer = recursively_does_black_magic(buffer, i, ms);
 		i++;
 	}
-	result[size] = '\0';
-	return (result);
+	return (buffer);
 }

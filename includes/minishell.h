@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 17:24:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 18:22:21 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@
 # define EXIT 		5
 # define FREE	 	6
 
+typedef struct s_split_shell
+{
+	char	*string;
+	char	*temp;
+	int		words;
+	int		i;
+	int		split_number;
+	char	delimiter;
+	int		sz;
+}	t_split_shell;
 typedef struct s_cmd
 {
 	char			*cmd;
@@ -47,6 +57,7 @@ typedef struct env_list
 
 typedef struct s_config
 {
+	int			set_buffer_to_null;
 	t_env_list	*env;
 	char		*prompt;
 	char		*parse;
@@ -94,8 +105,9 @@ void		prompt(void);
 
 
 // PARSE
-char		*add_spaces(char *input);
+void	*safe_free(void *content);
 int			is_delimiter(char c);
+char		*add_spaces(char *buffer, t_config *ms);
 void		parse(void);
 int			is_quote(char c);
 char		**split_string_by_space(char *str);

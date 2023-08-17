@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 17:29:59 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/17 17:31:38 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,5 @@ void	prompt(void)
 	data = get_data();
 	data->prompt = read_line(data);
 	if (data->state == PROMPT && data->prompt != NULL)
-		data->state = PROMPT;
+		data->state = PARSE;
 }
