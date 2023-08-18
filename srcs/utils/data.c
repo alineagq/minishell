@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 23:24:22 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 13:52:16 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/18 11:49:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	str_is_command(char *str)
+t_config	*get_data(void)
 {
-	return (strcmp(str, "|") == 0 || strcmp(str, ";") == 0 || \
-		strcmp(str, "<") == 0 || strcmp(str, ">") == 0 || \
-		strcmp(str, "<<") == 0 || strcmp(str, ">>") == 0);
+	static t_config	data;
+
+	return (&data);
 }
 
-void	free_t_cmd(t_cmd *list)
+void	clear_data(t_config	*data)
 {
-	t_cmd	*temp;
-
-	while (list)
-	{
-		temp = list;
-		list = list->next;
-		free(temp->cmd);
-		if (temp->argv)
-			free(temp->argv);
-		free(temp);
-	}
+	if (data->state == EXIT)
+		clear_env(data);
+	close_inherited_fds();
 }

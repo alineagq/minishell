@@ -6,20 +6,21 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 14:01:49 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 08:39:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void cleanup()
+void	cleanup(void)
 {
-    pid_t result = 0;
-    
-    while (result > 0 || (result == -1 && errno == EINTR))
-    {
-        result = waitpid(-1, NULL, WNOHANG);
-    }
+	pid_t	result;
+
+	result = 0;
+	while (result > 0 || (result == -1 && errno == EINTR))
+	{
+		result = waitpid(-1, NULL, WNOHANG);
+	}
 }
 
 void	exit_program(void)

@@ -6,16 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:45:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 18:14:36 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 10:01:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int			is_delimiter(char c)
-{
-	return (c == '>' || c == '<' || c == '|');
-}
 
 static int	need_space_before(char *buffer, int op_index, char operator)
 {
@@ -69,9 +64,6 @@ static int	need_space_after(char *buffer, int op_index, char operator)
 	return (0);
 }
 
-/*
-** Creates a new string, adding [space] after given index;
-*/
 static char	*add_space_before_index(char *buffer, int index)
 {
 	char	*ret;
@@ -121,10 +113,6 @@ static char	*recursively_does_black_magic(char *buffer, int i, t_config *ms)
 	return (buffer);
 }
 
-/*
-** Creates an allocated string, inserting spaces if before or after '<', '>',
-** '<<', '>>' ou '|', there are no spaces; Does not deals with ||. It spaces it;
-*/
 char	*add_spaces(char *buffer, t_config *ms)
 {
 	int		i;
