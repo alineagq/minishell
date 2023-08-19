@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:32:20 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:20:59 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ void		add_node(t_env_list **head, t_env_list **cur, t_env_list *new);
 t_env_list	*create_node(const char *key, const char *value);
 void		update_value(t_env_list *node, const char *new_value);
 void		insert_node(t_env_list **head, t_env_list *prev, t_env_list *new);
+char		*get_env_value(t_env_list *head, char *targetKey);
 
 void		close_inherited_fds(void);
 
@@ -136,8 +137,12 @@ int			token_is_operator(char *value);
 int			token_is_redirect(char *value);
 int			token_is_word(t_tokens *temp);
 int			token_is_command(t_tokens *temp);
+int			check_for_non_print(char *value);
 
 int			is_delimiter(char c);
 void		count_words(t_split_shell *this);
+
+char		*find_variable(char	*str);
+int			is_variable(char c);
 
 #endif

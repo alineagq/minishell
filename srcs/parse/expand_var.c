@@ -6,32 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:09:35 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:19:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static char	*get_var_value(char *name, t_env_list *env)
-{
-	size_t	len;
-	char	*str;
-	char	*var_value;
-
-	var_value = NULL;
-	len = 0;
-	while (env)
-	{
-		str = env->key;
-		if (vars_match(str, name))
-		{
-			var_value = env->value;
-			break ;
-		}
-		env = env->next;
-	}
-	return (var_value);
-}
 
 static char	*update_token(t_config *data, char *var_name, char *var_head)
 {
@@ -41,7 +20,7 @@ static char	*update_token(t_config *data, char *var_name, char *var_head)
 	void	*temp;
 
 	temp = data->tokens->value;
-	value = get_var_value(var_name, data->env);
+	value = get_env_value(data->env, var_name);
 	if (!value)
 		part1 = ft_strdup(data->tokens->value);
 	else
@@ -57,8 +36,7 @@ static void	if_variable(char *var_head, t_config *data)
 {
 	char	*var_name;
 
-	var_name = get_var_name(var_head);
-	*var_head = '\0';
+	var_name = get_env_value(data->env, var_head);
 	data->tokens->value = update_token(data, var_name, var_head);
 	free(var_name);
 }

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 15:45:47 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 10:16:51 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:13:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,18 @@ void	insert_node(t_env_list **head, t_env_list *prev, t_env_list *new)
 		new->next = prev->next;
 		prev->next = new;
 	}
+}
+
+char	*get_env_value(t_env_list *head, char *targetKey)
+{
+	t_env_list	*current;
+
+	current = head;
+	while (current != NULL)
+	{
+		if (strcmp(current->key, targetKey) == 0)
+			return (current->value);
+		current = current->next;
+	}
+	return (NULL);
 }
