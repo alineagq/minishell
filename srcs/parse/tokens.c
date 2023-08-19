@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:44:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 16:18:22 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 01:16:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,37 @@ void	create_tokens(t_config *data)
 			}
 		}
 		data->tokens = self;
+	}
+}
+
+static int	set_tok_indexes(t_tokens *tokens)
+{
+	t_tokens	*temp;
+	int			i;
+
+	temp = tokens;
+	i = 0;
+	while (temp)
+	{
+		temp->index = i;
+		i++;
+		temp = temp->next;
+	}
+	return (i);
+}
+
+void	categorize_tokens(t_tokens *tokens)
+{
+	t_tokens	*temp;
+
+	temp = tokens;
+	set_tok_indexes(tokens);
+	while (temp)
+	{
+		temp->type = get_token_type(temp);
+		if (temp->type == REDTOKEN || temp->type == OPTOKEN)
+			if (token_is_error(temp))
+				temp->type = ERRTOKEN;
+		temp = temp->next;
 	}
 }

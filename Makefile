@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/18 15:02:58 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/19 01:33:51 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,13 @@ FILES  = minishell
 FILES += init/signals init/init
 FILES += prompt/prompt
 FILES += parse/parse parse/spaces parse/split_string \
-	parse/expand_exit parse/tokens
+	parse/expand_exit parse/tokens parse/expand_var \
+	parse/quotes
 FILES += execute/execute
 FILES += env/envs
 FILES += exit/exit
-FILES += utils/envs utils/exit utils/free utils/data utils/utils
+FILES += utils/envs utils/exit utils/free utils/data utils/utils \
+	utils/tokens utils/types
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 16:00:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 01:32:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@
 # define EXIT 		5
 # define FREE	 	6
 
+# define ERRTOKEN		-1
+# define COMTOKEN		0
+# define BITOKEN		1
+# define WORDTOKEN		2
+# define OPTOKEN		3
+# define REDTOKEN		4
+# define FDTOKEN		5
+
 typedef struct s_tokens
 {
 	char			*value;
@@ -39,6 +47,7 @@ typedef struct s_tokens
 	struct s_tokens	*next;
 	struct s_tokens	*prev;
 }				t_tokens;
+
 typedef struct env_list
 {
 	char			*key;
@@ -85,6 +94,9 @@ void		iterate_through_quotes(t_split_shell *this);
 char		**ft_split_shell(char *str, char delimiter);
 void		create_tokens(t_config *data);
 void		expand_exit_code(t_config *data);
+void		expand_variables(t_config *data);
+void		categorize_tokens(t_tokens *tokens);
+void		remove_quotes_from_tokens(t_tokens *tokens);
 
 
 // EXECUTE
@@ -110,10 +122,20 @@ void		insert_node(t_env_list **head, t_env_list *prev, t_env_list *new);
 
 void		close_inherited_fds(void);
 
-void free_tokens(t_tokens *tokens);
+void		free_tokens(t_tokens *tokens);
 void		free_char_array(char **arr);
 void		clear_env(t_config *data);
 void		*safe_free(void *content);
+
+int			get_token_type(t_tokens *temp);
+int			token_is_error(t_tokens *temp);
+int			token_is_fd(t_tokens *temp);
+
+int			token_is_builtin(char *value);
+int			token_is_operator(char *value);
+int			token_is_redirect(char *value);
+int			token_is_word(t_tokens *temp);
+int			token_is_command(t_tokens *temp);
 
 int			is_delimiter(char c);
 void		count_words(t_split_shell *this);

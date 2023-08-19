@@ -71,6 +71,7 @@ void	parse(void)
 		data->raw_tokens = ft_split_shell(data->parse, ' ');
 		create_tokens(data);
 		expand_exit_code(data);
+		expand_variables(data);
 	}
 	clear_data(data);
 	if (data->state == PARSE)
