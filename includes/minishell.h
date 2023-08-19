@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 11:49:15 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:00:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@
 # define EXIT 		5
 # define FREE	 	6
 
+typedef struct s_tokens
+{
+	char			*value;
+	int				type;
+	int				index;
+	struct s_tokens	*next;
+	struct s_tokens	*prev;
+}				t_tokens;
 typedef struct env_list
 {
 	char			*key;
@@ -58,6 +66,7 @@ typedef struct s_config
 	char		**raw_tokens;
 	int			exit_code;
 	int			state;
+	t_tokens	*tokens;
 }	t_config;
 
 // INIT
@@ -74,6 +83,8 @@ void		parse(void);
 char		*add_spaces(char *buffer, t_config *ms);
 void		iterate_through_quotes(t_split_shell *this);
 char		**ft_split_shell(char *str, char delimiter);
+void		create_tokens(t_config *data);
+void		expand_exit_code(t_config *data);
 
 
 // EXECUTE
@@ -99,6 +110,7 @@ void		insert_node(t_env_list **head, t_env_list *prev, t_env_list *new);
 
 void		close_inherited_fds(void);
 
+void free_tokens(t_tokens *tokens);
 void		free_char_array(char **arr);
 void		clear_env(t_config *data);
 void		*safe_free(void *content);

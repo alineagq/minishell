@@ -6,11 +6,24 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 08:22:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 11:48:24 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 16:12:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void	free_tokens(t_tokens *tokens)
+{
+	t_tokens	*temp;
+
+	while (tokens)
+	{
+		temp = tokens;
+		tokens = tokens->next;
+		free(temp->value);
+		free(temp);
+	}
+}
 
 void	free_char_array(char **arr)
 {

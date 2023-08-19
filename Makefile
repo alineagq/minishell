@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/18 10:13:54 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/18 15:02:58 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ PATH_INC = includes
 FILES  = minishell
 FILES += init/signals init/init
 FILES += prompt/prompt
-FILES += parse/parse parse/spaces parse/split_string
+FILES += parse/parse parse/spaces parse/split_string \
+	parse/expand_exit parse/tokens
 FILES += execute/execute
 FILES += env/envs
 FILES += exit/exit

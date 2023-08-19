@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 13:31:05 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 14:52:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,17 +68,9 @@ void	parse(void)
 	else if (!is_only_space(data->prompt))
 	{
 		data->parse = add_spaces(data->prompt, data);
-		if (data->set_buffer_to_null)
-			data->prompt = NULL;
 		data->raw_tokens = ft_split_shell(data->parse, ' ');
-		while (data->raw_tokens[i])
-		{
-			free(data->raw_tokens[i]);
-			i++;
-		}
-		free(data->raw_tokens);
-		data->raw_tokens = NULL;
-		free(data->parse);
+		create_tokens(data);
+		expand_exit_code(data);
 	}
 	clear_data(data);
 	if (data->state == PARSE)
