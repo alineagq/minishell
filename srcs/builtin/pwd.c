@@ -1,45 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars.c                                             :+:      :+:    :+:   */
+/*   builtin_pwd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:42:36 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/17 19:45:04 by coder             #+#    #+#             */
+/*   Updated: 2023/08/18 23:35:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*find_variable(char	*str)
+/*
+** Uses getcwd to check for current working directory even is the env PWD is
+** unset. Just like bash' pwd command.
+*/
+int	builtin_pwd(char **args, char **envp, t_config *data)
 {
-	while (*str)
-	{
-		if (*str == '$' && is_variable(str[1]))
-			return (str);
-		str++;
-	}
-	return (NULL);
-}
+	char	path_name[PATH_MAX];
 
-int	is_variable(char c)
-{
-	if (ft_isalnum(c) || c == '_')
+	(void) args;
+	(void) envp;
+	if (!getcwd(path_name, PATH_MAX))
+	{
+		write (2, "Error: user is trying to fuck shit up!\n", 40);
+		data->exit_code = 1;
 		return (1);
-	return (0);
-}
-
-void	*free_pp_char(char **pp)
-{
-	int	i;
-
-	i = 0;
-	while (pp[i])
-	{
-		pp[i] = safe_free (pp[i]);
-		i++;
 	}
-	pp = safe_free(pp);
-	return (NULL);
+	printf("%s\n", path_name);
+	data->exit_code = 0;
+	return (0);
 }

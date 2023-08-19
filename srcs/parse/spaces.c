@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:45:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 10:01:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/18 23:35:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static char	*add_space_before_index(char *buffer, int index)
 	return (ret);
 }
 
-static char	*recursively_does_black_magic(char *buffer, int i, t_config *ms)
+static char	*recursively_does_black_magic(char *buffer, int i, t_config *data)
 {
 	char	*temp;
 
@@ -98,8 +98,8 @@ static char	*recursively_does_black_magic(char *buffer, int i, t_config *ms)
 		buffer = safe_free(buffer);
 		buffer = temp;
 		temp = NULL;
-		ms->set_buffer_to_null = 1;
-		return (add_spaces(buffer, ms));
+		data->set_buffer_to_null = 1;
+		return (add_spaces(buffer, data));
 	}
 	if (need_space_after(buffer, i, buffer[i]))
 	{
@@ -107,13 +107,13 @@ static char	*recursively_does_black_magic(char *buffer, int i, t_config *ms)
 		buffer = safe_free(buffer);
 		buffer = temp;
 		temp = NULL;
-		ms->set_buffer_to_null = 1;
-		return (add_spaces(buffer, ms));
+		data->set_buffer_to_null = 1;
+		return (add_spaces(buffer, data));
 	}
 	return (buffer);
 }
 
-char	*add_spaces(char *buffer, t_config *ms)
+char	*add_spaces(char *buffer, t_config *data)
 {
 	int		i;
 	int		sin_quote;
@@ -134,7 +134,7 @@ char	*add_spaces(char *buffer, t_config *ms)
 			continue ;
 		}
 		if (is_delimiter(buffer[i]))
-			buffer = recursively_does_black_magic(buffer, i, ms);
+			buffer = recursively_does_black_magic(buffer, i, data);
 		i++;
 	}
 	return (buffer);

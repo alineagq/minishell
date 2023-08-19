@@ -1,45 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:42:36 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/19 00:03:10 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/19 00:03:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-char	*find_variable(char	*str)
+void	ft_putstr_fd(char *s, int fd)
 {
-	while (*str)
+	while (*s != '\0')
 	{
-		if (*str == '$' && is_variable(str[1]))
-			return (str);
-		str++;
+		write(fd, s, 1);
+		s++;
 	}
-	return (NULL);
-}
-
-int	is_variable(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (1);
-	return (0);
-}
-
-void	*free_pp_char(char **pp)
-{
-	int	i;
-
-	i = 0;
-	while (pp[i])
-	{
-		pp[i] = safe_free (pp[i]);
-		i++;
-	}
-	pp = safe_free(pp);
-	return (NULL);
 }

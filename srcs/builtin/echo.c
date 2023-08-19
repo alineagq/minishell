@@ -1,45 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vars.c                                             :+:      :+:    :+:   */
+/*   builtin_echo.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:42:36 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/28 03:55:52 by viferrei          #+#    #+#             */
+/*   Updated: 2023/08/18 23:35:09 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*find_variable(char	*str)
+int	builtin_echo(char **args)
 {
-	while (*str)
-	{
-		if (*str == '$' && is_variable(str[1]))
-			return (str);
-		str++;
-	}
-	return (NULL);
-}
-
-int	is_variable(char c)
-{
-	if (ft_isalnum(c) || c == '_')
-		return (1);
-	return (0);
-}
-
-void	*free_pp_char(char **pp)
-{
+	int	newline;
 	int	i;
 
-	i = 0;
-	while (pp[i])
+	newline = 1;
+	i = 1;
+	if (!args[1])
 	{
-		pp[i] = safe_free (pp[i]);
+		printf("\n");
+		return (0);
+	}
+	if (!ft_strcmp(args[i], "-n"))
+	{
+		newline = 0;
 		i++;
 	}
-	pp = safe_free(pp);
-	return (NULL);
+	while (args[i])
+	{
+		printf("%s ", args[i]);
+		i++;
+	}
+	if (args[i])
+		printf("%s", args[i]);
+	if (newline)
+		printf("\n");
+	return (0);
 }

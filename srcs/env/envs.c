@@ -6,44 +6,36 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 09:43:36 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 10:12:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 01:30:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	print_env_list(t_env_list *head)
-{
-	t_env_list	*current;
 
-	current = head;
-	while (current != NULL)
-	{
-		printf("%s=%s\n", current->key, current->value);
-		current = current->next;
-	}
+static void	update_value(t_env_list *node, const char *new_value)
+{
+	if (node == NULL)
+		return ;
+	if (node->value != NULL)
+		free(node->value);
+	node->value = ft_strdup(new_value);
 }
 
-t_env_list	*create_env_list(char **env)
+static void	insert_node(t_env_list **head, t_env_list *prev, t_env_list *new)
 {
-	t_env_list	*head;
-	t_env_list	*current;
-	char		**envp;
-	char		*key;
-	char		*value;
-
-	head = NULL;
-	current = NULL;
-	envp = env;
-	while (*envp != NULL)
+	if (new == NULL)
+		return ;
+	if (prev == NULL)
 	{
-		key = ft_strtok(*envp, "=");
-		value = ft_strtok(NULL, "=");
-		if (value != NULL)
-			add_node(&head, &current, create_node(key, value));
-		envp++;
+		new->next = *head;
+		*head = new;
 	}
-	return (head);
+	else
+	{
+		new->next = prev->next;
+		prev->next = new;
+	}
 }
 
 void	set_env(t_env_list **head, const char *key, const char *new_value)
