@@ -1,33 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:11:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/17 19:45:04 by coder             #+#    #+#             */
+/*   Updated: 2023/08/19 19:30:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-void	cleanup(void)
+
+int	builtin_pwd(char **args, char **envp, t_config *data)
 {
-	pid_t	result;
+	char	path_name[PATH_MAX];
 
-	result = 0;
-	while (result > 0 || (result == -1 && errno == EINTR))
+	(void) args;
+	(void) envp;
+	if (!getcwd(path_name, PATH_MAX))
 	{
-		result = waitpid(-1, NULL, WNOHANG);
+		write (2, "Error: user is trying to fuck shit up!\n", 40);
+		data->exit_code = 1;
+		return (1);
 	}
-}
-
-void	exit_program(void)
-{
-	t_config	*data;
-
-	data = get_data();
-	clear_data(data);
-	exit(data->exit_code);
+	printf("%s\n", path_name);
+	data->exit_code = 0;
+	return (0);
 }

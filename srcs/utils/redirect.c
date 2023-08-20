@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   redirect.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:11:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/10/09 03:52:44 by viferrei          #+#    #+#             */
+/*   Updated: 2023/08/19 18:22:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	cleanup(void)
+int	restore_original_fds(int original_fds[2])
 {
-	pid_t	result;
-
-	result = 0;
-	while (result > 0 || (result == -1 && errno == EINTR))
-	{
-		result = waitpid(-1, NULL, WNOHANG);
-	}
-}
-
-void	exit_program(void)
-{
-	t_config	*data;
-
-	data = get_data();
-	clear_data(data);
-	exit(data->exit_code);
+	if (original_fds[0] != NO_REDIRECT)
+		dup2(original_fds[0], STDIN_FILENO);
+	if (original_fds[1] != NO_REDIRECT)
+		dup2(original_fds[1], STDOUT_FILENO);
+	return (1);
 }

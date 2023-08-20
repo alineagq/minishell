@@ -1,33 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:11:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/19 00:03:10 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/19 00:03:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	cleanup(void)
+void	ft_putstr_fd(char *s, int fd)
 {
-	pid_t	result;
-
-	result = 0;
-	while (result > 0 || (result == -1 && errno == EINTR))
+	while (*s != '\0')
 	{
-		result = waitpid(-1, NULL, WNOHANG);
+		write(fd, s, 1);
+		s++;
 	}
-}
-
-void	exit_program(void)
-{
-	t_config	*data;
-
-	data = get_data();
-	clear_data(data);
-	exit(data->exit_code);
 }

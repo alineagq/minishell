@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 02:57:01 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/19 01:35:45 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 00:03:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int		ft_isupper(int c);
 int		ft_islower(int c);
 char	*ft_strtok(char *str, const char *c);
 int		ft_strcmp(char *str, char *str2);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif

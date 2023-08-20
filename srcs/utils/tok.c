@@ -1,39 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   envs.c                                             :+:      :+:    :+:   */
+/*   tok.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/17 15:45:47 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 02:52:08 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/21 03:01:41 by coder             #+#    #+#             */
+/*   Updated: 2023/08/20 01:03:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*get_env_value(t_env_list *head, char *targetKey)
+t_tokens	*iterate_to_tok_index(t_config *data)
 {
-	t_env_list	*current;
+	t_tokens	*temp;
 
-	current = head;
-	while (current != NULL)
-	{
-		if (ft_strcmp(current->key, targetKey) == 0)
-			return (current->value);
-		current = current->next;
-	}
-	return (NULL);
+	temp = data->tokens;
+	while (temp && (temp->index != data->tok_index))
+		temp = temp->next;
+	return (temp);
 }
 
-void	print_env_list(t_env_list *head)
+t_reds	*create_red_list(int nodes)
 {
-	t_env_list	*current;
+	t_reds	*head;
+	t_reds	*self;
+	int		i;
 
-	current = head;
-	while (current != NULL)
+	i = 0;
+	if (!nodes)
+		return (NULL);
+	head = ft_calloc(1, sizeof(t_reds));
+	self = head;
+	while (i < nodes - 1)
 	{
-		printf("%s=%s\n", current->key, current->value);
-		current = current->next;
+		self->next = ft_calloc(1, sizeof(t_reds));
+		i++;
+		self = self->next;
 	}
+	return (head);
 }

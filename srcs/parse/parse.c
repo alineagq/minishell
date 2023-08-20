@@ -6,38 +6,30 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 14:52:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 01:48:54 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	check_for_open_quotes(t_config *data)
+static int	check_for_open_quotes(char *rl_buffer)
 {
-	int			i;
-	int			quote_state;
+	int	i;
+	int	sinquotes;
+	int	douquotes;
 
 	i = 0;
-	quote_state = 0;
-	while (i < strlen(data->prompt) - 1)
+	sinquotes = 0;
+	douquotes = 0;
+	while (rl_buffer[i])
 	{
-		if (data->prompt[i] == '\'' && quote_state != 2)
-		{
-			if (quote_state == 1)
-				quote_state = 0;
-			else
-				quote_state = 1;
-		}
-		else if (data->prompt[i] == '\"' && quote_state != 1)
-		{
-			if (quote_state == 2)
-				quote_state = 0;
-			else
-				quote_state = 2;
-		}
+		if (rl_buffer[i] == '\'' && (douquotes % 2 == 0))
+			sinquotes++;
+		if (rl_buffer[i] == '\"' && (sinquotes % 2 == 0))
+			douquotes++;
 		i++;
 	}
-	return (quote_state != 0);
+	return ((sinquotes % 2) + (douquotes % 2));
 }
 
 static int	is_only_space(char *str)
@@ -56,14 +48,13 @@ static int	is_only_space(char *str)
 void	parse(void)
 {
 	t_config	*data;
-	int			i;
 
-	i = 0;
 	data = get_data();
-	if (check_for_open_quotes(data))
+	if (check_for_open_quotes(data->prompt))
 	{
 		printf("Check for open quotes.\n");
 		data->exit_code = 2;
+		data->state = PROMPT;
 	}
 	else if (!is_only_space(data->prompt))
 	{
@@ -72,8 +63,10 @@ void	parse(void)
 		create_tokens(data);
 		expand_exit_code(data);
 		expand_variables(data);
+		categorize_tokens(data->tokens);
+		remove_quotes_from_tokens(data->tokens);
 	}
-	clear_data(data);
 	if (data->state == PARSE)
-		data->state = PROMPT;
+		data->state = EXECUTE;
+	clear_data(data);
 }

@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:11:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/28 03:55:52 by viferrei          #+#    #+#             */
+/*   Updated: 2023/08/20 01:33:14 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-void	cleanup(void)
+int	builtin_echo(char **args)
 {
-	pid_t	result;
+	int	newline;
+	int	i;
 
-	result = 0;
-	while (result > 0 || (result == -1 && errno == EINTR))
+	newline = 1;
+	i = 1;
+	if (!args[1])
 	{
-		result = waitpid(-1, NULL, WNOHANG);
+		printf("\n");
+		return (0);
 	}
-}
-
-void	exit_program(void)
-{
-	t_config	*data;
-
-	data = get_data();
-	clear_data(data);
-	exit(data->exit_code);
+	if (!ft_strcmp(args[i], "-n"))
+	{
+		newline = 0;
+		i++;
+	}
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (args[i])
+		printf("%s", args[i]);
+	if (newline)
+		printf("\n");
+	return (0);
 }

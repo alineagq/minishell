@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/18 23:21:24 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/20 00:26:49 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,17 +44,60 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES  = minishell
-FILES += init/signals init/init
-FILES += prompt/prompt
-FILES += parse/parse parse/spaces parse/split_string \
-	parse/expand_exit parse/tokens parse/expand_var \
-	parse/quotes
-FILES += execute/execute
-FILES += env/envs
+FILES  = 	minishell
+			
+FILES += 	init/init \
+			init/srcs/signals \
+			init/srcs/create_env 
+			
+FILES += 	utils/data \
+			utils/free \
+			utils/envs \
+			utils/vars \
+			utils/spaces \
+			utils/tokens \
+			utils/types \
+			utils/cd \
+			utils/cd2 \
+			utils/heredoc \
+			utils/redirect \
+			utils/tok
+			
+FILES += 	prompt/prompt
+			
+FILES += 	parse/parse \
+			parse/srcs/expand_exit \
+			parse/srcs/expand_var \
+			parse/srcs/quotes \
+			parse/srcs/spaces \
+			parse/srcs/split_string \
+			parse/srcs/tokens
+			
+FILES += 	execute/srcs/args \
+			execute/srcs/clear_exec \
+			execute/srcs/com \
+			execute/srcs/command \
+			execute/srcs/env \
+			execute/srcs/get_info \
+			execute/srcs/input \
+			execute/srcs/multi_cmd \
+			execute/srcs/one_cmd \
+			execute/srcs/output \
+			execute/execute \
+			execute/srcs/redirects/heredoc \
+			execute/srcs/redirects/redirects \
+			execute/srcs/redirects/expansions \
+			execute/srcs/env/envs \
+			execute/srcs/builtin/cd \
+			execute/srcs/builtin/echo \
+			execute/srcs/builtin/env \
+			execute/srcs/builtin/exit \
+			execute/srcs/builtin/export \
+			execute/srcs/builtin/pwd \
+			execute/srcs/builtin/unset
+			
+			
 FILES += exit/exit
-FILES += utils/envs utils/exit utils/free utils/data utils/utils \
-	utils/tokens utils/types utils/vars
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
@@ -62,7 +105,7 @@ OBJS = $(SRCS:.c=.o)
 # FLAGS
 
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 LIBFLAGS = -L./$(LIB_PATH) -lft -lreadline 
 
 all: $(NAME)

@@ -5,6 +5,8 @@
     "editor.insertSpaces": false,
     "files.associations": {
         "stdlib.h": "c",
-        "minishell.h": "c"
+        "minishell.h": "c",
+        "string_view": "c",
+        "functional": "c"
     }
 }
