@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tok_utils.c                                        :+:      :+:    :+:   */
+/*   tok.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 03:01:41 by coder             #+#    #+#             */
-/*   Updated: 2023/08/18 23:35:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 01:03:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-** Searches throught tokens untill it reaches data->tok_index.
-** Returns a pointer to said node.
-*/
 t_tokens	*iterate_to_tok_index(t_config *data)
 {
 	t_tokens	*temp;
@@ -26,9 +22,6 @@ t_tokens	*iterate_to_tok_index(t_config *data)
 	return (temp);
 }
 
-/*
-** Allocates space for the redirect list inside the command struct.
-*/
 t_reds	*create_red_list(int nodes)
 {
 	t_reds	*head;

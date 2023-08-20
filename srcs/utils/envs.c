@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 15:45:47 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:29:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 02:52:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,11 @@ char	*get_env_value(t_env_list *head, char *targetKey)
 	current = head;
 	while (current != NULL)
 	{
-		if (strcmp(current->key, targetKey) == 0)
+		if (ft_strcmp(current->key, targetKey) == 0)
 			return (current->value);
 		current = current->next;
 	}
 	return (NULL);
-}
-
-t_env_list	*create_node(const char *key, const char *value)
-{
-	t_env_list	*node;
-
-	node = (t_env_list *)malloc(sizeof(t_env_list));
-	if (node == NULL)
-		return (NULL);
-	node->key = ft_strdup(key);
-	node->value = ft_strdup(value);
-	node->next = NULL;
-	return (node);
 }
 
 void	print_env_list(t_env_list *head)

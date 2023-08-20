@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_cd_utils2.c                                :+:      :+:    :+:   */
+/*   cd2.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 00:53:10 by coder             #+#    #+#             */
-/*   Updated: 2023/08/18 23:35:39 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:30:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-** If there's an OLDPWD node inside the environmentals, updates it.
-** return 0 on success. It should always be a success. But if not, returns 1.
-*/
 int	update_oldpwd(t_config *data, char *curr_path)
 {
 	t_env_list	*ls_oldpwd;
 
-	ls_oldpwd = data->env_head;
+	ls_oldpwd = data->env;
 	while (ls_oldpwd)
 	{
-		if (!ft_strncmp (ls_oldpwd->content, "OLDPWD=", 7))
+		if (!ft_strncmp (ls_oldpwd->key, "OLDPWD", 6))
 			break ;
 		ls_oldpwd = ls_oldpwd->next;
 	}
@@ -31,8 +27,8 @@ int	update_oldpwd(t_config *data, char *curr_path)
 	data->oldpwd = ft_strdup(curr_path);
 	if (ls_oldpwd)
 	{
-		ls_oldpwd->content = safe_free(ls_oldpwd->content);
-		ls_oldpwd->content = ft_strjoin("OLDPWD=", data->oldpwd);
+		ls_oldpwd->value = safe_free(ls_oldpwd->value);
+		ls_oldpwd->value = data->oldpwd;
 		return (0);
 	}
 	return (1);
@@ -46,13 +42,13 @@ int	update_pwd(t_config *data, char *path)
 {
 	t_env_list	*temp;
 
-	temp = data->env_head;
+	temp = data->env;
 	while (temp)
 	{
-		if (!ft_strncmp(temp->content, "PWD=", 4))
+		if (!ft_strncmp(temp->key, "PWD", 3))
 		{
-			temp->content = safe_free(temp->content);
-			temp->content = ft_strjoin("PWD=", path);
+			temp->value = safe_free(temp->value);
+			temp->value = path;
 			return (0);
 		}
 		temp = temp->next;

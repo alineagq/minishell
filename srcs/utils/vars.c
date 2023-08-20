@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 01:42:36 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 01:48:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,16 @@ void	*free_pp_char(char **pp)
 	}
 	pp = safe_free(pp);
 	return (NULL);
+}
+
+char	*get_var_name(char	*var_head)
+{
+	size_t	len;
+
+	len = 0;
+	if (*var_head == '$')
+		var_head++;
+	while (var_head[len] && is_variable(var_head[len]))
+		len++;
+	return (ft_substr(var_head, 0, len));
 }

@@ -6,16 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:24:07 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 00:24:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/19 20:24:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-/*
-** returns a copy of the path, expanding ~'s
-** returns NULL on failure;
-*/
 char	*expand_home(char *path, t_config *data)
 {
 	char	*home;
@@ -23,16 +19,11 @@ char	*expand_home(char *path, t_config *data)
 	if (path[0] != '~' && path[0] != '-')
 		return (ft_strdup(path));
 	if (path[0] == '-')
-		return (ft_strdup(data->oldpwd));
+		return (get_env_value(data->env, "OLDPWD"));
 	home = get_home_dir_from_envs(data);
-	if (!home)
-		home = data->home_original;
 	return (ft_strjoin(home, path + 1));
 }
 
-/*
-** Counts the number of args in args and returns it. Really.
-*/
 int	count_args(char **args)
 {
 	int	i;
@@ -47,10 +38,6 @@ int	count_args(char **args)
 	return (i);
 }
 
-/*
-** Gets HOME string address from env list.
-** Returns the address of the string if it exists, else returns NULL.
-*/
 char	*get_home_dir_from_envs(t_config *data)
 {
 	t_env_list	*temp;
@@ -58,15 +45,15 @@ char	*get_home_dir_from_envs(t_config *data)
 	temp = data->env;
 	while (temp)
 	{
-		if (!ft_strncmp (temp->content, "HOME=", 5))
+		if (!ft_strncmp (temp->key, "HOME", 4))
 		{
-			if (ft_strlen(temp->content) > PATH_MAX)
+			if (ft_strlen(temp->value) > PATH_MAX)
 			{
 				write (2, "cd: HOME too big to fit in here\n", 17);
 				data->exit_code = 1;
 				return (NULL);
 			}
-			return (temp->content + 5);
+			return (temp->value);
 		}
 		temp = temp->next;
 	}
@@ -74,9 +61,6 @@ char	*get_home_dir_from_envs(t_config *data)
 	return (NULL);
 }
 
-/*
-** Norminette can be a bitch.
-*/
 int	cd_error_args(t_config *data)
 {
 	write(2, "cd: too many freaking arguments\n", 32);

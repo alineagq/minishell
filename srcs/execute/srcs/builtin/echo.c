@@ -1,22 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 03:52:44 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 18:22:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/28 03:55:52 by viferrei          #+#    #+#             */
+/*   Updated: 2023/08/20 01:33:14 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-int	restore_original_fds(int original_fds[2])
+int	builtin_echo(char **args)
 {
-	if (original_fds[0] != NO_REDIRECT)
-		dup2(original_fds[0], STDIN_FILENO);
-	if (original_fds[1] != NO_REDIRECT)
-		dup2(original_fds[1], STDOUT_FILENO);
-	return (1);
+	int	newline;
+	int	i;
+
+	newline = 1;
+	i = 1;
+	if (!args[1])
+	{
+		printf("\n");
+		return (0);
+	}
+	if (!ft_strcmp(args[i], "-n"))
+	{
+		newline = 0;
+		i++;
+	}
+	while (args[i])
+	{
+		printf("%s", args[i]);
+		if (args[i + 1])
+			printf(" ");
+		i++;
+	}
+	if (args[i])
+		printf("%s", args[i]);
+	if (newline)
+		printf("\n");
+	return (0);
 }

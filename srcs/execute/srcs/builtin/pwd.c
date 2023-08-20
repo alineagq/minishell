@@ -1,22 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirect.c                                         :+:      :+:    :+:   */
+/*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/09 03:52:44 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 18:22:32 by fsuomins         ###   ########.fr       */
+/*   Created: 2022/09/17 19:45:04 by coder             #+#    #+#             */
+/*   Updated: 2023/08/19 19:30:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../../../includes/minishell.h"
 
-int	restore_original_fds(int original_fds[2])
+
+int	builtin_pwd(char **args, char **envp, t_config *data)
 {
-	if (original_fds[0] != NO_REDIRECT)
-		dup2(original_fds[0], STDIN_FILENO);
-	if (original_fds[1] != NO_REDIRECT)
-		dup2(original_fds[1], STDOUT_FILENO);
-	return (1);
+	char	path_name[PATH_MAX];
+
+	(void) args;
+	(void) envp;
+	if (!getcwd(path_name, PATH_MAX))
+	{
+		write (2, "Error: user is trying to fuck shit up!\n", 40);
+		data->exit_code = 1;
+		return (1);
+	}
+	printf("%s\n", path_name);
+	data->exit_code = 0;
+	return (0);
 }

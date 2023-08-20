@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 10:12:53 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 02:58:48 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init(void)
 	set_signal();
 	data->env = create_env_list(environ);
 	set_env(&data->env, "OLDPWD", "");
+	set_env(&data->env, "PWD", getcwd(NULL, 0));
 	if (data->state == INIT)
 		data->state = PROMPT;
 }
