@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/20 00:26:49 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/20 14:10:53 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,6 +118,7 @@ $(NAME): LIBFT $(OBJS)
 	$(info $(purple)Project compiled. Run './$(NAME)' to start.$(reset))
 
 valgrind:
+	make re
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
 	--suppressions=readline.supp --leak-check=full \
 	--show-leak-kinds=all --quiet ./minishell

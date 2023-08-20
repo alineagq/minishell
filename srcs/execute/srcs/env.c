@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 03:04:27 by coder             #+#    #+#             */
-/*   Updated: 2023/08/20 03:41:40 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 14:25:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	tok_fill_envp(char **ret, t_env_list *head, int top)
 	{
 		temp = ft_strjoin(ft_strdup(head->key), "=");
 		ret[i] = ft_strjoin(temp, head->value);
-		// printf("ret[%d] = %s\n", i, ret[i]);
 		free(temp);
 		i++;
 		head = head->next;
