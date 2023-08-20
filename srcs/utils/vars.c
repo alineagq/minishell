@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 01:48:11 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 16:02:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*find_variable(char	*str)
 	while (*str)
 	{
 		if (*str == '$' && is_variable(str[1]))
-			return (str);
+			return (str++);
 		str++;
 	}
 	return (NULL);
