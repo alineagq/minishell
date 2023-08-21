@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 00:12:17 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 20:39:56 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/20 18:03:07 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,15 @@
 // Returns 1 if a '=' is found in the string
 int	equal_found(char *str, t_config *data)
 {
-	char	*head;
-
 	if (!*str)
 		return (0);
-	head = str;
 	while (*str)
 	{
 		if (*str == '=')
 			return (1);
 		else if (!is_variable(*str))
 		{
-			printf("export: '%s': not a valid identifier\n", head);
+			ft_putstr_fd(" not a valid identifier\n", 2);
 			data->exit_code = 1;
 			return (0);
 		}
@@ -95,6 +92,16 @@ void	set_variable(char *arg, t_config *data)
 	}
 }
 
+int has_letter(const char *str) {
+    while (*str) {
+        if (isalpha(*str)) {
+            return 1;
+        }
+        str++;
+    }
+    return 0;
+}
+
 int	builtin_export(char	**args, t_config *data)
 {
 	if (!args[1])
@@ -105,6 +112,11 @@ int	builtin_export(char	**args, t_config *data)
 	args++;
 	while (*args)
 	{
+		if (!has_letter(*args)) {
+			ft_putstr_fd(" not a valid identifier\n", 2);
+			data->exit_code = 1;
+			return (data->exit_code);
+		}
 		if (equal_found(*args, data))
 			set_variable(*args, data);
 		(args)++;
