@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/03 02:05:59 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 20:35:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:13:00 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,6 @@ int	arg_is_number(char *arg)
 	return (1);
 }
 
-/*
-** Sets minishell's shit to exit.
-** also deals with bash's bullshit behaviour when using multiple commands.
-*/
 int	builtin_exit(t_com *cmd, char **args, char **envp, t_config *data)
 {
 	int	argc;
@@ -46,9 +42,9 @@ int	builtin_exit(t_com *cmd, char **args, char **envp, t_config *data)
 		data->exit_code = 0;
 	else if (args[1] && !arg_is_number(args[1]))
 	{
-		ft_putstr_fd("exit: ", STDERR_FILENO);
-		ft_putstr_fd(args[1], STDERR_FILENO);
-		ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
+		// ft_putstr_fd("exit: ", STDERR_FILENO);
+		// ft_putstr_fd(args[1], STDERR_FILENO);
+		// ft_putstr_fd(": numeric argument required\n", STDERR_FILENO);
 		data->exit_code = 2;
 	}
 	else if (args[1] && arg_is_number(args[1]))

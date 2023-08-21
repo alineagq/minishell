@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:13:35 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 19:29:05 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 17:07:36 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static int	cd_to_path(char *path, t_config *data)
 		update_pwd(data, curr_path);
 		return (0);
 	}
-	write (2, "cd: couldnt go to ", 18);
+	write (2, "cd: No such file or directory\n", 31);
 	write (2, path, ft_strlen(path));
 	write (2, "\n", 1);
 	return (1);
