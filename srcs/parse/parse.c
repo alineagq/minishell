@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 01:48:54 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 11:11:39 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	parse(void)
 		categorize_tokens(data->tokens);
 		remove_quotes_from_tokens(data->tokens);
 	}
+	clear_data(data);
 	if (data->state == PARSE)
 		data->state = EXECUTE;
-	clear_data(data);
 }

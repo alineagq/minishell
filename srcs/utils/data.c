@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 00:55:14 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 11:20:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,42 @@ static void	close_inherited_fds(void)
 	}
 }
 
+void	*destroy_token_list(t_config *data)
+{
+	t_tokens	*freeme;
+
+	if (!data->tokens)
+		return (NULL);
+	while (data->tokens)
+	{
+		freeme = data->tokens;
+		safe_free(freeme->value);
+		freeme->value = NULL;
+		data->tokens = data->tokens->next;
+		safe_free(freeme);
+		freeme = NULL;
+	}
+	return (NULL);
+}
+
 void	clear_data(t_config	*data)
 {
-	data->tok_index = 0;
-	if (data->state == PROMPT)
-		free_tokens(data->tokens);
 	if (data->state == PARSE)
 	{
-		if (data->set_buffer_to_null)
-			data->prompt = NULL;
-		free(data->parse);
-		free_char_array(data->raw_tokens);
+		if (data->prompt != NULL)
+			free(data->prompt);
+		if (data->raw_tokens != NULL)
+			free_char_array(data->raw_tokens);
+	}
+	if (data->state == EXECUTE)
+	{
+		data->tok_index = 0;
 	}
 	if (data->state == EXIT)
+	{
+		free(data->oldpwd);
 		clear_env(data);
+	}
+	destroy_token_list(data);
 	close_inherited_fds();
 }
