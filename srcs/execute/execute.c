@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 00:35:14 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 20:21:16 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	execute(void)
 	restore_original_fds(original_fds);
 	data = get_data();
 	clear_data(data);
+	if (data->issue_exit)
+		data->state = EXIT;
 	if (data->state == EXECUTE)
 		data->state = PROMPT;
 }

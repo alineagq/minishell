@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 23:24:07 by coder             #+#    #+#             */
-/*   Updated: 2023/08/21 17:04:00 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 21:05:21 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*get_home_dir_from_envs(t_config *data)
 
 int	cd_error_args(t_config *data)
 {
-	write(2, "cd: too many arguments\n", 24);
+	ft_putstr_fd("cd: too many arguments\n", 2);
 	data->exit_code = 1;
 	return (data->exit_code);
 }

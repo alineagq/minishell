@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 00:20:10 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 18:29:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,23 @@ void	handler_int(int sig)
 		rl_redisplay();
 	}
 	else
-		write(STDOUT_FILENO, "\n", 1);
+		config->state = EXIT;
+}
+
+void	handler_quit(int sig)
+{
+	(void)sig;
+	t_config	*config;
+
+	config = get_data();
+	if (config->state == PROMPT)
+	{
+		write(STDOUT_FILENO, "Quit: 3\n", 8);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+	else
+		config->state = EXIT;
 }
 
 void	handle_eof(int signum)
@@ -36,14 +52,14 @@ void	handle_eof(int signum)
 
 	config = get_data();
 	if (config->state == PROMPT)
-		write(STDOUT_FILENO, "exit\n", 5);
+		write(STDOUT_FILENO, "\nexit\n", 6);
 	config->state = EXIT;
 }
 
 void	set_signal(void)
 {
 	signal(SIGINT, &handler_int);
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGQUIT, &handler_quit);
 	signal(SIGTSTP, SIG_IGN);
 }
 

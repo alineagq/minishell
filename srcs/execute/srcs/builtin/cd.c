@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:13:35 by coder             #+#    #+#             */
-/*   Updated: 2023/08/21 17:07:36 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 21:09:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,12 @@ static int	cd_to_path(char *path, t_config *data)
 			write(2, "cd: something went terribly wrong\n", 34);
 			return (2);
 		}
-		update_oldpwd(data, curr_path);
+		set_env(&data->env, "OLDPWD", curr_path);
 		getcwd(curr_path, PATH_MAX);
-		update_pwd(data, curr_path);
+		set_env(&data->env, "PWD", curr_path);
 		return (0);
 	}
-	write (2, "cd: No such file or directory\n", 31);
-	write (2, path, ft_strlen(path));
-	write (2, "\n", 1);
+	perror("cd:");
 	return (1);
 }
 
@@ -92,9 +90,8 @@ static int	cd_to_oldpwd(int print, t_config *data)
 		write(1, "\n", 1);
 	}
 	getcwd(cwd, PATH_MAX -1);
-	update_oldpwd(data, oldcwd);
-	update_pwd(data, cwd);
-	free(oldpwd);
+	set_env(&data->env, "OLDPWD", oldcwd);
+	set_env(&data->env, "PWD", cwd);
 	return (0);
 }
 

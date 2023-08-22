@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 20:45:29 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:11:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,12 @@
 # include <signal.h>
 # include <unistd.h>
 # include <sys/wait.h>
-#include <sys/stat.h>
+# include <sys/stat.h>
 # include <errno.h>
 # include <fcntl.h>
+
+# define LONG_MAX 9223372036854775807LL
+# define LONG_MIN -9223372036854775808LL
 
 # define ERR 		0
 # define INIT 		1
