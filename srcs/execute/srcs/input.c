@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 02:52:05 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 19:25:34 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:46:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,11 @@ static void	tok_fill_inlist(t_reds *self, t_tokens *tokens)
 			if (!ft_strcmp("<", tokens->value))
 			{
 				self->type = INFILE;
-				self->target = ft_strdup(tokens->next->value);
+				while(token_is_word(tokens) && tokens->next->value)
+				{
+					self->target = ft_strdup(tokens->next->value);
+					tokens = tokens->next;
+				}
 				self = self->next;
 			}
 			if (!ft_strcmp("<<", tokens->value))

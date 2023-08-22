@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/20 14:10:53 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/22 10:03:20 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,8 +120,8 @@ $(NAME): LIBFT $(OBJS)
 valgrind:
 	make re
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
-	--suppressions=readline.supp --leak-check=full \
-	--show-leak-kinds=all --quiet ./minishell
+	--suppressions=./readline.supp --leak-check=full \
+	--show-leak-kinds=all --trace-children-skip='*/bin/*,*/sbin/*' --quiet ./minishell
 clean:
 	@rm -f $(OBJS)
 	@$(MAKE) -C $(LIB_PATH) --silent clean

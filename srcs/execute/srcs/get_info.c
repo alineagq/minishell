@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:27:26 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 21:55:28 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 11:19:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,29 +94,29 @@ t_com	*get_exec_info(t_config *data)
 	if (check_for_errtokens(data, self))
 		return (self);
 	self->receives_from_pipe = tok_from_pipe(data);
-	// printf("receives_from_pipe: %d\n", self->receives_from_pipe);
+	printf("receives_from_pipe: %d\n", self->receives_from_pipe);
 	self->command = tok_command(data, self);
-	// printf("command: %s\n", self->command);
+	printf("command: %s\n", self->command);
 	self->args = tok_args(data);
-	// printf("args:\n");
-	// for (int i = 0; self->args[i] != NULL; i++)
-	// {
-	// 	printf("  %s\n", self->args[i]);
-	// }
+	printf("args:\n");
+	for (int i = 0; self->args[i] != NULL; i++)
+	{
+		printf("  %s\n", self->args[i]);
+	}
 	self->red_in = tok_input(data);
-	// printf("red_in:\n");
-	// for (t_reds *tmp = self->red_in; tmp != NULL; tmp = tmp->next)
-	// {
-	// 	printf("  type: %d\n", tmp->type);
-	// 	printf("  target: %s\n", tmp->target);
-	// }
+	printf("red_in:\n");
+	for (t_reds *tmp = self->red_in; tmp != NULL; tmp = tmp->next)
+	{
+		printf("  type: %d\n", tmp->type);
+		printf("  target: %s\n", tmp->target);
+	}
 	self->red_out = tok_output(data);
-	// printf("red_out:\n");
-	// for (t_reds *tmp = self->red_out; tmp != NULL; tmp = tmp->next)
-	// {
-	// 	printf("  type: %d\n", tmp->type);
-	// 	printf("  target: %s\n", tmp->target);
-	// }
+	printf("red_out:\n");
+	for (t_reds *tmp = self->red_out; tmp != NULL; tmp = tmp->next)
+	{
+		printf("  type: %d\n", tmp->type);
+		printf("  target: %s\n", tmp->target);
+	}
 	self->envp = tok_envp(data->env);
 	// printf("envp:\n");
 	// for (int i = 0; self->envp[i] != NULL; i++)
@@ -124,6 +124,6 @@ t_com	*get_exec_info(t_config *data)
 	// 	printf("  %s\n", self->envp[i]);
 	// }
 	self->sends_to_pipe = tok_to_pipe(data);
-	// printf("sends_to_pipe: %d\n", self->sends_to_pipe);
+	printf("sends_to_pipe: %d\n", self->sends_to_pipe);
 	return (self);
 }

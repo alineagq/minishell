@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:30:02 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 17:38:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 10:43:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,17 @@ int	token_is_word(t_tokens *temp)
 
 int	token_is_command(t_tokens *temp)
 {
+	t_config	*data;
+
+	data = get_data();
 	if (!temp->prev && !temp->next)
 		return (1);
 	if (!temp->prev)
 		return (1);
 	if (temp->prev && temp->prev->type == OPTOKEN)
 		return (1);
-	if (temp->prev && temp->prev->type == FDTOKEN)
+	if (temp->prev && temp->prev->type == FDTOKEN && \
+		tok_get_path(temp->value, data->env))
 	{
 		if (temp->prev->prev && temp->prev->prev->type == REDTOKEN)
 			return (1);

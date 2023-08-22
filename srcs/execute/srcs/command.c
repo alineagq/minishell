@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:53:46 by coder             #+#    #+#             */
-/*   Updated: 2023/08/20 01:47:12 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 10:39:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*access_all_paths(char **pp)
 /*
 ** returns the path of the sent command
 */
-static char	*tok_get_path(char *value, t_env_list *env_head)
+char	*tok_get_path(char *value, t_env_list *env_head)
 {
 	char		**all_paths;
 	char		*path;

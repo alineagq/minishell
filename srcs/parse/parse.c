@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 16:56:34 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 10:45:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,11 @@ void	parse(void)
 		expand_exit_code(data);
 		expand_variables(data);
 		categorize_tokens(data->tokens);
+	// 	for (t_tokens *tmp = data->tokens; tmp != NULL; tmp = tmp->next)
+	// {
+	// 	printf("  type: %s\n", tmp->value);
+	// 	printf("  target: %d\n", tmp->type);
+	// }
 		remove_quotes_from_tokens(data->tokens);
 	}
 	clear_data(data);
