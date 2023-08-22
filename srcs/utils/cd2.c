@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 00:53:10 by coder             #+#    #+#             */
-/*   Updated: 2023/08/21 20:25:22 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 13:52:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,7 @@ int	update_oldpwd(t_config *data, char *curr_path)
 	return (1);
 }
 
-/*
-** If there's a PWD node inside the environmentals, updates it.
-** return 0 on success and 1 on failure;
-*/
+
 int	update_pwd(t_config *data, char *path)
 {
 	t_env_list	*temp;

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/17 17:31:38 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 14:16:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static char	*read_line(t_config *data)
 {
 	char	*str;
 
-	str = readline("minishell$ ");
+	str = readline("\033[1;32mminishell$\033[0m ");
 	if (str == NULL)
 	{
 		write(STDOUT_FILENO, "exit\n", 5);

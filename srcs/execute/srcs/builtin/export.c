@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 00:12:17 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/20 18:03:07 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 15:49:24 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,6 @@ void	replace_var(char *arg, t_env_list *env)
 	free(var_name);
 }
 
-// Adds the variable to the environment list or replaces its value if it's
-// already set
 void	set_variable(char *arg, t_config *data)
 {
 	t_env_list	*head;
@@ -93,8 +91,8 @@ void	set_variable(char *arg, t_config *data)
 }
 
 int has_letter(const char *str) {
-    while (*str) {
-        if (isalpha(*str)) {
+    while (*str && *str != '=') {
+        if (!isalpha(*str)) {
             return 1;
         }
         str++;
@@ -104,6 +102,11 @@ int has_letter(const char *str) {
 
 int	builtin_export(char	**args, t_config *data)
 {
+	char	*key;
+	char	*value;
+	int		valid_input;
+
+	valid_input = 0;
 	if (!args[1])
 	{
 		printf("export: forgot something?\n");
@@ -112,13 +115,19 @@ int	builtin_export(char	**args, t_config *data)
 	args++;
 	while (*args)
 	{
-		if (!has_letter(*args)) {
+		if (has_letter(*args) || ((ft_strlen(*args) < 3) && !valid_input)) {
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			data->exit_code = 1;
 			return (data->exit_code);
 		}
 		if (equal_found(*args, data))
-			set_variable(*args, data);
+		{
+			key = ft_strtok(*args, "=");
+			value = ft_strtok(NULL, "=");
+			set_env(&data->env, key, value);
+			valid_input = 1;
+		}
+			// set_env(*args, data);
 		(args)++;
 	}
 	return (data->exit_code);

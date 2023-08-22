@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 17:20:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 16:11:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,14 @@ void	clear_data(t_config	*data)
 		free(data->parse);
 		free_char_array(data->raw_tokens);
 	}
+	if (data->state == EXECUTE)
+		destroy_token_list(data);
 	if (data->state == EXIT)
 	{
 		if (data->oldpwd)
 			free(data->oldpwd);
 		clear_env(data);
+		rl_clear_history();
 	}
 	close_inherited_fds();
 }
