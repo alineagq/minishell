@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 00:12:17 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/23 02:41:44 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:52:45 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	builtin_export(char	**args, t_com *com, t_config *data)
 	valid_input = 0;
 	if (!args[1])
 	{
-		printf("export: forgot something?\n");
+		print_export_list(data->env);
 		return (data->exit_code);
 	}
 	args++;

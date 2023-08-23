@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 10:18:36 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 12:34:28 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ void	clear_data(t_config	*data)
 			free(data->oldpwd);
 		clear_env(data);
 		rl_clear_history();
+		close_inherited_fds();
 	}
-	close_inherited_fds();
 }
