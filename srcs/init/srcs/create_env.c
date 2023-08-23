@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:17:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 14:01:34 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:16:44 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,15 @@ t_env_list	*create_env_list(char **env)
 	envp = env;
 	while (*envp != NULL)
 	{
-		key = ft_strtok(*envp, "=");
-		value = ft_strtok(NULL, "=");
+		key = strdup(*envp);
+		value = ft_strchr(key, '=');
 		if (value != NULL)
+		{
+			*value = '\0';
+			value++;
 			add_node(&head, &current, create_node(key, value));
+			free(key);
+		}
 		envp++;
 	}
 	return (head);

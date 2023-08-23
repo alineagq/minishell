@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 02:58:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:18:36 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_config	*get_data(void)
 	return (&data);
 }
 
-static void	close_inherited_fds(void)
+void	close_inherited_fds(void)
 {
 	int	fd;
 

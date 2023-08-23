@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:40:45 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/23 02:42:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:14:07 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	exec_builtin(t_com *cmd, t_config *data, int original_fds[2])
 	if (!cmd->sends_to_pipe && !cmd->receives_from_pipe)
 	{
 		if (handle_redirects(cmd, original_fds, data))
-			return (restore_original_fds(original_fds));
+			return (1);
 	}
 	if (!ft_strcmp(cmd->command, "echo"))
 		return (builtin_echo(cmd->args));

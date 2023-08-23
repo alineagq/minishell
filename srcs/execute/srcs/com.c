@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:32 by coder             #+#    #+#             */
-/*   Updated: 2023/08/23 00:58:57 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:27:46 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	exec_fork_builtin(t_com *cmd, t_config *data, int original_fds[2])
 	pid = create_child();
 	if (!pid)
 	{
+		signal(SIGPIPE, SIG_IGN);
 		pipe_handle(data, cmd);
 		if (handle_redirects(cmd, original_fds, data))
 		{
@@ -85,6 +86,7 @@ int	exec_com(t_com *cmd, t_config *data, int original_fds[2])
 	pid = create_child();
 	if (!pid)
 	{
+		signal(SIGPIPE, SIG_IGN);
 		data->exit_code = 0;
 		if (!get_exec_error(cmd->command, data))
 		{
@@ -109,6 +111,7 @@ int	exec_com_multi(t_com *cmd, t_config *data, int original_fds[2])
 	pid = create_child();
 	if (!pid)
 	{
+		signal(SIGPIPE, SIG_IGN);
 		data->exit_code = 0;
 		if (!get_exec_error(cmd->command, data))
 		{

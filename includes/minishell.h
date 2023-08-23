@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 02:42:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:19:52 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,5 +222,7 @@ int			update_pwd(t_config *data, char *path);
 char		*expand_home(char *path, t_config *data);
 int			count_args(char **args);
 int			cd_error_args(t_config *data);
+
+void	close_inherited_fds(void);
 
 #endif

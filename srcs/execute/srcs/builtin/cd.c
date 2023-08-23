@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:13:35 by coder             #+#    #+#             */
-/*   Updated: 2023/08/22 22:13:02 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 10:11:37 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static int	cd_to_home(t_config *data)
 			write(2, "cd: something went terribly wrong\n", 34);
 			return (2);
 		}
-		update_oldpwd(data, curr_path);
-		update_pwd(data, home_path);
+		set_env(&data->env, "OLDPWD", curr_path);
+		set_env(&data->env, "PWD", home_path);
 		return (0);
 	}
 	write (2, "cd: HOME not set\n", 17);

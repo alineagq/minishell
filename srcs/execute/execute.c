@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 01:03:50 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 11:12:09 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void print_t_com(t_com com)
     {
         printf("  %s\n", com.args[i]);
     }
-    printf("envp:\n");
-    for (int i = 0; com.envp[i] != NULL; i++)
-    {
-        printf("  %s\n", com.envp[i]);
-    }
+    // printf("envp:\n");
+    // for (int i = 0; com.envp[i] != NULL; i++)
+    // {
+    //     printf("  %s\n", com.envp[i]);
+    // }
     printf("red_in:\n");
     while (com.red_in != NULL)
     {
