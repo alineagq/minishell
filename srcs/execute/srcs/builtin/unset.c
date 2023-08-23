@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 01:05:53 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/22 21:21:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 02:44:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	compare_arg_env(t_env_list **head, const char *key)
     }
 }
 
-int	builtin_unset(char **args, t_config *data)
+int	builtin_unset(char **args, t_com *com, t_config *data)
 {
 	if (!args[1])
 		return (0);
@@ -48,6 +48,8 @@ int	builtin_unset(char **args, t_config *data)
 	while (*args)
 	{
 		compare_arg_env (&data->env, *args);
+		free_char_array(com->envp);
+		com->envp = tok_envp(data->env);
 		args++;
 	}
 	return (0);

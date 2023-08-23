@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 00:12:17 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/22 15:49:24 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 02:41:44 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,11 @@ int has_letter(const char *str) {
     return 0;
 }
 
-int	builtin_export(char	**args, t_config *data)
+int	builtin_export(char	**args, t_com *com, t_config *data)
 {
-	char	*key;
-	char	*value;
-	int		valid_input;
+	char		*key;
+	char		*value;
+	int			valid_input;
 
 	valid_input = 0;
 	if (!args[1])
@@ -115,7 +115,8 @@ int	builtin_export(char	**args, t_config *data)
 	args++;
 	while (*args)
 	{
-		if (has_letter(*args) || ((ft_strlen(*args) < 3) && !valid_input)) {
+		if (has_letter(*args) || ((ft_strlen(*args) < 3) && !valid_input))
+		{
 			ft_putstr_fd(" not a valid identifier\n", 2);
 			data->exit_code = 1;
 			return (data->exit_code);
@@ -125,9 +126,10 @@ int	builtin_export(char	**args, t_config *data)
 			key = ft_strtok(*args, "=");
 			value = ft_strtok(NULL, "=");
 			set_env(&data->env, key, value);
+			free_char_array(com->envp);
+			com->envp = tok_envp(data->env);
 			valid_input = 1;
 		}
-			// set_env(*args, data);
 		(args)++;
 	}
 	return (data->exit_code);

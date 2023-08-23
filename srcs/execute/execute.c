@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 20:21:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 01:03:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	execute(void)
 	while (control)
 	{
 		cmd = get_exec_info(data);
+		// print_t_com(*cmd);
 		control = exec_loop(cmd, data, original_fds);
 		destroy_exec_info(cmd);
 		if (data->issue_exit)

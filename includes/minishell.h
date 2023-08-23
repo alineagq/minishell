@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 23:01:15 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 02:42:16 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,9 +176,9 @@ int			builtin_echo(char **args);
 int			builtin_cd(char **args, char **envp, t_config *data);
 int			builtin_env(char **args, char **envp, t_env_list *env_list);
 int			builtin_exit(t_com *cmd, char **args, char **envp, t_config *data);
-int			builtin_export(char	**args, t_config *data);
+int			builtin_export(char	**args, t_com *com, t_config *data);
 int			builtin_pwd(char **args, char **envp, t_config *data);
-int			builtin_unset(char **args, t_config *data);
+int			builtin_unset(char **args, t_com *com, t_config *data);
 char		*heredoc_handle_expansions(char *str, t_config *data);
 char		*tok_get_path(char *value, t_env_list *env_head);
 void		compare_arg_env(t_env_list **head, const char *key);

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 16:11:11 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 02:58:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	clear_data(t_config	*data)
 	{
 		if (data->set_buffer_to_null)
 			data->prompt = NULL;
-		free(data->parse);
+		if (data->parse)
+			free(data->parse);
 		free_char_array(data->raw_tokens);
 	}
 	if (data->state == EXECUTE)

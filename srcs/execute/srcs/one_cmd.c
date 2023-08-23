@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:40:45 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 19:32:23 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 02:42:27 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	exec_builtin(t_com *cmd, t_config *data, int original_fds[2])
 	if (!ft_strcmp(cmd->command, "pwd"))
 		return (builtin_pwd(cmd->args, cmd->envp, data));
 	if (!ft_strcmp(cmd->command, "export"))
-		return (builtin_export(cmd->args, data));
+		return (builtin_export(cmd->args, cmd, data));
 	if (!ft_strcmp(cmd->command, "unset"))
-		return (builtin_unset(cmd->args, data));
+		return (builtin_unset(cmd->args, cmd, data));
 	if (!ft_strcmp(cmd->command, "env"))
 		return (builtin_env(cmd->args, cmd->envp, data->env));
 	if (!ft_strcmp(cmd->command, "exit"))
