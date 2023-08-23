@@ -6,42 +6,38 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 01:05:53 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/20 00:21:52 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 21:21:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-void	compare_arg_env(char *arg, t_config *data)
+void	compare_arg_env(t_env_list **head, const char *key)
 {
-	t_env_list	*head;
-	t_env_list	*tmp;
+	t_env_list *current = *head;
+	t_env_list *previous = NULL;
 
-	head = data->env;
-	if (!arg)
-		return ;
-	if (data->env && ft_strncmp (head->key, arg, ft_strlen(arg)))
+	while (current != NULL)
 	{
-		tmp = data->env;
-		data->env = data->env->next;
-		free(tmp->key);
-		free(tmp->value);
-		free(tmp);
-	}
-	head = data->env;
-	while (head && head->next)
-	{
-		if (ft_strncmp (head->key, arg, ft_strlen(arg)))
+		if (strcmp(current->key, key) == 0)
 		{
-			tmp = head->next;
-			head->next = head->next->next;
-			safe_free(tmp->key);
-			safe_free(tmp->value);
-			safe_free(tmp);
-		}
-		else
-			head = head->next;
-	}
+            free(current->value);
+            current->value = NULL;
+            if (previous == NULL)
+			{
+                *head = current->next;
+                free(current->key);
+                free(current);
+            } else {
+                previous->next = current->next;
+                free(current->key);
+                free(current);
+            }
+            return;
+        }
+        previous = current;
+        current = current->next;
+    }
 }
 
 int	builtin_unset(char **args, t_config *data)
@@ -51,7 +47,7 @@ int	builtin_unset(char **args, t_config *data)
 	args++;
 	while (*args)
 	{
-		compare_arg_env (*args, data);
+		compare_arg_env (&data->env, *args);
 		args++;
 	}
 	return (0);

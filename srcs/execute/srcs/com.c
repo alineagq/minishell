@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:32 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 19:13:24 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:39:04 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,14 @@ int	get_exec_error(char *path, t_config *data)
 	if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		data->exit_code = 126;
-		printf("Is a directory!\n");
+		perror(path);
 	}
 	if (!path)
 		data->exit_code = 1;
 	else if (access(path, X_OK))
 	{
 		data->exit_code = 127;
-		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": command not found!\n", STDERR_FILENO);
+		perror(path);
 	}
 	return (data->exit_code);
 }

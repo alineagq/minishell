@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 10:40:58 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 23:01:15 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@
 
 # define LONG_MAX 9223372036854775807LL
 # define LONG_MIN -9223372036854775808LL
+# define EXEC_ERROR_CMD_NOT_FOUND 127
+# define EXEC_ERROR_PERMISSION_DENIED 126
 
 # define ERR 		0
 # define INIT 		1
@@ -179,6 +181,8 @@ int			builtin_pwd(char **args, char **envp, t_config *data);
 int			builtin_unset(char **args, t_config *data);
 char		*heredoc_handle_expansions(char *str, t_config *data);
 char		*tok_get_path(char *value, t_env_list *env_head);
+void		compare_arg_env(t_env_list **head, const char *key);
+
 
 // EXIT
 

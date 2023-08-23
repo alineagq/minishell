@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 21:13:35 by coder             #+#    #+#             */
-/*   Updated: 2023/08/21 21:09:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 22:13:02 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	cd_to_home(t_config *data)
 	char	curr_path[PATH_MAX];
 
 	getcwd(curr_path, PATH_MAX);
-	home_path = get_home_dir_from_envs(data);
+	home_path = get_env_value(data->env, "HOME");
 	if (home_path)
 	{
 		if (chdir(home_path))
@@ -37,6 +37,7 @@ static int	cd_to_home(t_config *data)
 static int	cd_to_path(char *path, t_config *data)
 {
 	char	curr_path[PATH_MAX];
+	char	*print_err;
 
 	getcwd(curr_path, PATH_MAX);
 	if (!access(path, R_OK | F_OK))
@@ -51,7 +52,9 @@ static int	cd_to_path(char *path, t_config *data)
 		set_env(&data->env, "PWD", curr_path);
 		return (0);
 	}
-	perror("cd:");
+	print_err = ft_strjoin("cd: ", path);
+	perror(print_err);
+	free(print_err);
 	return (1);
 }
 
