@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:56:23 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:09:38 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	check_for_open_quotes(char *prompt)
 	return ((single_quotes % 2) + (double_quotes % 2));
 }
 
-static int	is_only_space(char *str)
+int	is_only_space(char *str)
 {
 	if (str && !*str)
 		return (0);
@@ -47,18 +47,31 @@ static int	is_only_space(char *str)
 	return (1);
 }
 
-void	parse(void)
+static int	promp_is_valid(t_config *data)
 {
-	t_config	*data;
-
-	data = get_data();
 	if (check_for_open_quotes(data->prompt))
 	{
 		printf("Check for open quotes.\n");
 		data->exit_code = 2;
 		data->state = PROMPT;
+		return (0);
 	}
-	else if (!is_only_space(data->prompt))
+	else if (is_only_space(data->prompt))
+	{
+		data->state = PROMPT;
+		if (!data->set_buffer_to_null)
+			free(data->prompt);
+		return (0);
+	}
+	return (1);
+}
+
+void	parse(void)
+{
+	t_config	*data;
+
+	data = get_data();
+	if (promp_is_valid(data))
 	{
 		data->parse = add_spaces(data->prompt, data);
 		data->raw_tokens = create_tokens_args(data->parse, ' ');
@@ -67,12 +80,6 @@ void	parse(void)
 		expand_variables(data);
 		categorize_tokens(data->tokens);
 		remove_quotes_from_tokens(data->tokens);
-	}
-	else
-	{
-		data->state = PROMPT;
-		if (!data->set_buffer_to_null)
-			free(data->prompt);
 	}
 	clear_data(data);
 	if (data->state == PARSE)

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:32:33 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:10:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,19 +87,19 @@ typedef struct s_split_shell
 
 typedef struct s_config
 {
-	int			set_buffer_to_null;
-	char		*oldpwd;
-	t_env_list	*env;
-	char		*prompt;
-	char		*parse;
-	char		**raw_tokens;
-	int			exit_code;
-	int			issue_exit;
-	int			state;
-	t_tokens	*tokens;
-	int			tok_index;
-	int			pipe_in[2];
-	int			pipe_out[2];
+	int				set_buffer_to_null;
+	char			*oldpwd;
+	t_env_list		*env;
+	char			*prompt;
+	char			*parse;
+	char			**raw_tokens;
+	volatile int	exit_code;
+	int				issue_exit;
+	int				state;
+	t_tokens		*tokens;
+	int				tok_index;
+	int				pipe_in[2];
+	int				pipe_out[2];
 }	t_config;
 
 typedef struct s_reds
@@ -152,6 +152,7 @@ void		categorize_tokens(t_tokens *tokens);
 void		remove_quotes_from_tokens(t_tokens *tokens);
 void		iterate_through_quotes(t_split_shell *this);
 int			check_for_non_print(char *value);
+int		is_only_space(char *str);
 
 // EXECUTE
 void		execute(void);

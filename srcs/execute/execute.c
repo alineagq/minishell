@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 12:44:48 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:02:40 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	execute(void)
 		if (data->issue_exit)
 			break ;
 	}
-	while (wait(&data->exit_code) > 0)
+	while (wait((int *)&data->exit_code) > 0)
 		continue ;
 	if (data->exit_code >= 256)
 		data->exit_code = data->exit_code >> 8;

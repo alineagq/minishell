@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/03 14:27:08 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/12 16:42:08 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:40:09 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*strjoin;
 	size_t	sjoin_len;
+
+	if (!s2)
+	{
+		strjoin = ft_strdup(s1);
+		return (strjoin);
+	}
 
 	sjoin_len = ft_strlen(s1) + ft_strlen(s2) + 1;
 	strjoin = (char *) malloc(sjoin_len);

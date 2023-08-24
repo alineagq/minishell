@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:03:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 14:50:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ char	*replace_variables(char *input_string, t_env_list *env_data)
 	char	*final_str;
 
 	var_head = find_variable(input_string);
-	final_str = NULL;
 	if (!var_head)
 		return (NULL);
+	final_str = NULL;
 	while (var_head)
 	{
 		var_name = find_var_name(++var_head);
@@ -47,12 +47,11 @@ char	*replace_variables(char *input_string, t_env_list *env_data)
 			final_str = ft_substr(input_string, 0, var_head - 1 - input_string);
 		else
 			final_str = ft_substr(final_str, 0, var_head - 1 - final_str);
-		// printf("1.final_str: %s\n", final_str);
 		final_str = ft_strjoin(final_str, var_value);
-		// printf("2.final_str: %s\n", final_str);
 		final_str = ft_strjoin(final_str, var_head + ft_strlen(var_name));
-		// printf("3.final_str: %s\n", final_str);
 		var_head = find_variable(final_str);
+		safe_free(var_value);
+		safe_free(var_name);
 	}
 	return (final_str);
 }
