@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 20:17:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:03:55 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	expand_variables(t_config *data)
 	head = data->tokens;
 	while (data->tokens)
 	{
-		if (data->tokens->value[0] == '\'')
+		if (*data->tokens->value == '\'')
 		{
 			data->tokens = data->tokens->next;
 			continue ;

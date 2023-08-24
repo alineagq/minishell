@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 00:03:32 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 11:56:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ static int	check_for_open_quotes(char *prompt)
 
 static int	is_only_space(char *str)
 {
+	if (str && !*str)
+		return (0);
 	while (str)
 	{
 		if (!*str)
@@ -65,6 +67,12 @@ void	parse(void)
 		expand_variables(data);
 		categorize_tokens(data->tokens);
 		remove_quotes_from_tokens(data->tokens);
+	}
+	else
+	{
+		data->state = PROMPT;
+		if (!data->set_buffer_to_null)
+			free(data->prompt);
 	}
 	clear_data(data);
 	if (data->state == PARSE)

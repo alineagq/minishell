@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:50:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 15:44:09 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:21:31 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static char	*update_token_exit_code(char *str, char *exit_code, char *var_head)
 
 void	expand_exit_code(t_config *data)
 {
-	char		*v_head;
+	char		*value_head;
 	char		*exit_str;
 	char		*current;
 	t_tokens	*head;
@@ -52,18 +52,19 @@ void	expand_exit_code(t_config *data)
 	head = data->tokens;
 	while (head)
 	{
-		if (head->value[0] == '\'')
+		if (*head->value == '\'')
 		{
 			head = head->next;
 			continue ;
 		}
-		v_head = find_exit_code(head->value);
-		if (v_head)
+		value_head = find_exit_code(head->value);
+		if (value_head)
 		{
-			*v_head = '\0';
+			*value_head = '\0';
 			exit_str = ft_itoa(data->exit_code);
 			current = head->value;
-			head->value = update_token_exit_code(head->value, exit_str, v_head);
+			head->value = update_token_exit_code \
+				(head->value, exit_str, value_head);
 			free_mouli(exit_str, current);
 		}
 		else

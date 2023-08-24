@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:44:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 00:35:09 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:32:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	iterate_through_quotes(t_split_shell *splitter)
+void	iterate_through_quotes(t_split_shell *splitter)
 {
 	char	first_char;
 
