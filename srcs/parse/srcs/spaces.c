@@ -6,35 +6,35 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:45:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:35:38 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:50:29 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	need_space_before(char *buffer, int op_index, char operator)
+static int	need_space_before(char *buffer, int operator_index, char operator)
 {
 	int	flag;
 
 	flag = 0;
-	if (op_index == 0)
+	if (operator_index == 0)
 		return (0);
-	op_index--;
-	while (op_index)
+	operator_index--;
+	while (operator_index)
 	{
-		if (buffer[op_index] == operator)
+		if (buffer[operator_index] == operator)
 		{
 			if (flag)
 				return (1);
 			flag++;
 		}
-		if (flag && buffer[op_index - 1] != operator)
+		if (flag && buffer[operator_index - 1] != operator)
 			return (0);
-		else if (buffer[op_index] != ' ')
+		else if (buffer[operator_index] != ' ')
 			return (1);
-		else if (buffer[op_index] == ' ')
+		else if (buffer[operator_index] == ' ')
 			return (0);
-		op_index--;
+		operator_index--;
 	}
 	return (0);
 }
@@ -64,7 +64,7 @@ static int	need_space_after(char *buffer, int op_index, char operator)
 	return (0);
 }
 
-static char	*add_space_before_index(char *buffer, int index)
+static char	*add_space_on_index(char *buffer, int index)
 {
 	char	*ret;
 	int		i;
@@ -88,13 +88,13 @@ static char	*add_space_before_index(char *buffer, int index)
 	return (ret);
 }
 
-static char	*recursively_does_black_magic(char *buffer, int i, t_config *data)
+static char	*recursively_add_spaces(char *buffer, int i, t_config *data)
 {
 	char	*temp;
 
 	if (need_space_before(buffer, i, buffer[i]))
 	{
-		temp = add_space_before_index(buffer, i);
+		temp = add_space_on_index(buffer, i);
 		buffer = safe_free(buffer);
 		buffer = temp;
 		temp = NULL;
@@ -103,7 +103,7 @@ static char	*recursively_does_black_magic(char *buffer, int i, t_config *data)
 	}
 	if (need_space_after(buffer, i, buffer[i]))
 	{
-		temp = add_space_before_index(buffer, i + 1);
+		temp = add_space_on_index(buffer, i + 1);
 		buffer = safe_free(buffer);
 		buffer = temp;
 		temp = NULL;
@@ -116,25 +116,25 @@ static char	*recursively_does_black_magic(char *buffer, int i, t_config *data)
 char	*add_spaces(char *buffer, t_config *data)
 {
 	int		i;
-	int		sin_quote;
-	int		dou_quote;
+	int		single_quote;
+	int		double_quote;
 
 	i = 0;
-	sin_quote = 0;
-	dou_quote = 0;
+	single_quote = 0;
+	double_quote = 0;
 	while (buffer[i])
 	{
-		if (buffer[i] == '\'' && (dou_quote % 2 == 0))
-			sin_quote++;
-		if (buffer[i] == '\"' && (sin_quote % 2 == 0))
-			dou_quote++;
-		if ((dou_quote % 2) || (sin_quote % 2))
+		if (buffer[i] == '\'' && (double_quote % 2 == 0))
+			single_quote++;
+		if (buffer[i] == '\"' && (single_quote % 2 == 0))
+			double_quote++;
+		if ((double_quote % 2) || (single_quote % 2))
 		{
 			i++;
 			continue ;
 		}
 		if (is_delimiter(buffer[i]))
-			buffer = recursively_does_black_magic(buffer, i, data);
+			buffer = recursively_add_spaces(buffer, i, data);
 		i++;
 	}
 	return (buffer);

@@ -6,30 +6,30 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 13:10:07 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:03:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	check_for_open_quotes(char *rl_buffer)
+static int	check_for_open_quotes(char *prompt)
 {
 	int	i;
-	int	sinquotes;
-	int	douquotes;
+	int	single_quotes;
+	int	double_quotes;
 
 	i = 0;
-	sinquotes = 0;
-	douquotes = 0;
-	while (rl_buffer[i])
+	single_quotes = 0;
+	double_quotes = 0;
+	while (prompt[i])
 	{
-		if (rl_buffer[i] == '\'' && (douquotes % 2 == 0))
-			sinquotes++;
-		if (rl_buffer[i] == '\"' && (sinquotes % 2 == 0))
-			douquotes++;
+		if (prompt[i] == '\'' && (double_quotes % 2 == 0))
+			single_quotes++;
+		if (prompt[i] == '\"' && (single_quotes % 2 == 0))
+			double_quotes++;
 		i++;
 	}
-	return ((sinquotes % 2) + (douquotes % 2));
+	return ((single_quotes % 2) + (double_quotes % 2));
 }
 
 static int	is_only_space(char *str)
@@ -59,16 +59,11 @@ void	parse(void)
 	else if (!is_only_space(data->prompt))
 	{
 		data->parse = add_spaces(data->prompt, data);
-		data->raw_tokens = ft_split_shell(data->parse, ' ');
+		data->raw_tokens = create_tokens_args(data->parse, ' ');
 		create_tokens(data);
 		expand_exit_code(data);
 		expand_variables(data);
 		categorize_tokens(data->tokens);
-	// 	for (t_tokens *tmp = data->tokens; tmp != NULL; tmp = tmp->next)
-	// {
-	// 	printf("  type: %s\n", tmp->value);
-	// 	printf("  target: %d\n", tmp->type);
-	// }
 		remove_quotes_from_tokens(data->tokens);
 	}
 	clear_data(data);

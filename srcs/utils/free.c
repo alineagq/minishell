@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 08:22:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:10:21 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:45:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	clear_env(t_config *data)
 	t_env_list	*next;
 
 	current = data->env;
-	while (current != NULL)
+	while (current)
 	{
 		next = current->next;
 		free(current->key);
@@ -61,7 +61,7 @@ void	clear_env(t_config *data)
 
 void	*safe_free(void *content)
 {
-	if (content != NULL)
+	if (content)
 	{
 		free (content);
 		content = NULL;

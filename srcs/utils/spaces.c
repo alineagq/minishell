@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   spaces.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 10:01:40 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 10:14:19 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:12:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ int	is_delimiter(char c)
 	return (c == '>' || c == '<' || c == '|');
 }
 
-void	count_words(t_split_shell *this)
+void	count_words(t_split_shell *splitter)
 {
-	this->temp = this->string;
-	while (this->temp[0])
+	splitter->temp = splitter->string;
+	while (*splitter->temp)
 	{
-		this->words++;
-		while (this->temp[0] == this->delimiter)
-			this->temp++;
-		while (this->temp[0] && (this->temp[0] != this->delimiter))
+		splitter->words++;
+		while (*splitter->temp == splitter->delimiter)
+			splitter->temp++;
+		while (*splitter->temp && (*splitter->temp != splitter->delimiter))
 		{
-			if (this->temp[0] == '\'' || this->temp[0] == '\"')
-				iterate_through_quotes(this);
+			if (*splitter->temp == '\'' || *splitter->temp == '\"')
+				iterate_through_quotes(splitter);
 			else
-				this->temp++;
+				splitter->temp++;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/21 18:29:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 16:49:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,6 @@ void	handler_quit(int sig)
 	t_config	*config;
 
 	config = get_data();
-	if (config->state == PROMPT)
-	{
-		write(STDOUT_FILENO, "Quit: 3\n", 8);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else
-		config->state = EXIT;
-}
-
-void	handle_eof(int signum)
-{
-	(void)signum;
-	t_config	*config;
-
-	config = get_data();
-	if (config->state == PROMPT)
-		write(STDOUT_FILENO, "\nexit\n", 6);
 	config->state = EXIT;
 }
 

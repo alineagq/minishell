@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 12:53:10 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 00:29:13 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ typedef struct s_split_shell
 	char	*string;
 	char	*temp;
 	int		words;
-	int		i;
+	int		splited_words;
 	int		split_number;
 	char	delimiter;
-	int		sz;
+	int		size_of_word;
 }	t_split_shell;
 
 typedef struct s_config
@@ -143,7 +143,7 @@ void		prompt(void);
 
 void		parse(void);
 char		*add_spaces(char *buffer, t_config *data);
-char		**ft_split_shell(char *str, char delimiter);
+char		**create_tokens_args(char *str, char delimiter);
 void		create_tokens(t_config *data);
 void		expand_exit_code(t_config *data);
 char		*find_exit_code(char *str);

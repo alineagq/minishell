@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 09:43:36 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 14:21:14 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 22:25:01 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 static void	update_value(t_env_list *node, const char *new_value)
 {
-	if (node == NULL)
+	if (!node)
 		return ;
-	if (node->value != NULL)
+	if (node->value)
 		free(node->value);
 	node->value = ft_strdup(new_value);
 }
 
 static void	insert_node(t_env_list **head, t_env_list *prev, t_env_list *new)
 {
-	if (new == NULL)
+	if (!new)
 		return ;
-	if (prev == NULL)
+	if (!prev)
 	{
 		new->next = *head;
 		*head = new;
@@ -46,7 +46,7 @@ void	set_env(t_env_list **head, const char *key, const char *new_value)
 
 	current = *head;
 	prev = NULL;
-	while (current != NULL)
+	while (current)
 	{
 		if (ft_strncmp(current->key, key, ft_strlen(key)) == 0)
 		{

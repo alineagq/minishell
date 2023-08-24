@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 14:16:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/23 23:12:15 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static char	*read_line(t_config *data)
 	char	*str;
 
 	str = readline("\033[1;32mminishell$\033[0m ");
-	if (str == NULL)
+	if (!str)
 	{
 		write(STDOUT_FILENO, "exit\n", 5);
 		data->exit_code = 0;
@@ -25,7 +25,7 @@ static char	*read_line(t_config *data)
 	}
 	else
 	{
-		if (*str != '\0')
+		if (*str)
 		{
 			add_history(str);
 			return (str);
@@ -42,6 +42,6 @@ void	prompt(void)
 
 	data = get_data();
 	data->prompt = read_line(data);
-	if (data->state == PROMPT && data->prompt != NULL)
+	if (data->state == PROMPT && data->prompt)
 		data->state = PARSE;
 }
