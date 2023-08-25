@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:56:23 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:41:40 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,51 @@ static int	is_only_space(char *str)
 	return (1);
 }
 
+void remove_empty_or_whitespace_nodes(t_tokens **head)
+{
+    t_tokens *current = *head;
+    
+    while (current != NULL)
+    {
+        t_tokens *next = current->next;
+        
+        // Verifica se o valor é nulo ou contém somente espaços
+        if (current->value == NULL || strspn(current->value, " ") == strlen(current->value))
+        {
+            // Remove o nó da lista
+            if (current->prev)
+                current->prev->next = current->next;
+            if (current->next)
+                current->next->prev = current->prev;
+            if (current == *head)
+                *head = current->next;
+            
+            // Libera a memória alocada para o nó
+            free(current->value);
+            free(current);
+        }
+        
+        current = next;
+    }
+}
+
 void	parse(void)
 {
 	t_config	*data;
+	char		*str;
 
 	data = get_data();
+	str = ft_strtrim(data->prompt, " ");
+	if (str)
+	{
+		free(data->prompt);
+		data->prompt = str;
+	}
+	if (*str == '#')
+	{
+		data->state = PROMPT;
+		return ;
+	}
 	if (check_for_open_quotes(data->prompt))
 	{
 		printf("Check for open quotes.\n");
@@ -67,6 +107,9 @@ void	parse(void)
 		expand_variables(data);
 		categorize_tokens(data->tokens);
 		remove_quotes_from_tokens(data->tokens);
+		remove_empty_or_whitespace_nodes(&data->tokens);
+		if (data->tokens == NULL)
+			data->state = PROMPT;
 	}
 	else
 	{
@@ -75,6 +118,7 @@ void	parse(void)
 			free(data->prompt);
 	}
 	clear_data(data);
+	close_inherited_fds();
 	if (data->state == PARSE)
 		data->state = EXECUTE;
 }

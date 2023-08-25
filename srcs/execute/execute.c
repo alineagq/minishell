@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 12:44:48 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:41:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	execute(void)
 	while (control)
 	{
 		cmd = get_exec_info(data);
+		// print_t_com(*cmd);
 		control = exec_loop(cmd, data, original_fds);
 		destroy_exec_info(cmd);
 		if (data->issue_exit)
@@ -105,9 +106,9 @@ void	execute(void)
 		continue ;
 	if (data->exit_code >= 256)
 		data->exit_code = data->exit_code >> 8;
-	restore_original_fds(original_fds);
-	data = get_data();
+	set_signal();
 	clear_data(data);
+	// close_inherited_fds();
 	if (data->issue_exit)
 		data->state = EXIT;
 	if (data->state == EXECUTE)

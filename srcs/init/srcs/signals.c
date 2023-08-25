@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 16:49:23 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:58:10 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,26 @@ void	set_signal(void)
 	signal(SIGINT, &handler_int);
 	signal(SIGQUIT, &handler_quit);
 	signal(SIGTSTP, SIG_IGN);
+}
+
+void	handler_eof(int sig)
+{
+	(void)sig;
+	t_config	*config;
+
+	config = get_data();
+	if (config->state == PROMPT)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		config->state = EXIT;
+	}
+	else
+	{
+		write(STDOUT_FILENO, "\n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
 }
 
 void	sig_defaults(void)

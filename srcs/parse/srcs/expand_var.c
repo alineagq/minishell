@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:03:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 21:35:37 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ char	*replace_variables(char *input_string, t_env_list *env_data)
 	{
 		var_name = find_var_name(++var_head);
 		var_value = get_env_value(env_data, var_name);
+		if (!var_value)
+			var_value = ft_strdup("");
+		if (ft_strlen(input_string) == ft_strlen(var_head) - 1)
+			return (var_value);
 		if (!final_str)
 			final_str = ft_substr(input_string, 0, var_head - 1 - input_string);
 		else

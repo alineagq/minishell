@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 23:12:15 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 22:18:31 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static char	*read_line(t_config *data)
 		write(STDOUT_FILENO, "exit\n", 5);
 		data->exit_code = 0;
 		data->state = EXIT;
+		return (NULL);
 	}
 	else
 	{
