@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:32 by coder             #+#    #+#             */
-/*   Updated: 2023/08/24 22:30:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:47:21 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	get_exec_error(char *path, t_config *ms)
 	{
 		ms->exit_code = 127;
 		ft_putstr_fd(path, STDERR_FILENO);
-		ft_putstr_fd(": command not found!\n", STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
 	return (ms->exit_code);
 }

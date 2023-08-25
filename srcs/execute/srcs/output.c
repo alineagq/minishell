@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 02:58:01 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 19:32:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 14:35:53 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ static void	tok_fill_outlist(t_reds *self, t_tokens *tokens)
 			if (!ft_strcmp(">", tokens->value))
 			{
 				self->type = OVERWRITE;
-				self->target = ft_strdup(tokens->next->value);
+				if (tokens->next && tokens->next->type == WORDTOKEN)
+					self->target = ft_strdup(tokens->next->value);
+				// self->target = ft_strdup(tokens->next->value);
 				self = self->next;
 			}
 			if (!ft_strcmp(">>", tokens->value))

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 22:41:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 15:21:30 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ static void	create_redirect_files(t_com *cmd)
 	tmp = cmd->red_out;
 	while (tmp)
 	{
-		open(tmp->target, O_CREAT | O_RDONLY, 0777);
+		if (tmp->target)
+			open(tmp->target, O_CREAT | O_RDONLY, 0777);
 		tmp = tmp->next;
 	}
 }
@@ -108,7 +109,6 @@ void	execute(void)
 		data->exit_code = data->exit_code >> 8;
 	set_signal();
 	clear_data(data);
-	// close_inherited_fds();
 	if (data->issue_exit)
 		data->state = EXIT;
 	if (data->state == EXECUTE)
