@@ -6,16 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:53:46 by coder             #+#    #+#             */
-/*   Updated: 2023/08/25 23:22:32 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:20:09 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-/*
-** Concatenates the command from a token into all possible paths from the
-** environmental variable, returns the pointer to it.
-*/
 static char	**cat_cmd_to_all_paths(char *cmd_arg, char **all_paths)
 {
 	int		i[3];
@@ -45,9 +41,6 @@ static char	**cat_cmd_to_all_paths(char *cmd_arg, char **all_paths)
 	return (all_paths);
 }
 
-/*
-** Tests all paths to check wether the command is accessible
-*/
 static char	*access_all_paths(char **pp)
 {
 	int		i;
@@ -65,18 +58,19 @@ static char	*access_all_paths(char **pp)
 	return (NULL);
 }
 
-/*
-** returns the path of the sent command
-*/
 char	*tok_get_path(char *value, t_env_list *env_head)
 {
 	char		**all_paths;
 	char		*path;
 	char		*path_list;
 
+	if (!ft_strncmp(value, ".", 1))
+		return (ft_strdup(value));
+	if (value[0] == '\0')
+		return (ft_strdup(value));
 	path_list = get_env_value(env_head, "PATH");
 	if (!path_list)
-		return (ft_strdup("./"));
+		return (NULL);
 	all_paths = ft_split(path_list, ':');
 	all_paths = cat_cmd_to_all_paths(value, all_paths);
 	path = access_all_paths(all_paths);

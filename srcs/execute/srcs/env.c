@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 03:04:27 by coder             #+#    #+#             */
-/*   Updated: 2023/08/23 10:07:27 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:31:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	tok_fill_envp(char **ret, t_env_list *head, int top)
 		i++;
 		head = head->next;
 	}
-	ret[i] = NULL;
 }
 
 

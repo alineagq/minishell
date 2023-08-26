@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:56:18 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 01:14:20 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	close_inherited_fds(void)
 {
 	int	fd;
 
-	fd = 3;
+	fd = 0;
 	while (fd < 1024)
 	{
 		close(fd);

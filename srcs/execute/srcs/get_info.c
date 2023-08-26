@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:27:26 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 15:51:01 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:07:14 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,6 @@ static int	last_tok_index(t_config *data)
 static int	check_for_errtokens(t_config *data, t_com *self)
 {
 	t_tokens	*temp;
-	char		*str;
-	char		token[2];
 
 	temp = data->tokens;
 	while (temp)
@@ -71,12 +69,7 @@ static int	check_for_errtokens(t_config *data, t_com *self)
 		if (temp->type == ERRTOKEN)
 		{
 			self->block_exec = 1;
-			token[0] = temp->value[0];
-			token[1] = '\0';
-			str = ft_strjoin(" syntax error near unexpected token `", token);
-			self->error_to_print = ft_strjoin(str, "'");
-			free(str);
-			data->exit_code = 2;
+			self->error_to_print = ft_strdup("Invalid syntax, lear to ytpe.\n");
 			return (1);
 		}
 		temp = temp->next;
