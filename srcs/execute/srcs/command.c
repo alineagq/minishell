@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:53:46 by coder             #+#    #+#             */
-/*   Updated: 2023/08/22 20:59:59 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 23:22:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ char	*tok_get_path(char *value, t_env_list *env_head)
 	char		*path_list;
 
 	path_list = get_env_value(env_head, "PATH");
+	if (!path_list)
+		return (ft_strdup("./"));
 	all_paths = ft_split(path_list, ':');
 	all_paths = cat_cmd_to_all_paths(value, all_paths);
 	path = access_all_paths(all_paths);
