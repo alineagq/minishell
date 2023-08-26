@@ -6,46 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 15:45:52 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:35:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-static int	check_for_open_quotes(char *prompt)
-{
-	int	i;
-	int	single_quotes;
-	int	double_quotes;
-
-	i = 0;
-	single_quotes = 0;
-	double_quotes = 0;
-	while (prompt[i])
-	{
-		if (prompt[i] == '\'' && (double_quotes % 2 == 0))
-			single_quotes++;
-		if (prompt[i] == '\"' && (single_quotes % 2 == 0))
-			double_quotes++;
-		i++;
-	}
-	return ((single_quotes % 2) + (double_quotes % 2));
-}
-
-static int	is_only_space(char *str)
-{
-	if (str && !*str)
-		return (0);
-	while (str)
-	{
-		if (!*str)
-			return (1);
-		if (*str != ' ')
-			return (0);
-		str++;
-	}
-	return (1);
-}
 
 void remove_empty_or_whitespace_nodes(t_tokens **head)
 {
@@ -57,7 +22,6 @@ void remove_empty_or_whitespace_nodes(t_tokens **head)
         
         if (current->value == NULL || strspn(current->value, " ") == strlen(current->value))
         {
-            // Remove o nó da lista
             if (current->prev)
                 current->prev->next = current->next;
             if (current->next)
@@ -127,12 +91,10 @@ void remove_invalid_redirections(t_tokens **head)
     }
 }
 
-void	parse(void)
+void	remove_end_spaces(t_config *data)
 {
-	t_config	*data;
 	char		*str;
 
-	data = get_data();
 	str = ft_strtrim(data->prompt, " ");
 	if (str)
 	{
@@ -144,35 +106,28 @@ void	parse(void)
 		data->state = PROMPT;
 		return ;
 	}
-	if (check_for_open_quotes(data->prompt))
-	{
-		printf("Check for open quotes.\n");
-		data->exit_code = 2;
+}
+
+void	parse(void)
+{
+	t_config	*data;
+
+	data = get_data();
+	remove_end_spaces(data);
+	data->parse = add_spaces(data->prompt, data);
+	data->raw_tokens = create_tokens_args(data->parse, ' ');
+	create_tokens(data);
+	expand_exit_code(data);
+	expand_variables(data);
+	remove_empty_or_whitespace_nodes(&data->tokens);
+	categorize_tokens(data->tokens);
+	remove_quotes_from_tokens(data->tokens);
+	remove_invalid_redirections(&data->tokens);
+	categorize_tokens(data->tokens);
+	expand_tilde(data);
+	if (data->tokens == NULL)
 		data->state = PROMPT;
-	}
-	else if (!is_only_space(data->prompt))
-	{
-		data->parse = add_spaces(data->prompt, data);
-		data->raw_tokens = create_tokens_args(data->parse, ' ');
-		create_tokens(data);
-		expand_exit_code(data);
-		expand_variables(data);
-		categorize_tokens(data->tokens);
-		remove_quotes_from_tokens(data->tokens);
-		remove_empty_or_whitespace_nodes(&data->tokens);
-		remove_invalid_redirections(&data->tokens);
-		expand_tilde(data);
-		if (data->tokens == NULL)
-			data->state = PROMPT;
-	}
-	else
-	{
-		data->state = PROMPT;
-		if (!data->set_buffer_to_null)
-			free(data->prompt);
-	}
 	clear_data(data);
-	close_inherited_fds();
 	if (data->state == PARSE)
 		data->state = EXECUTE;
 }

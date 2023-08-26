@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 21:58:10 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:39:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	handler_int(int sig)
 {
-	(void)sig;
 	t_config	*config;
 
+	(void)sig;
 	config = get_data();
 	if (config->state == PROMPT)
 	{
@@ -29,27 +29,18 @@ void	handler_int(int sig)
 		config->state = EXIT;
 }
 
-void	handler_quit(int sig)
-{
-	(void)sig;
-	t_config	*config;
-
-	config = get_data();
-	config->state = EXIT;
-}
-
 void	set_signal(void)
 {
 	signal(SIGINT, &handler_int);
-	signal(SIGQUIT, &handler_quit);
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGTSTP, SIG_IGN);
 }
 
 void	handler_eof(int sig)
 {
-	(void)sig;
 	t_config	*config;
 
+	(void)sig;
 	config = get_data();
 	if (config->state == PROMPT)
 	{

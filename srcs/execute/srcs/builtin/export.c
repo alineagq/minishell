@@ -6,13 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 00:12:17 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/23 12:52:45 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 21:10:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-// Returns 1 if a '=' is found in the string
 int	equal_found(char *str, t_config *data)
 {
 	if (!*str)

@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/22 10:03:20 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/25 20:01:21 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,7 +114,7 @@ LIBFT:
 	@$(MAKE) -s -k -C $(LIB_PATH)
 
 $(NAME): LIBFT $(OBJS)
-	@$(CC) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
 	$(info $(purple)Project compiled. Run './$(NAME)' to start.$(reset))
 
 valgrind:

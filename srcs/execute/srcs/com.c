@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:32 by coder             #+#    #+#             */
-/*   Updated: 2023/08/25 15:47:21 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:41:12 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	get_exec_error(char *path, t_config *ms)
 	if (stat(path, &sb) == 0 && S_ISDIR(sb.st_mode))
 	{
 		ms->exit_code = 126;
-		printf("Is a directory!\n");
+		ft_putstr_fd("Is a directory\n", STDERR_FILENO);
 	}
 	if (!path)
 		ms->exit_code = 1;
