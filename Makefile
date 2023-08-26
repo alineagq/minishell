@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/26 01:00:30 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/26 04:09:16 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ FILES += 	execute/srcs/args \
 			execute/srcs/one_cmd \
 			execute/srcs/output \
 			execute/execute \
+			execute/utils \
 			execute/srcs/redirects/heredoc \
 			execute/srcs/redirects/redirects \
 			execute/srcs/redirects/expansions \

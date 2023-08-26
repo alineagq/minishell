@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:17:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 23:59:38 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 03:03:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	add_node(t_env_list **head, t_env_list **cur, t_env_list *new) 
+static void	add_node(t_env_list **head, t_env_list **cur, t_env_list *new)
 {
 	if (new == NULL)
 		return ;
@@ -23,7 +23,7 @@ static void	add_node(t_env_list **head, t_env_list **cur, t_env_list *new)
 	*cur = new;
 }
 
-t_env_list	*create_node(const char *key, const char *value) 
+t_env_list	*create_node(const char *key, const char *value)
 {
 	t_env_list	*node;
 
@@ -36,7 +36,7 @@ t_env_list	*create_node(const char *key, const char *value)
 	return (node);
 }
 
-t_env_list	*create_env_list(char **env) 
+t_env_list	*create_env_list(char **env)
 {
 	t_env_list	*head;
 	t_env_list	*current;

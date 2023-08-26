@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 02:47:01 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 04:13:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,20 +125,20 @@ typedef struct s_com
 
 // INIT
 
-void		init(void);// DONE
+void		init(void);
 void		handler_int(int sig);
 void		handle_eof(int signum);
 void		set_signal(void);
 void		sig_defaults(void);
 void		ignore_signals(void);
-t_env_list	*create_node(const char *key, const char *value);// DONE
-t_env_list	*create_env_list(char **env);// DONE
+t_env_list	*create_node(const char *key, const char *value);
+t_env_list	*create_env_list(char **env);
 void		set_env(t_env_list **head, const char *key, \
-			const char *new_value);// DONE
+			const char *new_value);
 
 // PROMPT
 
-void		prompt(void);// DONE
+void		prompt(void);
 
 // PARSE
 
@@ -154,7 +154,6 @@ void		remove_quotes_from_tokens(t_tokens *tokens);// DONE
 void		iterate_through_quotes(t_split_shell *this);// DONE
 int			check_for_non_print(char *value);
 void		remove_invalid_redirections(t_tokens **head);// DONE
-void		remove_empty_or_whitespace_nodes(t_tokens **head);// DONE
 void		remove_end_spaces(t_config *data);// DONE
 void		expand_tilde(t_config *data);// DONE
 
@@ -189,9 +188,10 @@ char		*tok_get_path(char *value, t_env_list *env_head);
 void		compare_arg_env(t_env_list **head, const char *key);
 int			exec_loop(t_com *cmd, t_config *data, int original_fds[2]);
 void		initialize(t_config **data, int *original_fds);
-int			executionLoop(t_config *data, int *original_fds);
+int			execution_loop(t_config *data, int *original_fds);
 void		finalize(t_config *data);
 void		create_redirect_files(t_com *cmd);
+void		clean_state(t_config *data);
 
 // EXIT
 

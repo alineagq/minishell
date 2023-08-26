@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 02:32:22 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 02:35:21 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 04:10:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,30 +32,35 @@ int	exec_loop(t_com *cmd, t_config *data, int original_fds[2])
 	return (1);
 }
 
-void initialize(t_config **data, int *original_fds) {
+void	initialize(t_config **data, int *original_fds)
+{
 	(*data) = get_data();
 	original_fds[0] = NO_REDIRECT;
 	original_fds[1] = NO_REDIRECT;
 	ignore_signals();
 }
 
-int executionLoop(t_config *data, int *original_fds) {
-	t_com *cmd;
-	int control = 1;
+int	execution_loop(t_config *data, int *original_fds)
+{
+	t_com	*cmd;
+	int		control;
 
-	while (control) {
+	control = 1;
+	while (control)
+	{
 		cmd = get_exec_info(data);
 		control = exec_loop(cmd, data, original_fds);
 		destroy_exec_info(cmd);
 		if (data->issue_exit)
-			break;
+			break ;
 	}
-	return control;
+	return (control);
 }
 
-void cleanup(t_config *data) {
+void	clean_state(t_config *data)
+{
 	while (wait(&data->exit_code) > 0)
-		continue;
+		continue ;
 	if (data->exit_code >= 256)
 		data->exit_code = data->exit_code >> 8;
 	set_signal();
@@ -64,7 +69,8 @@ void cleanup(t_config *data) {
 		data->state = EXIT;
 }
 
-void finalize(t_config *data) {
+void	finalize(t_config *data)
+{
 	if (data->state == EXECUTE)
 		data->state = PROMPT;
 }

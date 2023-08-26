@@ -6,38 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/26 00:12:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 02:12:10 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 04:04:53 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	remove_empty_or_whitespace_nodes(t_tokens **head) 
-{
-	t_tokens	*current;
-	t_tokens	*next;
-
-	current = *head;
-	while (current != NULL)
-	{
-		next = current->next;
-		if (current->value == NULL || ft_strspn(current->value, " ") \
-			== ft_strlen(current->value))
-		{
-			if (current->prev)
-				current->prev->next = current->next;
-			if (current->next)
-				current->next->prev = current->prev;
-			if (current == *head)
-				*head = current->next;
-			free(current->value);
-			free(current);
-		}
-		current = next;
-	}
-}
-
-void	expand_tilde(t_config *data) 
+void	expand_tilde(t_config *data)
 {
 	t_tokens	*current;
 	char		*home_dir;
@@ -60,7 +35,7 @@ void	expand_tilde(t_config *data)
 	}
 }
 
-static int	is_valid_file(char *filename) 
+static int	is_valid_file(char *filename)
 {
 	if (access(filename, F_OK) != -1)
 	{
@@ -71,13 +46,12 @@ static int	is_valid_file(char *filename)
 }
 
 static void	free_and_advance_tokens(t_tokens **prev, t_tokens **current, \
-			t_tokens **head, t_tokens **next_next) 
+			t_tokens **head, t_tokens **next_next)
 {
 	if (*prev != NULL)
 		(*prev)->next = *next_next;
 	else
 		*head = *next_next;
-
 	if (*next_next != NULL)
 		(*next_next)->prev = *prev;
 	free((*current)->value);
@@ -87,7 +61,7 @@ static void	free_and_advance_tokens(t_tokens **prev, t_tokens **current, \
 	*current = *next_next;
 }
 
-void	remove_invalid_redirections(t_tokens **head) 
+void	remove_invalid_redirections(t_tokens **head)
 {
 	t_tokens	*current;
 	t_tokens	*prev;
@@ -110,7 +84,7 @@ void	remove_invalid_redirections(t_tokens **head)
 	}
 }
 
-void	remove_end_spaces(t_config *data) 
+void	remove_end_spaces(t_config *data)
 {
 	char		*str;
 

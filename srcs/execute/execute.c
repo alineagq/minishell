@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 02:43:49 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 04:12:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	execute(void)
 	int			original_fds[2];
 
 	initialize(&data, original_fds);
-	executionLoop(data, original_fds);
+	execution_loop(data, original_fds);
+	clean_state(data);
 	clear_data(data);
 	finalize(data);
 }

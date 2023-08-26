@@ -6,11 +6,12 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 01:58:11 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 04:20:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
+
 
 static char	*find_var_name(char *str)
 {
@@ -28,7 +29,7 @@ static char	*find_var_name(char *str)
 }
 
 
-static char	*replace_variables(char *input_string, t_env_list *env_data) 
+char	*replace_variables(char *input_string, t_env_list *env_data)
 {
 	char	*var_head;
 	char	*var_name;
@@ -45,8 +46,11 @@ static char	*replace_variables(char *input_string, t_env_list *env_data)
 		var_value = get_env_value(env_data, var_name);
 		if (!var_value)
 			var_value = ft_strdup("");
-		if (ft_strlen(input_string) == ft_strlen(var_head) - 1)
+		if (ft_strlen(input_string) == ft_strlen(var_head) + 1)
+		{
+			free(var_name);
 			return (var_value);
+		}
 		if (!final_str)
 			final_str = ft_substr(input_string, 0, var_head - 1 - input_string);
 		else
@@ -58,7 +62,7 @@ static char	*replace_variables(char *input_string, t_env_list *env_data)
 	return (final_str);
 }
 
-void	expand_variables(t_config *data) 
+void	expand_variables(t_config *data)
 {
 	t_tokens	*head;
 	char		*expanded_value;

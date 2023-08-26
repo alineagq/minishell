@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 23:57:13 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 03:03:08 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	init(void) 
+void	init(void)
 {
 	extern char	**environ;	
 	t_config	*data;
