@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:30:02 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 10:43:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:02:05 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	token_is_builtin(char *value)
 	return (0);
 }
 
-int	token_is_operator(char *value)
+int	token_is_operator(char *value) 
 {
 	if (!ft_strcmp(value, "|"))
 		return (1);
@@ -48,7 +48,7 @@ int	token_is_operator(char *value)
 	return (0);
 }
 
-int	token_is_redirect(char *value)
+int	token_is_redirect(char *value) 
 {
 	if (!ft_strcmp(value, ">"))
 		return (1);

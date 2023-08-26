@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:37:07 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 20:39:43 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 23:57:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	handler_int(int sig)
 		config->state = EXIT;
 }
 
-void	set_signal(void)
+void	set_signal(void) 
 {
 	signal(SIGINT, &handler_int);
 	signal(SIGQUIT, SIG_IGN);

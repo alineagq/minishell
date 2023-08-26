@@ -6,20 +6,20 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 16:06:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:56:18 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:15:44 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-t_config	*get_data(void)
+t_config	*get_data(void) 
 {
 	static t_config	data;
 
 	return (&data);
 }
 
-void	close_inherited_fds(void)
+void	close_inherited_fds(void) 
 {
 	int	fd;
 
@@ -31,7 +31,7 @@ void	close_inherited_fds(void)
 	}
 }
 
-void	*destroy_token_list(t_config *data)
+static void	*destroy_token_list(t_config *data) 
 {
 	t_tokens	*freeme;
 
@@ -49,7 +49,7 @@ void	*destroy_token_list(t_config *data)
 	return (NULL);
 }
 
-void	clear_data(t_config	*data)
+void	clear_data(t_config	*data) 
 {
 	data->tok_index = 0;
 	if (data->state == PROMPT)

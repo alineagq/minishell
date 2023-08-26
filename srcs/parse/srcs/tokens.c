@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:44:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:04:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:48:38 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	create_tokens(t_config *data)
+void	create_tokens(t_config *data) 
 {
 	int			i;
 	t_tokens	*head;
@@ -39,7 +39,7 @@ void	create_tokens(t_config *data)
 	data->tokens = head;
 }
 
-static int	set_tok_indexes(t_tokens *tokens)
+static int	set_tok_indexes(t_tokens *tokens) 
 {
 	t_tokens	*current;
 	int			i;
@@ -55,7 +55,7 @@ static int	set_tok_indexes(t_tokens *tokens)
 	return (i);
 }
 
-void	categorize_tokens(t_tokens *tokens)
+void	categorize_tokens(t_tokens *tokens) 
 {
 	t_tokens	*current;
 

@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:16:27 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/18 23:04:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:03:10 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	get_token_type(t_tokens *temp)
+int	get_token_type(t_tokens *temp) 
 {
 	int	type_is;
 
@@ -32,7 +32,7 @@ int	get_token_type(t_tokens *temp)
 	return (type_is);
 }
 
-int	token_is_error(t_tokens *temp)
+int	token_is_error(t_tokens *temp) 
 {
 	if (temp->type == OPTOKEN && (!ft_strcmp(temp->value, "||")))
 		return (1);
@@ -49,7 +49,7 @@ int	token_is_error(t_tokens *temp)
 	return (0);
 }
 
-int	token_is_fd(t_tokens *temp)
+int	token_is_fd(t_tokens *temp) 
 {
 	if (temp->prev && temp->prev->type == REDTOKEN)
 		return (1);

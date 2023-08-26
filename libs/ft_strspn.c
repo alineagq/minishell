@@ -1,29 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   ft_strspn.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 23:57:13 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/26 01:36:09 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/26 01:45:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "libft.h"
 
-void	init(void) 
+size_t	ft_strspn(const char *s, const char *accept)
 {
-	extern char	**environ;	
-	t_config	*data;
-	char		*pwd;
+	size_t		count;
+	const char	*a;
 
-	data = get_data();
-	set_signal();
-	data->env = create_env_list(environ);
-	pwd = getcwd(NULL, 0);
-	set_env(&data->env, "PWD", pwd);
-	free(pwd);
-	if (data->state == INIT)
-		data->state = PROMPT;
+	count = 0;
+	while (*s)
+	{
+		a = accept;
+		while (*a)
+		{
+			if (*s == *a)
+			{
+				count++;
+				break ;
+			}
+			a++;
+		}
+		if (!*a)
+			break ;
+		s++;
+	}
+	return (count);
 }

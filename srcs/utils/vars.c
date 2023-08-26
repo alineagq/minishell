@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 23:09:23 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 11:11:58 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 01:57:15 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*find_variable(char	*str)
+char	*find_variable(char	*str) 
 {
 	while (*str)
 	{

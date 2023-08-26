@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 08:22:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 23:45:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:15:15 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	free_tokens(t_tokens *tokens)
+void	free_tokens(t_tokens *tokens) 
 {
 	t_tokens	*temp;
 
@@ -25,7 +25,7 @@ void	free_tokens(t_tokens *tokens)
 	}
 }
 
-void	free_char_array(char **arr)
+void	free_char_array(char **arr) 
 {
 	int		i;
 
@@ -40,7 +40,7 @@ void	free_char_array(char **arr)
 	free(arr);
 }
 
-void	clear_env(t_config *data)
+void	clear_env(t_config *data) 
 {
 	t_env_list	*current;
 	t_env_list	*next;
@@ -59,7 +59,7 @@ void	clear_env(t_config *data)
 	data->env = NULL;
 }
 
-void	*safe_free(void *content)
+void	*safe_free(void *content) 
 {
 	if (content)
 	{

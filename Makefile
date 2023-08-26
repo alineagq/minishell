@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/25 20:01:21 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/26 01:00:30 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ FILES += 	utils/data \
 FILES += 	prompt/prompt
 			
 FILES += 	parse/parse \
+			parse/utils \
 			parse/srcs/expand_exit \
 			parse/srcs/expand_var \
 			parse/srcs/quotes \

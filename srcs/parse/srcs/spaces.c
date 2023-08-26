@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 14:45:24 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 23:50:29 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 01:51:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	need_space_before(char *buffer, int operator_index, char operator)
+static int	need_space_before(char *buffer, int operator_index, char operator) 
 {
 	int	flag;
 
@@ -39,7 +39,7 @@ static int	need_space_before(char *buffer, int operator_index, char operator)
 	return (0);
 }
 
-static int	need_space_after(char *buffer, int op_index, char operator)
+static int	need_space_after(char *buffer, int op_index, char operator) 
 {
 	int	flag;
 
@@ -64,7 +64,7 @@ static int	need_space_after(char *buffer, int op_index, char operator)
 	return (0);
 }
 
-static char	*add_space_on_index(char *buffer, int index)
+static char	*add_space_on_index(char *buffer, int index)  
 {
 	char	*ret;
 	int		i;
@@ -88,7 +88,7 @@ static char	*add_space_on_index(char *buffer, int index)
 	return (ret);
 }
 
-static char	*recursively_add_spaces(char *buffer, int i, t_config *data)
+static char	*recursively_add_spaces(char *buffer, int i, t_config *data) 
 {
 	char	*temp;
 
@@ -113,7 +113,7 @@ static char	*recursively_add_spaces(char *buffer, int i, t_config *data)
 	return (buffer);
 }
 
-char	*add_spaces(char *buffer, t_config *data)
+char	*add_spaces(char *buffer, t_config *data) 
 {
 	int		i;
 	int		single_quote;

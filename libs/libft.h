@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 02:57:01 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/08/19 00:03:43 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 01:36:54 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strspn(const char *s, const char *accept);
 size_t	ft_strlen(const char *str);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 void	*ft_memmove(void *dst, const void *src, size_t len);

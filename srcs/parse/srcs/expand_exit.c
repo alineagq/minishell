@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:50:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:21:31 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 01:55:57 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	free_mouli(void *a, void *b)
+static void	free_mouli(void *a, void *b) 
 {
 	free(a);
 	free(b);
@@ -20,7 +20,7 @@ static void	free_mouli(void *a, void *b)
 	b = NULL;
 }
 
-char	*find_exit_code(char *str)
+char	*find_exit_code(char *str) 
 {
 	while (*str)
 	{
@@ -31,18 +31,18 @@ char	*find_exit_code(char *str)
 	return (NULL);
 }
 
-static char	*update_token_exit_code(char *str, char *exit_code, char *var_head)
-{
-	char	*part1;
-	char	*final_str;
+	static char	*update_token_exit_code(char *str, char *exit_code, char *var_head)
+	{
+		char	*part1;
+		char	*final_str;
 
-	part1 = ft_strjoin(str, exit_code);
-	final_str = ft_strjoin(part1, var_head + 2);
-	free(part1);
-	return (final_str);
-}
+		part1 = ft_strjoin(str, exit_code);
+		final_str = ft_strjoin(part1, var_head + 2);
+		free(part1);
+		return (final_str);
+	}
 
-void	expand_exit_code(t_config *data)
+void	expand_exit_code(t_config *data) 
 {
 	char		*value_head;
 	char		*exit_str;

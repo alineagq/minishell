@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/25 20:27:24 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 00:03:02 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static char	*read_line(t_config *data)
+static char	*read_line(t_config *data) 
 {
 	char	*str;
 
@@ -37,7 +37,7 @@ static char	*read_line(t_config *data)
 	return (NULL);
 }
 
-static int	check_for_open_quotes(char *prompt)
+static int	check_for_open_quotes(char *prompt) 
 {
 	int	i;
 	int	single_quotes;
@@ -57,7 +57,7 @@ static int	check_for_open_quotes(char *prompt)
 	return ((single_quotes % 2) + (double_quotes % 2));
 }
 
-static int	is_only_space(char *str)
+static int	is_only_space(char *str) 
 {
 	if (str && !*str)
 		return (0);
@@ -72,7 +72,7 @@ static int	is_only_space(char *str)
 	return (1);
 }
 
-void	validate_prompt(t_config *data)
+void	validate_prompt(t_config *data) 
 {
 	if (data->prompt)
 	{
@@ -89,7 +89,7 @@ void	validate_prompt(t_config *data)
 	}
 }
 
-void	prompt(void)
+void	prompt(void) 
 {
 	t_config	*data;
 

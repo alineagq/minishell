@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:24:06 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/22 16:07:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:04:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	count_no_one(char *value, char one)
+static int	count_no_one(char *value, char one) 
 {
 	int	i;
 
@@ -30,7 +30,7 @@ static int	count_no_one(char *value, char one)
 	return (i);
 }
 
-static void	copy_no_one(char *value, char *temp, char one)
+static void	copy_no_one(char *value, char *temp, char one) 
 {
 	while (*value)
 	{
@@ -54,7 +54,7 @@ static char	*ft_unquote(char *value, char quote)
 	return (temp);
 }
 
-static void	transform_quotes(char *value)
+static void	transform_quotes(char *value) 
 {
 	char	sinq;
 	char	douq;
@@ -77,7 +77,7 @@ static void	transform_quotes(char *value)
 	}
 }
 
-void	remove_quotes_from_tokens(t_tokens *tokens)
+void	remove_quotes_from_tokens(t_tokens *tokens) 
 {
 	t_tokens	*temp;
 	char		*trimmed;

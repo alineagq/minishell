@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:32:33 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 02:47:01 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,33 +125,38 @@ typedef struct s_com
 
 // INIT
 
-void		init(void);
+void		init(void);// DONE
 void		handler_int(int sig);
 void		handle_eof(int signum);
 void		set_signal(void);
 void		sig_defaults(void);
 void		ignore_signals(void);
-t_env_list	*create_node(const char *key, const char *value);
-t_env_list	*create_env_list(char **env);
-void		set_env(t_env_list **head, const char *key, const char *new_value);
+t_env_list	*create_node(const char *key, const char *value);// DONE
+t_env_list	*create_env_list(char **env);// DONE
+void		set_env(t_env_list **head, const char *key, \
+			const char *new_value);// DONE
 
 // PROMPT
 
-void		prompt(void);
+void		prompt(void);// DONE
 
 // PARSE
 
-void		parse(void);
-char		*add_spaces(char *buffer, t_config *data);
-char		**create_tokens_args(char *str, char delimiter);
-void		create_tokens(t_config *data);
-void		expand_exit_code(t_config *data);
-char		*find_exit_code(char *str);
-void		expand_variables(t_config *data);
-void		categorize_tokens(t_tokens *tokens);
-void		remove_quotes_from_tokens(t_tokens *tokens);
-void		iterate_through_quotes(t_split_shell *this);
+void		parse(void);// DONE
+char		*add_spaces(char *buffer, t_config *data);// DONE
+char		**create_tokens_args(char *str, char delimiter);//	DONE
+void		create_tokens(t_config *data);// DONE
+void		expand_exit_code(t_config *data);// DONE
+char		*find_exit_code(char *str);// DONE
+void		expand_variables(t_config *data);// DONE
+void		categorize_tokens(t_tokens *tokens);// DONE
+void		remove_quotes_from_tokens(t_tokens *tokens);// DONE
+void		iterate_through_quotes(t_split_shell *this);// DONE
 int			check_for_non_print(char *value);
+void		remove_invalid_redirections(t_tokens **head);// DONE
+void		remove_empty_or_whitespace_nodes(t_tokens **head);// DONE
+void		remove_end_spaces(t_config *data);// DONE
+void		expand_tilde(t_config *data);// DONE
 
 // EXECUTE
 void		execute(void);
@@ -182,37 +187,41 @@ int			builtin_unset(char **args, t_com *com, t_config *data);
 char		*heredoc_handle_expansions(char *str, t_config *data);
 char		*tok_get_path(char *value, t_env_list *env_head);
 void		compare_arg_env(t_env_list **head, const char *key);
-
+int			exec_loop(t_com *cmd, t_config *data, int original_fds[2]);
+void		initialize(t_config **data, int *original_fds);
+int			executionLoop(t_config *data, int *original_fds);
+void		finalize(t_config *data);
+void		create_redirect_files(t_com *cmd);
 
 // EXIT
 
 void		exit_program(void);
-void		*safe_free(void *content);
-void		clear_env(t_config *data);
-void		free_char_array(char **arr);
-void		free_tokens(t_tokens *tokens);
+void		*safe_free(void *content);// DONE
+void		clear_env(t_config *data);// DONE
+void		free_char_array(char **arr);// DONE
+void		free_tokens(t_tokens *tokens);// DONE
 
 // UTILS
 
 t_config	*get_data(void);
-void		clear_data(t_config	*data);
+void		clear_data(t_config	*data);// DONE
 int			restore_original_fds(int original_fds[2]);
 void		*free_pp_char(char **pp);
-int			is_variable(char c);
-char		*find_variable(char	*str);
+int			is_variable(char c);//	DONE
+char		*find_variable(char	*str);// DONE
 char		*get_var_name(char	*var_head);
-char		*get_env_value(t_env_list *head, char *targetKey);
+char		*get_env_value(t_env_list *head, char *targetKey);// DONE
 void		print_env_list(t_env_list *head);
-int			is_delimiter(char c);
+int			is_delimiter(char c);// DONE
 void		count_words(t_split_shell *this);
-int			get_token_type(t_tokens *temp);
-int			token_is_error(t_tokens *temp);
+int			get_token_type(t_tokens *temp);// DONE
+int			token_is_error(t_tokens *temp);//	DONE
 int			token_is_builtin(char *value);
-int			token_is_operator(char *value);
-int			token_is_redirect(char *value);
+int			token_is_operator(char *value);// DONE
+int			token_is_redirect(char *value);// DONE
 int			token_is_word(t_tokens *temp);
 int			token_is_command(t_tokens *temp);
-int			token_is_fd(t_tokens *temp);
+int			token_is_fd(t_tokens *temp);//	DONE
 t_tokens	*iterate_to_tok_index(t_config *data);
 t_reds		*create_red_list(int nodes);
 int			write_to_heredoc(int ret_fd, char *target, t_config *data);
