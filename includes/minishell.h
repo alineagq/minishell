@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:32:33 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:54:16 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,6 +152,7 @@ void		categorize_tokens(t_tokens *tokens);
 void		remove_quotes_from_tokens(t_tokens *tokens);
 void		iterate_through_quotes(t_split_shell *this);
 int			check_for_non_print(char *value);
+void		remove_invalid_redirections(t_tokens **head);
 
 // EXECUTE
 void		execute(void);
@@ -182,7 +183,9 @@ int			builtin_unset(char **args, t_com *com, t_config *data);
 char		*heredoc_handle_expansions(char *str, t_config *data);
 char		*tok_get_path(char *value, t_env_list *env_head);
 void		compare_arg_env(t_env_list **head, const char *key);
-
+pid_t		create_child(void);
+int			pipe_handle(t_config *data, t_com *cmd);
+int			handle_output(t_reds *red_out, int original_fds[2]);
 
 // EXIT
 

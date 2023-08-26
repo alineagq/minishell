@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/12 18:49:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 00:02:51 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:37:17 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static void	create_redirect_files(t_com *cmd)
 		tmp = tmp->next;
 	}
 }
-
 
 static int	exec_loop(t_com *cmd, t_config *data, int original_fds[2])
 {
@@ -46,18 +45,12 @@ static int	exec_loop(t_com *cmd, t_config *data, int original_fds[2])
 	return (1);
 }
 
-void	execute(void)
+static void	execute_command_loop(t_config *data, int *original_fds)
 {
-	t_config	*data;
-	t_com		*cmd;
-	int			control;
-	int			original_fds[2];
+	t_com	*cmd;
+	int		control;
 
 	control = 1;
-	original_fds[0] = NO_REDIRECT;
-	original_fds[1] = NO_REDIRECT;
-	ignore_signals();
-	data = get_data();
 	while (control)
 	{
 		cmd = get_exec_info(data);
@@ -66,6 +59,10 @@ void	execute(void)
 		if (data->issue_exit)
 			break ;
 	}
+}
+
+static void	execute_post_loop(t_config *data, int *original_fds)
+{
 	while (wait(&data->exit_code) > 0)
 		continue ;
 	if (data->exit_code >= 256)
@@ -77,4 +74,17 @@ void	execute(void)
 		data->state = EXIT;
 	if (data->state == EXECUTE)
 		data->state = PROMPT;
+}
+
+void	execute(void)
+{
+	t_config	*data;
+	int			original_fds[2];
+
+	original_fds[0] = NO_REDIRECT;
+	original_fds[1] = NO_REDIRECT;
+	ignore_signals();
+	data = get_data();
+	execute_command_loop(data, original_fds);
+	execute_post_loop(data, original_fds);
 }

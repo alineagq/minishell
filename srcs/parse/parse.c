@@ -6,18 +6,20 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 02:03:17 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 07:49:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	expand_tilde(t_config *data)
+static void	expand_tilde(t_config *data)
 {
-	t_tokens *current = data->tokens;
-	char *home_dir = getenv("HOME");
-	char *new_value;
+	t_tokens	*current;
+	char		*home_dir;
+	char		*new_value;
 
+	current = data->tokens;
+	home_dir = getenv("HOME");
 	while (current != NULL)
 	{
 		if (current->type == WORDTOKEN && current->value[0] == '~')
@@ -33,53 +35,7 @@ void	expand_tilde(t_config *data)
 	}
 }
 
-int is_valid_file(char *filename) {
-    if(access(filename, F_OK) != -1) {
-        return 1; // file exists and is accessible
-    } else {
-        return 0; // file does not exist or is not accessible
-    }
-}
-
-
-void remove_invalid_redirections(t_tokens **head) {
-    t_tokens	*current = *head;
-    t_tokens	*prev = NULL;
-    t_tokens	*next_next;
-	int			type_is = current->type;
-
-    while (current != NULL && current->next != NULL) {
-        if (type_is == 1 && current->type == REDTOKEN && is_valid_file(current->next->value)) {
-            next_next = current->next->next;
-
-            // if the current node is not the head
-            if (prev != NULL) {
-                prev->next = next_next;
-            } else { // if the current node is the head
-                *head = next_next;
-            }
-
-            // if the next node is not the tail
-            if (next_next != NULL) {
-                next_next->prev = prev;
-            }
-			free(current->next->value);
-			free(current->value);
-            free(current->next);
-            free(current);
-            
-            // update the current node to the next valid node
-            current = next_next;
-        } else {
-            prev = current;
-            current = current->next;
-        }
-    }
-}
-
-
-
-void	remove_end_spaces(t_config *data)
+static void	remove_end_spaces(t_config *data)
 {
 	char		*str;
 

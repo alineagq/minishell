@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/25 20:01:21 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/26 08:54:57 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,11 +71,13 @@ FILES += 	parse/parse \
 			parse/srcs/quotes \
 			parse/srcs/spaces \
 			parse/srcs/split_string \
-			parse/srcs/tokens
+			parse/srcs/tokens \
+			parse/srcs/invalid_redirects
 			
 FILES += 	execute/srcs/args \
 			execute/srcs/clear_exec \
 			execute/srcs/com \
+			execute/srcs/children \
 			execute/srcs/command \
 			execute/srcs/env \
 			execute/srcs/get_info \
@@ -86,6 +88,7 @@ FILES += 	execute/srcs/args \
 			execute/execute \
 			execute/srcs/redirects/heredoc \
 			execute/srcs/redirects/redirects \
+			execute/srcs/redirects/output \
 			execute/srcs/redirects/expansions \
 			execute/srcs/env/envs \
 			execute/srcs/builtin/cd \

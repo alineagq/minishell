@@ -6,12 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 09:43:36 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 22:25:01 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:44:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
-
 
 static void	update_value(t_env_list *node, const char *new_value)
 {

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:50:50 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/24 10:21:31 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 07:59:34 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,25 @@ static char	*update_token_exit_code(char *str, char *exit_code, char *var_head)
 	return (final_str);
 }
 
+void	process_token(t_config *data, t_tokens *token)
+{
+	char	*ptr;
+	char	*exit_str;
+	char	*current;
+
+	ptr = find_exit_code(token->value);
+	if (ptr)
+	{
+		*ptr = '\0';
+		exit_str = ft_itoa(data->exit_code);
+		current = token->value;
+		token->value = update_token_exit_code(token->value, exit_str, ptr);
+		free_mouli(exit_str, current);
+	}
+}
+
 void	expand_exit_code(t_config *data)
 {
-	char		*value_head;
-	char		*exit_str;
-	char		*current;
 	t_tokens	*head;
 
 	head = data->tokens;
@@ -57,17 +71,7 @@ void	expand_exit_code(t_config *data)
 			head = head->next;
 			continue ;
 		}
-		value_head = find_exit_code(head->value);
-		if (value_head)
-		{
-			*value_head = '\0';
-			exit_str = ft_itoa(data->exit_code);
-			current = head->value;
-			head->value = update_token_exit_code \
-				(head->value, exit_str, value_head);
-			free_mouli(exit_str, current);
-		}
-		else
-			head = head->next;
+		process_token(data, head);
+		head = head->next;
 	}
 }

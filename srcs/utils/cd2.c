@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 00:53:10 by coder             #+#    #+#             */
-/*   Updated: 2023/08/22 13:52:51 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:00:47 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int	update_oldpwd(t_config *data, char *curr_path)
 	}
 	return (1);
 }
-
 
 int	update_pwd(t_config *data, char *path)
 {

@@ -6,24 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 21:15:32 by coder             #+#    #+#             */
-/*   Updated: 2023/08/26 01:03:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:39:28 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
-
-static pid_t	create_child(void)
-{
-	pid_t	child_pid;
-
-	child_pid = fork();
-	if (child_pid < 0)
-	{
-		write(2, "error: Can't spawn child\n", 25);
-		exit(-1);
-	}
-	return (child_pid);
-}
 
 int	get_exec_error(char *path, t_config *data)
 {
@@ -43,21 +30,6 @@ int	get_exec_error(char *path, t_config *data)
 		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	}
 	return (data->exit_code);
-}
-
-int	pipe_handle(t_config *data, t_com *cmd)
-{
-	if (cmd->receives_from_pipe)
-	{
-		close(data->pipe_in[1]);
-		dup2(data->pipe_in[0], STDIN_FILENO);
-	}
-	if (cmd->sends_to_pipe)
-	{
-		close(data->pipe_out[0]);
-		dup2(data->pipe_out[1], STDOUT_FILENO);
-	}
-	return (0);
 }
 
 int	exec_fork_builtin(t_com *cmd, t_config *data, int original_fds[2])
