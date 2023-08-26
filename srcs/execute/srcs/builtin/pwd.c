@@ -6,12 +6,11 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 19:45:04 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 19:30:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:10:01 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
-
 
 int	builtin_pwd(char **args, char **envp, t_config *data)
 {

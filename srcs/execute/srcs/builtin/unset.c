@@ -5,39 +5,48 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 01:05:53 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/23 02:44:50 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/26 09:12:42 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/26 09:29:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-void	compare_arg_env(t_env_list **head, const char *key)
+static void	del_node(t_env **head, char *key, t_env **previous, t_env **current)
 {
-	t_env_list *current = *head;
-	t_env_list *previous = NULL;
-
-	while (current != NULL)
+	while (*current != NULL)
 	{
-		if (strcmp(current->key, key) == 0)
+		if (strcmp((*current)->key, key) == 0)
 		{
-            free(current->value);
-            current->value = NULL;
-            if (previous == NULL)
+			free((*current)->value);
+			(*current)->value = NULL;
+			if (*previous == NULL)
 			{
-                *head = current->next;
-                free(current->key);
-                free(current);
-            } else {
-                previous->next = current->next;
-                free(current->key);
-                free(current);
-            }
-            return;
-        }
-        previous = current;
-        current = current->next;
-    }
+				*head = (*current)->next;
+				free((*current)->key);
+				free(*current);
+			}
+			else
+			{
+				(*previous)->next = (*current)->next;
+				free((*current)->key);
+				free(*current);
+			}
+			return ;
+		}
+		*previous = *current;
+		*current = (*current)->next;
+	}
+}
+
+void	compare_arg_env(t_env **head, char *key)
+{
+	t_env	*previous;
+	t_env	*current;
+
+	previous = NULL;
+	current = *head;
+	del_node(head, key, &previous, &current);
 }
 
 int	builtin_unset(char **args, t_com *com, t_config *data)

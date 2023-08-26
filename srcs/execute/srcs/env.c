@@ -6,16 +6,16 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 03:04:27 by coder             #+#    #+#             */
-/*   Updated: 2023/08/26 08:37:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:27:59 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	count_envs(t_env_list *head)
+static int	count_envs(t_env *head)
 {
-	t_env_list	*temp;
-	int			i;
+	t_env	*temp;
+	int		i;
 
 	temp = head;
 	i = 0;
@@ -27,7 +27,7 @@ static int	count_envs(t_env_list *head)
 	return (i);
 }
 
-static void	tok_fill_envp(char **ret, t_env_list *head, int top)
+static void	tok_fill_envp(char **ret, t_env *head, int top)
 {
 	int		i;
 	char	*temp;
@@ -46,9 +46,9 @@ static void	tok_fill_envp(char **ret, t_env_list *head, int top)
 	}
 }
 
-char	**tok_envp(t_env_list *head)
+char	**tok_envp(t_env *head)
 {
-	t_env_list	*temp;
+	t_env		*temp;
 	int			count;
 	char		**ret;
 

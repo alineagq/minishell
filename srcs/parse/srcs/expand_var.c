@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 07:54:55 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static char	*find_var_name(char *str)
 	return (ft_strdup(var_name));
 }
 
-char	*replace_variables(char *input_string, t_env_list *env_data)
+char	*replace_variables(char *input_string, t_env *env_data)
 {
 	char	*var_head;
 	char	*var_name;

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 08:22:10 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/23 23:45:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	free_char_array(char **arr)
 
 void	clear_env(t_config *data)
 {
-	t_env_list	*current;
-	t_env_list	*next;
+	t_env	*current;
+	t_env	*next;
 
 	current = data->env;
 	while (current)

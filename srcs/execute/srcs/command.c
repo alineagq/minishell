@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 00:53:46 by coder             #+#    #+#             */
-/*   Updated: 2023/08/26 00:20:09 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*access_all_paths(char **pp)
 	return (NULL);
 }
 
-char	*tok_get_path(char *value, t_env_list *env_head)
+char	*tok_get_path(char *value, t_env *env_head)
 {
 	char		**all_paths;
 	char		*path;

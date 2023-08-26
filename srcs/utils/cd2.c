@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/09 00:53:10 by coder             #+#    #+#             */
-/*   Updated: 2023/08/26 08:00:47 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	update_oldpwd(t_config *data, char *curr_path)
 {
-	t_env_list	*ls_oldpwd;
+	t_env	*ls_oldpwd;
 
 	ls_oldpwd = data->env;
 	while (ls_oldpwd)
@@ -35,7 +35,7 @@ int	update_oldpwd(t_config *data, char *curr_path)
 
 int	update_pwd(t_config *data, char *path)
 {
-	t_env_list	*temp;
+	t_env	*temp;
 
 	temp = data->env;
 	while (temp)

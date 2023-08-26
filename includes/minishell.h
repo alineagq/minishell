@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 08:54:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:28:32 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ typedef struct env_list
 	char			*key;
 	char			*value;
 	struct env_list	*next;
-}	t_env_list;
+}	t_env;
 
 typedef struct s_split_shell
 {
@@ -89,7 +89,7 @@ typedef struct s_config
 {
 	int			set_buffer_to_null;
 	char		*oldpwd;
-	t_env_list	*env;
+	t_env		*env;
 	char		*prompt;
 	char		*parse;
 	char		**raw_tokens;
@@ -131,9 +131,9 @@ void		handle_eof(int signum);
 void		set_signal(void);
 void		sig_defaults(void);
 void		ignore_signals(void);
-t_env_list	*create_node(const char *key, const char *value);
-t_env_list	*create_env_list(char **env);
-void		set_env(t_env_list **head, const char *key, const char *new_value);
+t_env		*create_node(const char *key, const char *value);
+t_env		*create_env_list(char **env);
+void		set_env(t_env **head, const char *key, const char *new_value);
 
 // PROMPT
 
@@ -161,7 +161,7 @@ char		*tok_command(t_config *data, t_com *self);
 char		**tok_args(t_config *data);
 t_reds		*tok_input(t_config *data);
 t_reds		*tok_output(t_config *data);
-char		**tok_envp(t_env_list *head);
+char		**tok_envp(t_env *head);
 int			exec_one_cmd(t_com *cmd, t_config *data, int original_fds[2]);
 int			exec_builtin(t_com *cmd, t_config *data, int original_fds[2]);
 int			has_pipe(t_tokens *tokens);
@@ -175,14 +175,13 @@ void		*destroy_exec_info(t_com *self);
 int			exec_com_multi(t_com *cmd, t_config *data, int original_fds[2]);
 int			builtin_echo(char **args);
 int			builtin_cd(char **args, char **envp, t_config *data);
-int			builtin_env(char **args, char **envp, t_env_list *env_list);
+int			builtin_env(char **args, char **envp, t_env *env_list);
 int			builtin_exit(t_com *cmd, char **args, char **envp, t_config *data);
 int			builtin_export(char	**args, t_com *com, t_config *data);
 int			builtin_pwd(char **args, char **envp, t_config *data);
 int			builtin_unset(char **args, t_com *com, t_config *data);
 char		*heredoc_handle_expansions(char *str, t_config *data);
-char		*tok_get_path(char *value, t_env_list *env_head);
-void		compare_arg_env(t_env_list **head, const char *key);
+char		*tok_get_path(char *value, t_env *env_head);
 pid_t		create_child(void);
 int			pipe_handle(t_config *data, t_com *cmd);
 int			handle_output(t_reds *red_out, int original_fds[2]);
@@ -204,8 +203,8 @@ void		*free_pp_char(char **pp);
 int			is_variable(char c);
 char		*find_variable(char	*str);
 char		*get_var_name(char	*var_head);
-char		*get_env_value(t_env_list *head, char *targetKey);
-void		print_env_list(t_env_list *head);
+char		*get_env_value(t_env *head, char *targetKey);
+void		print_env(t_env *head);
 int			is_delimiter(char c);
 void		count_words(t_split_shell *this);
 int			get_token_type(t_tokens *temp);
@@ -227,6 +226,6 @@ int			count_args(char **args);
 int			cd_error_args(t_config *data);
 
 void		close_inherited_fds(void);
-void		print_export_list(t_env_list *head);
+void		print_export_list(t_env *head);
 
 #endif

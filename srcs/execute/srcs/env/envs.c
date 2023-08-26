@@ -6,13 +6,13 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 09:43:36 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/26 08:44:51 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static void	update_value(t_env_list *node, const char *new_value)
+static void	update_value(t_env *node, const char *new_value)
 {
 	if (!node)
 		return ;
@@ -21,7 +21,7 @@ static void	update_value(t_env_list *node, const char *new_value)
 	node->value = ft_strdup(new_value);
 }
 
-static void	insert_node(t_env_list **head, t_env_list *prev, t_env_list *new)
+static void	insert_node(t_env **head, t_env *prev, t_env *new)
 {
 	if (!new)
 		return ;
@@ -37,11 +37,11 @@ static void	insert_node(t_env_list **head, t_env_list *prev, t_env_list *new)
 	}
 }
 
-void	set_env(t_env_list **head, const char *key, const char *new_value)
+void	set_env(t_env **head, const char *key, const char *new_value)
 {
-	t_env_list	*new_node;
-	t_env_list	*current;
-	t_env_list	*prev;
+	t_env	*new_node;
+	t_env	*current;
+	t_env	*prev;
 
 	current = *head;
 	prev = NULL;
