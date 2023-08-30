@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init.c                                             :+:      :+:    :+:   */
+/*   data.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 10:09:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 18:33:44 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/30 18:25:06 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/30 18:28:52 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	init(void)
+/**
+ * Retrieves a pointer to the program data.
+ * 
+ * This function provides access to the program data. It uses a static variable 
+ * so that the same data is shared across all calls to this function.
+ * 
+ * This function does not take any arguments.
+ * 
+ * @return A pointer to the program data.
+ */
+t_config	*get_data(void)
 {
-	extern char	**environ;	
-	t_config	*data;
-	char		*pwd;
+	static t_config	data;
 
-	data = get_data();
-	set_signal();
-	data->env = create_env_list(environ);
-	pwd = getcwd(NULL, 0);
-	set_env(&data->env, "PWD", pwd);
-	free(pwd);
-	if (data->state == INIT)
-		data->state = PROMPT;
+	return (&data);
 }
