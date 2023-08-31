@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/22 00:31:29 by fsuomins          #+#    #+#              #
-#    Updated: 2023/08/30 19:47:18 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/19 00:03:52 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,8 @@ FILES = ft_isalpha ft_isdigit ft_isalnum ft_isascii ft_isprint \
 		ft_tolower ft_toupper ft_strlcat ft_strchr ft_strncmp \
 		ft_strrchr ft_memcmp ft_strnstr ft_atoi ft_strdup ft_substr \
 		ft_strjoin ft_strtrim ft_split ft_itoa ft_strmapi ft_striteri \
-		ft_putchar_fd ft_islower ft_isupper ft_putstr_fd
+		ft_putchar_fd ft_islower ft_isupper ft_strtok ft_strcmp \
+		ft_putstr_fd
 		
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS := ${SRCS:.c=.o}
@@ -70,7 +71,6 @@ $(NAME): $(OBJS)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-
 valgrind:
 	valgrind --track-origins=yes --error-exitcode=42 --leak-check=full --show-leak-kinds=all --quiet ./test
 
@@ -82,4 +82,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re test
+.PHONY: all clean fclean re

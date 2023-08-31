@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/30 20:07:52 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/26 22:54:38 by aqueiroz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,13 +44,63 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES	+= minishell
-FILES	+= data/data
-FILES	+= init/init init/signals
-FILES	+= env/create_env env/set_env env/clear_env
-FILES	+= prompt/prompt
-FILES	+= parse/parse parse/spaces parse/split_string
-FILES	+= exit/exit
+FILES  = 	minishell
+			
+FILES += 	init/init \
+			init/srcs/signals \
+			init/srcs/create_env 
+			
+FILES += 	utils/data \
+			utils/free \
+			utils/envs \
+			utils/vars \
+			utils/spaces \
+			utils/tokens \
+			utils/types \
+			utils/cd \
+			utils/cd2 \
+			utils/heredoc \
+			utils/redirect \
+			utils/tok
+			
+FILES += 	prompt/prompt
+			
+FILES += 	parse/parse \
+			parse/srcs/expand_exit \
+			parse/srcs/expand_var \
+			parse/srcs/quotes \
+			parse/srcs/spaces \
+			parse/srcs/split_string \
+			parse/srcs/tokens \
+			parse/srcs/invalid_redirects
+			
+FILES += 	execute/srcs/args \
+			execute/srcs/clear_exec \
+			execute/srcs/com \
+			execute/srcs/children \
+			execute/srcs/command \
+			execute/srcs/env \
+			execute/srcs/get_info \
+			execute/srcs/input \
+			execute/srcs/multi_cmd \
+			execute/srcs/one_cmd \
+			execute/srcs/output \
+			execute/execute \
+			execute/srcs/redirects/heredoc \
+			execute/srcs/redirects/redirects \
+			execute/srcs/redirects/output \
+			execute/srcs/redirects/expansions \
+			execute/srcs/env/envs \
+			execute/srcs/builtin/cd \
+			execute/srcs/builtin/echo \
+			execute/srcs/builtin/env \
+			execute/srcs/builtin/exit \
+			execute/srcs/builtin/export \
+			execute/srcs/builtin/pwd \
+			execute/srcs/builtin/unset
+			
+			
+FILES += exit/exit
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
@@ -67,12 +117,12 @@ LIBFT:
 	@$(MAKE) -s -k -C $(LIB_PATH)
 
 $(NAME): LIBFT $(OBJS)
-	@$(CC) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
 	$(info $(purple)Project compiled. Run './$(NAME)' to start.$(reset))
 
 valgrind:
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
-	--suppressions=readline.supp --leak-check=full \
+	--suppressions=./readline.supp --leak-check=full \
 	--show-leak-kinds=all --trace-children-skip='*/bin/*,*/sbin/*' --quiet ./minishell
 clean:
 	@rm -f $(OBJS)

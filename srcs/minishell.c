@@ -6,16 +6,24 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 20:50:53 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:05:50 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	main(void)
+static	void	is_valid(int argc, char **argv)
 {
-	t_config	*data;
+	(void)argv;
+	if (argc != 1)
+		return (exit(1));
+}
 
+int	main(int argc, char **argv)
+{
+	t_config	*data;	
+
+	is_valid(argc, argv);
 	data = get_data();
 	data->state = INIT;
 	while (1)
@@ -26,7 +34,10 @@ int	main(void)
 			prompt();
 		if (data->state == PARSE)
 			parse();
+		if (data->state == EXECUTE)
+			execute();
 		if (data->state == EXIT)
 			exit_program();
 	}
+	return (0);
 }
