@@ -6,59 +6,97 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 10:51:42 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/09 17:39:50 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:05:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-/**
- * Sets the program into interactive mode and reads a line from the user.
- * 
- * This function retrieves the program data, sets the program into interactive
- * mode, and reads a line from the user using the `read_line` function. If the
- * line read is not null, it changes the program state to PARSE.
- * 
- * This function does not take any arguments and does not return a value.
- */
+
+static char	*read_line(t_config *data)
+{
+	char	*str;
+
+	str = readline("\033[1;32mminishell$\033[0m ");
+	if (!str)
+	{
+		write(STDOUT_FILENO, "exit\n", 5);
+		data->exit_code = 0;
+		data->state = EXIT;
+		return (NULL);
+	}
+	else
+	{
+		if (*str)
+		{
+			add_history(str);
+			return (str);
+		}
+		else
+			free(str);
+	}
+	return (NULL);
+}
+
+static int	check_for_open_quotes(char *prompt)
+{
+	int	i;
+	int	single_quotes;
+	int	double_quotes;
+
+	i = 0;
+	single_quotes = 0;
+	double_quotes = 0;
+	while (prompt[i])
+	{
+		if (prompt[i] == '\'' && (double_quotes & 1))
+			single_quotes ^= 1;
+		if (prompt[i] == '\"' && (single_quotes & 1))
+			double_quotes ^= 1;
+		i++;
+	}
+	return ((single_quotes & 1) + (double_quotes & 1));
+}
+
+static int	is_only_space(char *str)
+{
+	if (str && !*str)
+		return (0);
+	while (str)
+	{
+		if (!*str)
+			return (1);
+		if (*str != ' ')
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+static void	validate_prompt(t_config *data)
+{
+	if (data->prompt)
+	{
+		if (check_for_open_quotes(data->prompt))
+		{
+			ft_putstr_fd("minishell: syntax error: unexpected end of file\n",
+				2);
+			data->exit_code = 2;
+		}
+		else if (!is_only_space(data->prompt))
+		{
+			if (data->state == PROMPT)
+				data->state = PARSE;
+		}
+	}
+}
+
 void	prompt(void)
 {
 	t_config	*data;
 
 	data = get_data();
-	data->interactive_mode = 1;
-	data->str = read_line();
-	data->state = PARSE;
+	data->prompt = read_line(data);
+	validate_prompt(data);
+	if (data->state == PROMPT && data->prompt)
+		free(data->prompt);
 }
-
-/**
- * Reads a line from the user with the prompt "minishell$ ".
- * 
- * This function uses the readline function to read a line from the user with the prompt "minishell$ ".
- * If the line read is null, it writes "exit\n" and exits the program. If the line read is not empty,
- * it adds the line to the readline history. If the line read is empty, it frees the memory allocated
- * for the line and sets the line to null.
- * 
- * This function does not take any arguments.
- * 
- * @return The line read from the user, or null if the line was empty.
- */
-char	*read_line(void)
-{
-	char	*str;
-
-	str = readline("minishell$ ");
-	if (str == NULL)
-	{
-		write(STDOUT_FILENO, "exit\n", 5);
-		exit(EXIT_SUCCESS);
-	}
-	if (*str)
-		add_history(str);
-	else
-	{
-		free(str);
-		str = NULL;
-	}
-	return (str);
-}
-

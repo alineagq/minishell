@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 10:40:31 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 18:54:41 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:08:56 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,34 +30,34 @@
 # define EXECUTE 4
 # define EXIT 5
 
-typedef struct s_config
-{
-	char			**env;
-	char			*str;
-	char			*parse;
-	char			**raw_tokens;
-	int				interactive_mode;
-	int				state;
-	t_cmd			*tokens;
-
-}					t_config;
-
 typedef struct s_cmd
 {
 	char			*cmd;
 	char			**argv;
-	t_cmd			*next;
+	struct s_cmd	*next;
 }					t_cmd;
 
 typedef struct s_env
 {
 	char			*key;
 	char			*value;
-	struct env_list	*next;
+	struct s_env	*next;
 }					t_env;
+
+typedef struct s_config
+{
+	t_env			*env;
+	char			*prompt;
+	char			*parse;
+	char			**raw_tokens;
+	int				exit_code;
+	int				state;
+	t_cmd			*tokens;
+}					t_config;
 
 // DATA
 t_config			*get_data(void);
+void				clear_data(t_config *data);
 
 // INIT
 void				init(void);
@@ -66,7 +66,6 @@ void				handler_int(int sig);
 void				handle_eof(int signum);
 
 // PROMPT
-char				*read_line(void);
 void				prompt(void);
 
 // PARSE
@@ -85,4 +84,10 @@ t_env				*create_env_list(char **env);
 void				set_env(t_env **head, const char *key,
 						const char *new_value);
 t_env				*create_node(const char *key, const char *value);
+void				clear_env(t_config *data);
+
+// EXIT
+
+void				exit_program(void);
+void				cleanup(void);
 #endif

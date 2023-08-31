@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 20:50:53 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/30 19:50:26 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(void)
+void	cleanup(void)
+{
+	pid_t	result;
+
+	result = 0;
+	while (result > 0 || (result == -1 && errno == EINTR))
+	{
+		result = waitpid(-1, NULL, WNOHANG);
+	}
+}
+
+void	exit_program(void)
 {
 	t_config	*data;
 
 	data = get_data();
-	data->state = INIT;
-	while (1)
-	{
-		if (data->state == INIT)
-			init();
-		if (data->state == PROMPT)
-			prompt();
-		if (data->state == PARSE)
-			parse();
-		if (data->state == EXIT)
-			exit_program();
-	}
+	clear_data(data);
+	cleanup();
+	exit(data->exit_code);
 }

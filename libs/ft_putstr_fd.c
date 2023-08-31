@@ -1,32 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 20:50:53 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/30 19:42:56 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/30 19:43:06 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "libft.h"
 
-int	main(void)
+void	ft_putstr_fd(char *s, int fd)
 {
-	t_config	*data;
-
-	data = get_data();
-	data->state = INIT;
-	while (1)
+	while (*s != '\0')
 	{
-		if (data->state == INIT)
-			init();
-		if (data->state == PROMPT)
-			prompt();
-		if (data->state == PARSE)
-			parse();
-		if (data->state == EXIT)
-			exit_program();
+		write(fd, s, 1);
+		s++;
 	}
 }

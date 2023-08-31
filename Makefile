@@ -6,7 +6,7 @@
 #    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/09 23:49:13 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/30 20:07:52 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,13 @@ LIB_PATH = libs
 OBJ_PATH = objs
 PATH_INC = includes
 
-FILES = minishell init/signals init/init prompt/prompt parse/parse parse/spaces \
-		parse/split_string
+FILES	+= minishell
+FILES	+= data/data
+FILES	+= init/init init/signals
+FILES	+= env/create_env env/set_env env/clear_env
+FILES	+= prompt/prompt
+FILES	+= parse/parse parse/spaces parse/split_string
+FILES	+= exit/exit
 
 SRCS = $(addprefix $(SRC_PATH)/, $(addsuffix .c, $(FILES)))
 OBJS = $(SRCS:.c=.o)
@@ -53,7 +58,7 @@ OBJS = $(SRCS:.c=.o)
 # FLAGS
 
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -L./$(LIB_PATH) -lft -lreadline 
 
 all: $(NAME)
@@ -68,7 +73,7 @@ $(NAME): LIBFT $(OBJS)
 valgrind:
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
 	--suppressions=readline.supp --leak-check=full \
-	--show-leak-kinds=all --quiet ./minishell
+	--show-leak-kinds=all --trace-children-skip='*/bin/*,*/sbin/*' --quiet ./minishell
 clean:
 	@rm -f $(OBJS)
 	@$(MAKE) -C $(LIB_PATH) --silent clean

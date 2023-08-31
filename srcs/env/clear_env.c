@@ -1,32 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.c                                        :+:      :+:    :+:   */
+/*   clear_env.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/06 09:58:56 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/30 20:50:53 by fsuomins         ###   ########.fr       */
+/*   Created: 2023/08/30 20:00:23 by fsuomins          #+#    #+#             */
+/*   Updated: 2023/08/30 20:02:29 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-int	main(void)
+void	clear_env(t_config *data)
 {
-	t_config	*data;
+	t_env	*current;
+	t_env	*next;
 
-	data = get_data();
-	data->state = INIT;
-	while (1)
+	current = data->env;
+	while (current)
 	{
-		if (data->state == INIT)
-			init();
-		if (data->state == PROMPT)
-			prompt();
-		if (data->state == PARSE)
-			parse();
-		if (data->state == EXIT)
-			exit_program();
+		next = current->next;
+		free(current->key);
+		current->key = NULL;
+		free(current->value);
+		current->value = NULL;
+		free(current);
+		current = next;
 	}
+	data->env = NULL;
 }

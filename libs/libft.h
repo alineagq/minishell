@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 02:57:01 by aqueiroz          #+#    #+#             */
-/*   Updated: 2023/07/21 21:14:26 by aqueiroz         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:43:24 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,6 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 int		ft_isupper(int c);
 int		ft_islower(int c);
+void	ft_putstr_fd(char *s, int fd);
 
 #endif
