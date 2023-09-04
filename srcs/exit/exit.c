@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/14 14:07:41 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:11:32 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/21 19:00:14 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,6 @@ void	exit_program(void)
 
 	data = get_data();
 	clear_data(data);
+	cleanup();
 	exit(data->exit_code);
 }

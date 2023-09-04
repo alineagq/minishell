@@ -3,101 +3,83 @@
 /*                                                        :::      ::::::::   */
 /*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 00:55:09 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 03:34:37 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/09/02 12:37:27 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-int get_last_uppercase_index(char *str)
+static char	*find_var_name(char *str)
 {
-    int i;
-    int length;
-    int last_uppercase_index;
-
-    length = strlen(str);
-    last_uppercase_index = -1;
-    i = 0;
-    while (i < length)
-    {
-        if (isupper(str[i]))
-            last_uppercase_index = i;
-        i++;
-    }
-    return last_uppercase_index;
-}
-
-static char	*update_token(t_config *data, char *var_name)
-{
-	char	*value;
-	char	*part1;
-	char	*final_str;
-	void	*temp;
-
-	temp = data->tokens->value;
-	value = var_name;
-	if (!value)
-		part1 = ft_strdup(data->tokens->value);
-	else
-		part1 = value;
-	final_str = ft_strjoin(part1, temp + get_last_uppercase_index(temp) + 1);
-	free(part1);
-	free(temp);
-	return (final_str);
-}
-
-static char	*get_substring_until_last_uppercase(char *str)
-{
+	char	var_name[100];
 	int		i;
-	int		length;
-	int		last_uppercase_index;
-	char	*result;
 
-	length = ft_strlen(str);
-	last_uppercase_index = -1;
 	i = 0;
-	while (i < length)
+	while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 	{
-		if (ft_isupper(str[i]))
-			last_uppercase_index = i;
+		var_name[i] = str[i];
 		i++;
 	}
-	if (last_uppercase_index == -1)
-		return (ft_strdup(str));
-	result = (char *)malloc((last_uppercase_index + 2) * sizeof(char));
-	ft_strlcpy(result, str, last_uppercase_index + 2);
-	return (result);
+	var_name[i] = '\0';
+	return (ft_strdup(var_name));
 }
 
-static void	if_variable(char *var_head, t_config *data)
+char	*replace_variables(char *input_string, t_env *env_data)
 {
+	char	*var_head;
 	char	*var_name;
+	char	*var_value;
+	char	*final_str;
+	char	*temp_str;
 
-	var_name = get_env_value(data->env, ++var_head);
-	data->tokens->value = update_token(data, var_name);
+	final_str = NULL;
+	var_head = find_variable(input_string);
+	if (!var_head)
+		return (NULL);
+	while (var_head)
+	{
+		var_name = find_var_name(++var_head);
+		var_value = get_env_value(env_data, var_name);
+		if (!var_value)
+			var_value = ft_strdup("");
+		if (final_str)
+			temp_str = ft_substr(final_str, 0, ft_strlen(final_str) - ft_strlen(var_name) - 2);
+		else
+			temp_str = ft_substr(input_string, 0, var_head - input_string - 1);
+		final_str = ft_strjoin(temp_str, var_value);
+		free(temp_str);
+		temp_str = ft_strdup(final_str);
+		free(final_str);
+		final_str = ft_strjoin(temp_str, var_head + ft_strlen(var_name));
+		free(temp_str);
+		var_head = find_variable(var_head);
+		free(var_name);
+		free(var_value);
+	}
+	return (final_str);
 }
 
 void	expand_variables(t_config *data)
 {
-	char		*var_head;
 	t_tokens	*head;
+	char		*expanded_value;
 
 	head = data->tokens;
 	while (data->tokens)
 	{
-		if (data->tokens->value[0] == '\'')
+		if (*data->tokens->value == '\'')
 		{
 			data->tokens = data->tokens->next;
 			continue ;
 		}
-		var_head = find_variable(data->tokens->value);
-		if (var_head)
+		expanded_value = replace_variables(data->tokens->value, data->env);
+		if (expanded_value)
 		{
-			var_head = get_substring_until_last_uppercase(var_head);
-			if_variable(var_head, data);
+			free(data->tokens->value);
+			data->tokens->value = expanded_value;
 		}
 		data->tokens = data->tokens->next;
 	}

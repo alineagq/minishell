@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/16 19:13:45 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 19:53:05 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 08:45:41 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ char	*hd_update_exit_code(char *str, char *exit_code, char *var_head)
 	return (final_str);
 }
 
-// Handles "$?" expansions.
 char	*hd_expand_exit_code(t_config *data, char *str)
 {
 	char		*v_head;
@@ -55,7 +54,7 @@ char	*hd_expand_exit_code(t_config *data, char *str)
 	return (str);
 }
 
-char	*hd_update_str(char *str, char *var_name, char *var_head, t_config *data)
+char	*hd_update_str(char *str, char *name, char *var_head, t_config *data)
 {
 	char	*value;
 	char	*part1;
@@ -63,12 +62,12 @@ char	*hd_update_str(char *str, char *var_name, char *var_head, t_config *data)
 	void	*temp;
 
 	temp = str;
-	value = get_env_value(data->env, var_name);
+	value = get_env_value(data->env, name);
 	if (!value)
 		part1 = ft_strdup(str);
 	else
 		part1 = ft_strjoin(str, value);
-	final_str = ft_strjoin(part1, var_head + 1 + ft_strlen(var_name));
+	final_str = ft_strjoin(part1, var_head + 1 + ft_strlen(name));
 	free(value);
 	free(part1);
 	free(temp);

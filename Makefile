@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/20 00:26:49 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/08/26 15:40:34 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -71,11 +71,13 @@ FILES += 	parse/parse \
 			parse/srcs/quotes \
 			parse/srcs/spaces \
 			parse/srcs/split_string \
-			parse/srcs/tokens
+			parse/srcs/tokens \
+			parse/srcs/invalid_redirects
 			
 FILES += 	execute/srcs/args \
 			execute/srcs/clear_exec \
 			execute/srcs/com \
+			execute/srcs/children \
 			execute/srcs/command \
 			execute/srcs/env \
 			execute/srcs/get_info \
@@ -86,6 +88,7 @@ FILES += 	execute/srcs/args \
 			execute/execute \
 			execute/srcs/redirects/heredoc \
 			execute/srcs/redirects/redirects \
+			execute/srcs/redirects/output \
 			execute/srcs/redirects/expansions \
 			execute/srcs/env/envs \
 			execute/srcs/builtin/cd \
@@ -105,7 +108,7 @@ OBJS = $(SRCS:.c=.o)
 # FLAGS
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g3
+CFLAGS = -Wall -Wextra -Werror
 LIBFLAGS = -L./$(LIB_PATH) -lft -lreadline 
 
 all: $(NAME)
@@ -114,13 +117,14 @@ LIBFT:
 	@$(MAKE) -s -k -C $(LIB_PATH)
 
 $(NAME): LIBFT $(OBJS)
-	@$(CC) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
+	@$(CC) $(CFLAGS) $(OBJS) $(INCLUDE) $(LIBFLAGS) -o $@
 	$(info $(purple)Project compiled. Run './$(NAME)' to start.$(reset))
 
 valgrind:
+	make re
 	valgrind --trace-children=yes --track-fds=yes --track-origins=yes \
-	--suppressions=readline.supp --leak-check=full \
-	--show-leak-kinds=all --quiet ./minishell
+	--suppressions=./readline.supp --leak-check=full \
+	--show-leak-kinds=all --trace-children-skip='*/bin/*,*/sbin/*' --quiet ./minishell
 clean:
 	@rm -f $(OBJS)
 	@$(MAKE) -C $(LIB_PATH) --silent clean

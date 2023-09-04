@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redirects.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:48:16 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 19:42:42 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/09/02 16:47:03 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static int	redirect_input(t_reds *in)
+int	redirect_input(t_reds *in)
 {
 	int	fd;
 
@@ -47,11 +47,10 @@ int	redirect_heredoc(int original_fds[2], t_reds *in, t_config *data)
 	close(fd);
 	unlink(heredoc_file);
 	free(heredoc_file);
-	dup2(pipe_out, STDOUT_FILENO);
 	return (0);
 }
 
-static int	handle_input(t_reds *red_in, int original_fds[2], t_config *data)
+int	handle_input(t_reds *red_in, int original_fds[2], t_config *data)
 {
 	t_reds	*in;
 
@@ -72,30 +71,6 @@ static int	handle_input(t_reds *red_in, int original_fds[2], t_config *data)
 	}
 	return (0);
 }
-
-static int	handle_output(t_reds *red_out, int original_fds[2])
-{
-	t_reds	*out;
-	int		fd;
-
-	out = red_out;
-	if (!out)
-		return (0);
-	if (original_fds[1] == NO_REDIRECT)
-		original_fds[1] = dup(STDOUT_FILENO);
-	while (out)
-	{
-		if (out->type == OVERWRITE)
-			fd = open(out->target, O_CREAT | O_WRONLY | O_TRUNC, 0777);
-		else if (out->type == APPEND)
-			fd = open(out->target, O_CREAT | O_WRONLY | O_APPEND, 0777);
-		dup2(fd, STDOUT_FILENO);
-		close(fd);
-		out = out->next;
-	}
-	return (0);
-}
-
 
 int	handle_redirects(t_com *cmd, int original_fds[2], t_config *data)
 {

@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/19 01:03:03 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 18:19:16 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/22 20:57:23 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	*destroy_exec_info(t_com *self)
 	if (self->args)
 		self->args = free_pp_char(self->args);
 	if (self->envp)
-		self->envp = free_pp_char(self->envp);
+		free_char_array(self->envp);
 	if (self->error_to_print)
 		self->error_to_print = safe_free(self->error_to_print);
 	if (self->red_in)

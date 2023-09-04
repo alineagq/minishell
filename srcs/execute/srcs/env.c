@@ -6,16 +6,16 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 03:04:27 by coder             #+#    #+#             */
-/*   Updated: 2023/08/20 03:41:40 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:27:59 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static int	count_envs(t_env_list *head)
+static int	count_envs(t_env *head)
 {
-	t_env_list	*temp;
-	int			i;
+	t_env	*temp;
+	int		i;
 
 	temp = head;
 	i = 0;
@@ -27,27 +27,28 @@ static int	count_envs(t_env_list *head)
 	return (i);
 }
 
-static void	tok_fill_envp(char **ret, t_env_list *head, int top)
+static void	tok_fill_envp(char **ret, t_env *head, int top)
 {
 	int		i;
 	char	*temp;
+	char	*temp2;
 
 	i = 0;
 	while (head && i < top - 1)
 	{
-		temp = ft_strjoin(ft_strdup(head->key), "=");
+		temp2 = ft_strdup(head->key);
+		temp = ft_strjoin(temp2, "=");
 		ret[i] = ft_strjoin(temp, head->value);
-		// printf("ret[%d] = %s\n", i, ret[i]);
 		free(temp);
+		free(temp2);
 		i++;
 		head = head->next;
 	}
 }
 
-
-char	**tok_envp(t_env_list *head)
+char	**tok_envp(t_env *head)
 {
-	t_env_list	*temp;
+	t_env		*temp;
 	int			count;
 	char		**ret;
 

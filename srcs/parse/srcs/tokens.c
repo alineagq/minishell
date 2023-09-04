@@ -6,7 +6,7 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/18 14:44:30 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 23:04:07 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:04:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	create_tokens(t_config *data)
 	t_tokens	*current;
 	t_tokens	*previous;
 
-	if (!data->raw_tokens || !data->raw_tokens[0])
+	if (!data->raw_tokens || !*data->raw_tokens)
 		data->tokens = NULL;
 	i = 0;
 	head = ft_calloc(1, sizeof(*head));

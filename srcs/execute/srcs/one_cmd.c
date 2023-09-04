@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   one_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 21:40:45 by viferrei          #+#    #+#             */
-/*   Updated: 2023/08/19 19:32:23 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 16:18:51 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-// Returns 1 if a pipe operator is found.
 int	has_pipe(t_tokens *tokens)
 {
 	t_tokens	*head;
@@ -27,7 +26,6 @@ int	has_pipe(t_tokens *tokens)
 	return (0);
 }
 
-// Returns the function of the first builtin found.
 int	exec_builtin(t_com *cmd, t_config *data, int original_fds[2])
 {
 	if (!cmd->sends_to_pipe && !cmd->receives_from_pipe)
@@ -42,17 +40,16 @@ int	exec_builtin(t_com *cmd, t_config *data, int original_fds[2])
 	if (!ft_strcmp(cmd->command, "pwd"))
 		return (builtin_pwd(cmd->args, cmd->envp, data));
 	if (!ft_strcmp(cmd->command, "export"))
-		return (builtin_export(cmd->args, data));
+		return (builtin_export(cmd->args, cmd, data));
 	if (!ft_strcmp(cmd->command, "unset"))
-		return (builtin_unset(cmd->args, data));
+		return (builtin_unset(cmd->args, cmd, data));
 	if (!ft_strcmp(cmd->command, "env"))
 		return (builtin_env(cmd->args, cmd->envp, data->env));
 	if (!ft_strcmp(cmd->command, "exit"))
-		return (builtin_exit(cmd, cmd->args, cmd->envp, data));
+		return (builtin_exit(cmd, cmd->args, data));
 	return (0);
 }
 
-// Handles single-command input - either builtin or not.
 int	exec_one_cmd(t_com *cmd, t_config *data, int original_fds[2])
 {
 	if (data->issue_exit)

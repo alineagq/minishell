@@ -6,43 +6,50 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/06 11:13:28 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/20 01:48:54 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 07:49:42 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static int	check_for_open_quotes(char *rl_buffer)
+static void	expand_tilde(t_config *data)
 {
-	int	i;
-	int	sinquotes;
-	int	douquotes;
+	t_tokens	*current;
+	char		*home_dir;
+	char		*new_value;
 
-	i = 0;
-	sinquotes = 0;
-	douquotes = 0;
-	while (rl_buffer[i])
+	current = data->tokens;
+	home_dir = getenv("HOME");
+	while (current != NULL)
 	{
-		if (rl_buffer[i] == '\'' && (douquotes % 2 == 0))
-			sinquotes++;
-		if (rl_buffer[i] == '\"' && (sinquotes % 2 == 0))
-			douquotes++;
-		i++;
+		if (current->type == WORDTOKEN && current->value[0] == '~')
+		{
+			if (home_dir == NULL)
+				new_value = ft_strdup(current->value);
+			else
+				new_value = ft_strjoin(home_dir, current->value + 1);
+			free(current->value);
+			current->value = new_value;
+		}
+		current = current->next;
 	}
-	return ((sinquotes % 2) + (douquotes % 2));
 }
 
-static int	is_only_space(char *str)
+static void	remove_end_spaces(t_config *data)
 {
-	while (str)
+	char		*str;
+
+	str = ft_strtrim(data->prompt, " ");
+	if (str)
 	{
-		if (!*str)
-			return (1);
-		if (*str != ' ')
-			return (0);
-		str++;
+		free(data->prompt);
+		data->prompt = str;
 	}
-	return (1);
+	if (*str == '#')
+	{
+		data->state = PROMPT;
+		return ;
+	}
 }
 
 void	parse(void)
@@ -50,23 +57,20 @@ void	parse(void)
 	t_config	*data;
 
 	data = get_data();
-	if (check_for_open_quotes(data->prompt))
-	{
-		printf("Check for open quotes.\n");
-		data->exit_code = 2;
+	remove_end_spaces(data);
+	data->parse = add_spaces(data->prompt, data);
+	data->raw_tokens = create_tokens_args(data->parse, ' ');
+	create_tokens(data);
+	expand_exit_code(data);
+	expand_variables(data);
+	categorize_tokens(data->tokens);
+	remove_invalid_redirections(&data->tokens);
+	remove_quotes_from_tokens(data->tokens);
+	categorize_tokens(data->tokens);
+	expand_tilde(data);
+	if (data->tokens == NULL)
 		data->state = PROMPT;
-	}
-	else if (!is_only_space(data->prompt))
-	{
-		data->parse = add_spaces(data->prompt, data);
-		data->raw_tokens = ft_split_shell(data->parse, ' ');
-		create_tokens(data);
-		expand_exit_code(data);
-		expand_variables(data);
-		categorize_tokens(data->tokens);
-		remove_quotes_from_tokens(data->tokens);
-	}
+	clear_data(data);
 	if (data->state == PARSE)
 		data->state = EXECUTE;
-	clear_data(data);
 }

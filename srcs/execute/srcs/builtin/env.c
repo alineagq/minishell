@@ -6,15 +6,15 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 22:50:18 by coder             #+#    #+#             */
-/*   Updated: 2023/08/19 20:35:30 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/26 09:25:11 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../../includes/minishell.h"
 
-static int	check_for_path(t_env_list *env_list)
+static int	check_for_path(t_env *env_list)
 {
-	t_env_list	*temp;
+	t_env	*temp;
 
 	temp = env_list;
 	if (!env_list)
@@ -36,7 +36,7 @@ static int	check_for_path(t_env_list *env_list)
 	return (0);
 }
 
-int	builtin_env(char **args, char **envp, t_env_list *env_list)
+int	builtin_env(char **args, char **envp, t_env *env_list)
 {
 	int			rc;
 
@@ -45,6 +45,6 @@ int	builtin_env(char **args, char **envp, t_env_list *env_list)
 	rc = check_for_path(env_list);
 	if (rc)
 		return (rc);
-	print_env_list(env_list);
+	print_env(env_list);
 	return (0);
 }

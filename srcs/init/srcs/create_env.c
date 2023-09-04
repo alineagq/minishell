@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_env.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: aqueiroz <aqueiroz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/19 01:17:48 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 14:01:34 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/09/01 16:11:49 by aqueiroz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-static void	add_node(t_env_list **head, t_env_list **cur, t_env_list *new)
+static void	add_node(t_env **head, t_env **cur, t_env *new)
 {
 	if (new == NULL)
 		return ;
@@ -23,11 +23,11 @@ static void	add_node(t_env_list **head, t_env_list **cur, t_env_list *new)
 	*cur = new;
 }
 
-t_env_list	*create_node(const char *key, const char *value)
+t_env	*create_node(const char *key, const char *value)
 {
-	t_env_list	*node;
+	t_env	*node;
 
-	node = (t_env_list *)malloc(sizeof(t_env_list));
+	node = (t_env *)malloc(sizeof(t_env));
 	if (node == NULL)
 		return (NULL);
 	node->key = ft_strdup(key);
@@ -36,10 +36,10 @@ t_env_list	*create_node(const char *key, const char *value)
 	return (node);
 }
 
-t_env_list	*create_env_list(char **env)
+t_env	*create_env_list(char **env)
 {
-	t_env_list	*head;
-	t_env_list	*current;
+	t_env		*head;
+	t_env		*current;
 	char		**envp;
 	char		*key;
 	char		*value;
@@ -47,12 +47,17 @@ t_env_list	*create_env_list(char **env)
 	head = NULL;
 	current = NULL;
 	envp = env;
-	while (*envp != NULL)
+	while (*envp)
 	{
-		key = ft_strtok(*envp, "=");
-		value = ft_strtok(NULL, "=");
-		if (value != NULL)
+		key = strdup(*envp);
+		value = ft_strchr(key, '=');
+		if (value)
+		{
+			*value = '\0';
+			value++;
 			add_node(&head, &current, create_node(key, value));
+			free(key);
+		}
 		envp++;
 	}
 	return (head);

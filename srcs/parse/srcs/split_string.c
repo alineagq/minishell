@@ -6,25 +6,25 @@
 /*   By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:44:21 by fsuomins          #+#    #+#             */
-/*   Updated: 2023/08/19 18:36:59 by fsuomins         ###   ########.fr       */
+/*   Updated: 2023/08/24 10:32:43 by fsuomins         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../includes/minishell.h"
 
-void	iterate_through_quotes(t_split_shell *this)
+void	iterate_through_quotes(t_split_shell *splitter)
 {
 	char	first_char;
 
-	first_char = this->temp[0];
+	first_char = *splitter->temp;
 	if (first_char == '\'' || first_char == '\"')
 	{
-		if (this->temp[1])
-			this->temp++;
-		while (this->temp[0] && (this->temp[0] != first_char))
-			this->temp++;
-		if (this->temp[0] == first_char)
-			this->temp++;
+		if (splitter->temp[1])
+			splitter->temp++;
+		while (*splitter->temp && (*splitter->temp != first_char))
+			splitter->temp++;
+		if (*splitter->temp == first_char)
+			splitter->temp++;
 	}
 }
 
@@ -34,7 +34,7 @@ static int	count_till_quo(char *temp)
 	int		count;
 
 	count = 0;
-	quote = temp[0];
+	quote = *temp;
 	while (temp[count] && (temp[count] != quote || !count))
 	{
 		count++;
@@ -68,43 +68,46 @@ static int	get_word_size(char *str, char delimiter)
 		else
 		{
 			temp++;
-			ret ++;
+			ret++;
 		}
 	}
 	return (ret);
 }
 
-static void	copy_to_split(char *split, t_split_shell *this, int k)
+static void	copy_to_split(char *split, t_split_shell *splitter)
 {
-	while (k < this->sz)
+	int	i;
+
+	i = 0;
+	while (i < splitter->size_of_word)
 	{
-		split[k] = this->temp[0];
-		this->temp++;
-		k++;
+		split[i] = *splitter->temp;
+		splitter->temp++;
+		i++;
 	}
 }
 
-char	**ft_split_shell(char *str, char delimiter)
+char	**create_tokens_args(char *str, char delimiter)
 {
-	char			**splits;
-	t_split_shell	*this;
+	char			**args;
+	t_split_shell	*splitter;
 
-	this = ft_calloc (1, sizeof(*this) + 1);
-	this->temp = str;
-	this->delimiter = delimiter;
-	this->string = str;
-	count_words(this);
-	splits = ft_calloc ((this->words + 1), sizeof(char *));
-	this->temp = this->string;
-	while (this->i < this->words)
+	splitter = ft_calloc (1, sizeof(*splitter) + 1);
+	splitter->delimiter = delimiter;
+	splitter->string = str;
+	count_words(splitter);
+	args = ft_calloc ((splitter->words + 1), sizeof(char *));
+	splitter->temp = splitter->string;
+	while (splitter->splited_words < splitter->words)
 	{
-		while (this->temp[0] == this->delimiter)
-			this->temp++;
-		this->sz = (get_word_size(this->temp, ' '));
-		splits[this->i] = ft_calloc (this->sz + 1, 1);
-		copy_to_split (splits[this->i], this, 0);
-		this->i++;
+		while (*splitter->temp == splitter->delimiter)
+			splitter->temp++;
+		splitter->size_of_word = (get_word_size(splitter->temp, ' '));
+		args[splitter->splited_words] = ft_calloc \
+			(splitter->size_of_word + 1, 1);
+		copy_to_split (args[splitter->splited_words], splitter);
+		splitter->splited_words++;
 	}
-	this = safe_free(this);
-	return (splits);
+	splitter = safe_free(splitter);
+	return (args);
 }
