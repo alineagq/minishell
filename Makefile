@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fsuomins <fsuomins@student.42sp.org.br     +#+  +:+       +#+         #
+#    By: fsuomins <fsuomins@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/06/05 09:18:52 by aqueiroz          #+#    #+#              #
-#    Updated: 2023/08/26 15:40:34 by fsuomins         ###   ########.fr        #
+#    Updated: 2023/09/05 10:28:40 by fsuomins         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,8 @@ FILES += 	utils/data \
 			utils/redirect \
 			utils/tok
 			
-FILES += 	prompt/prompt
+FILES += 	prompt/prompt \
+			prompt/print_prompt
 			
 FILES += 	parse/parse \
 			parse/srcs/expand_exit \
